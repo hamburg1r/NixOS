@@ -52,6 +52,7 @@
 
 		# Standalone home-manager configuration entrypoint
 		# Available through 'home-manager --flake .#hamburgir'
+
 		homeConfigurations = {
 			hamburgir = home-manager.lib.homeManagerConfiguration {
 				pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
@@ -60,8 +61,9 @@
 					# > Our main home-manager configuration file <
 					# ./home-manager/home.nix
 					inputs.wallpapers.homeManagerModules.default
+					inputs.stylix.homeManagerModules.stylix
 					./users/hamburgir
-				];
+				] ++ (builtins.attrValues outputs.homeManagerModules);
 			};
 		};
 	};
@@ -73,7 +75,7 @@
 		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
 
 		# Home manager
-		home-manager.url = "github:nix-community/home-manager/release-23.05";
+		home-manager.url = "github:nix-community/home-manager";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 		stylix.url = "github:danth/stylix";
