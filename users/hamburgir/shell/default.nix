@@ -2,6 +2,7 @@
 	...
 }: {
 	imports = [
+		./filemanager.nix
 		./utils.nix
 		./multiplexer.nix
 		./sh.nix
