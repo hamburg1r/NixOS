@@ -8,11 +8,5 @@
 		bashmount = {
 			enable = true;
 		};
-		btop = {
-			enable = true;
-		};
-		home-manager = {
-			enable = true;
-		};
 	};
 }

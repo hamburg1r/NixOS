@@ -3,6 +3,7 @@
 	config,
 	...
 }: {
+	# TODO: move stuff to common profile(potentially?)
 	programs = {
 		atuin = {
 			enable = false;
