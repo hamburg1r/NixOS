@@ -8,6 +8,7 @@
 		./shell
 		./specialisation.nix
 		./theme.nix
+		./miscellaneous.nix
 	];
 	home = {
 		username = "hamburgir";
@@ -43,5 +44,4 @@
 	# 	html.enable = true;
 	# 	json.enable = true;
 	# };
-	services.network-manager-applet.enable = true;
 }
