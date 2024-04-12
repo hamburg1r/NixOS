@@ -374,7 +374,9 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "stylix": "stylix",
-        "wallpapers": "wallpapers"
+        "wallpapers": "wallpapers",
+        "zsh-completions": "zsh-completions",
+        "zsh-f-sy-h": "zsh-f-sy-h"
       }
     },
     "stylix": {
@@ -424,6 +426,38 @@
       "original": {
         "owner": "h4m6urg1r",
         "repo": "wallpapers",
+        "type": "github"
+      }
+    },
+    "zsh-completions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712816605,
+        "narHash": "sha256-2NLG/qzSjTDz1bLRIJ4qNzZ2xwtv1dxvGLYSPSLeDhI=",
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "rev": "83cbd8108261e3285b0744f4d412f68525dd18e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "type": "github"
+      }
+    },
+    "zsh-f-sy-h": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688591419,
+        "narHash": "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=",
+        "owner": "zdharma-continuum",
+        "repo": "fast-syntax-highlighting",
+        "rev": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zdharma-continuum",
+        "repo": "fast-syntax-highlighting",
         "type": "github"
       }
     }
