@@ -6,7 +6,7 @@
 		../common
 		./environment.nix
 		./shell
-		# ./specialisation.nix
+		./specialisation.nix
 		./theme.nix
 	];
 	home = {

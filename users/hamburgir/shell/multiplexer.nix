@@ -13,5 +13,5 @@
 		source = ./zellij;
 		target = ".config/zellij";
 	};
-	stylix.targets.zellij.enable = !config.home.file."Zellij".enable;
+	stylix.targets.zellij.enable = false;
 }

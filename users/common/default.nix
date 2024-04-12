@@ -5,7 +5,7 @@
 }: {
 	imports = [
 		./shell
-		# ./theme.nix
+		./theme.nix
 	];
 	home = {
 		homeDirectory = lib.mkDefault "/home/${config.home.username}";
