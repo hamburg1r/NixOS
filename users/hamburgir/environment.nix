@@ -10,6 +10,7 @@
 		# MOZ_USE_XINPUT2 = "1";
 
 		TERMINAL = "wezterm";
+		EDITOR = "nvim";
 		MANPAGER="nvim +Man!";
 	};
 }
