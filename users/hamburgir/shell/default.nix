@@ -3,10 +3,11 @@
 }: {
 	imports = [
 		./aliases.nix
+		./media.nix
 		./filemanager.nix
-		./utils.nix
 		./multiplexer.nix
 		./sh.nix
+		./utils.nix
 		./vcs.nix
 	];
 }
