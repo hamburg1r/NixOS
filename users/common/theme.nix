@@ -3,10 +3,17 @@
 	pkgs,
 	...
 }: {
+	gtk = {
+		enable = true;
+		iconTheme = {
+			package = lib.mkDefault pkgs.papirus-icon-theme;
+			name = lib.mkDefault "Papirus-Dark";
+		};
+	};
 	stylix = {
 		cursor = {
-			name = lib.mkDefault "Catppuccin-Mocha-Blue-Cursors";
-			package = lib.mkDefault pkgs.catppuccin-cursors.mochaBlue;
+			name = lib.mkDefault "Catppuccin-Mocha-Dark-Cursors";
+			package = lib.mkDefault pkgs.catppuccin-cursors.mochaDark;
 			# size = lib.mkDefault 24;
 		};
 		fonts = {
