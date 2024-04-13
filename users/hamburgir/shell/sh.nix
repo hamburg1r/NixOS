@@ -1,6 +1,7 @@
 {
 	inputs,
 	config,
+	pkgs,
 	...
 }: {
 	# TODO: move stuff to common profile(potentially?)
