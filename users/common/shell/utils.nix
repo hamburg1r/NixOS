@@ -1,23 +1,24 @@
 {
+	lib,
 	...
 }: {
 	programs = {
 		btop = {
-			enable = true;
+			enable = lib.mkDefault true;
 		};
 		home-manager = {
-			enable = true;
+			enable = lib.mkDefault true;
 		};
 
 		bat = {
-			enable = true;
+			enable = lib.mkDefault true;
 			config = {
-				tabs = "4";
+				tabs = lib.mkDefault "4";
 			};
 		};
 		less = {
-			enable = true;
-			keys = ''
+			enable = lib.mkDefault true;
+			keys = lib.mkDefault ''
 				i quit
 			'';
 		};

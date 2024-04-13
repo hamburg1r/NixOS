@@ -1,17 +1,20 @@
-{ ... }: {
+{
+	lib,
+	...
+}: {
     programs = {
         gh = {
-            gitCredentialHelper.enable = true;
+            gitCredentialHelper.enable = lib.mkDefault true;
             settings = {
-                git_protocol = "ssh";
-                editor = "nvim";
+                git_protocol = lib.mkDefault "ssh";
+                editor = lib.mkDefault "nvim";
             };
         };
         git = {
-            #delta.enable = true;
-            diff-so-fancy.enable = true;
-            ignores = [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
+            #delta.enable = lib.mkDefault true;
+            diff-so-fancy.enable = lib.mkDefault true;
+            ignores = lib.mkDefault [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
         };
-        lazygit.enable = true;
+        lazygit.enable = lib.mkDefault true;
     };
 }

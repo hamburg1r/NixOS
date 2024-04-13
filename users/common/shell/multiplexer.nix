@@ -1,12 +1,13 @@
 {
 	config,
+	lib,
 	...
 }: {
 	programs = {
 		zellij = {
-			enableBashIntegration = config.programs.bash.enable;
-			enableZshIntegration = config.programs.zsh.enable;
-			enableFishIntegration = config.programs.fish.enable;
+			enableBashIntegration = lib.mkDefault config.programs.bash.enable;
+			enableZshIntegration = lib.mkDefault config.programs.zsh.enable;
+			enableFishIntegration = lib.mkDefault config.programs.fish.enable;
 		};
 	};
 }
