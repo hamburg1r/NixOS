@@ -4,6 +4,7 @@
 	...
 }: {
 	imports = [
+		./gui
 		./shell
 		./theme.nix
 	];

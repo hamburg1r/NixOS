@@ -5,6 +5,7 @@
 	imports = [
 		../common
 		./environment.nix
+		./gui
 		./shell
 		./specialisation.nix
 		./theme.nix
