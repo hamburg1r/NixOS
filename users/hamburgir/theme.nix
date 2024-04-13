@@ -49,4 +49,5 @@
 			terminal = 0.8;
 		};
 	};
+	fonts.fontconfig.enable = true;
 }
