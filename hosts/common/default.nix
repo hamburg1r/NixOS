@@ -1,6 +1,7 @@
 {
 	inputs,
 	config,
+	pkgs,
 	lib,
 	outputs,
 	system,
@@ -57,11 +58,25 @@
 			max-free = lib.mkDefault 1073741824;
 		};
 
-		gc = {
-			automatic = lib.mkDefault true;
-			dates = lib.mkDefault "weekly";
-			options = lib.mkDefault "--delete-older-than 3d";
+		# gc = {
+		# 	automatic = lib.mkDefault true;
+		# 	dates = lib.mkDefault "weekly";
+		# 	options = lib.mkDefault "--delete-older-than 3";
+		# };
+	};
+
+	environment.systemPackages = with pkgs; [
+		nix-output-monitor
+		nvd
+	];
+	programs.nh = {
+		enable = true;
+		clean = {
+			enable = true;
+			extraArgs = "--keep-since 3d --keep 3";
+			# TODO: !!important!! change
 		};
+		flake = "/home/hamburgir/repo/NixOS";
 	};
 
 	programs.mtr.enable = lib.mkDefault true;

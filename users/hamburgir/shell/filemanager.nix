@@ -1,11 +1,15 @@
 {
 	pkgs,
 	config,
+	inputs,
 	...
 }: {
 	# TODO: move stuff to common profile(potentially?)
 	xdg.configFile."lf/icons".source = ./lf-icons;
 
+	home.packages = with pkgs; [
+		inputs.superfile.packages.x86_64-linux.default
+	];
 	programs = {
 		yazi = {
 			enable = false;
@@ -116,7 +120,7 @@
 					elif [ "$lf_width" -le 160 ]; then
 						lf -remote "send $id set ratios \"1:2:3\""
 					else
-						lf -remote "send $id set ratios \"1:2:3:5\""
+						lf -remote "send $id set ratios \"1:1:3:5\""
 					fi
 				}}
 				'';
@@ -178,7 +182,7 @@
 				gt = "cd /tmp";
 				"g/" = "cd /";
 				gr = "cd /run";
-				gd = "cd ~/NixOS";
+				gd = "cd ~/repo/NixOS";
 				gL = "follow_link";
 
 				c = "";

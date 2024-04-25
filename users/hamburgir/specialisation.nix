@@ -1,13 +1,21 @@
 {
 	config,
+	pkgs,
+	lib,
 	...
 }: {
 	specialisation = rec {
 		dark.configuration = {
-			stylix.polarity = "dark";
+			stylix = {
+				polarity = "dark";
+				base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+			};
 		};
 		light.configuration = {
-			stylix.polarity = "light";
+			stylix = {
+				polarity = "light";
+				base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
+			};
 		};
 		dark-zathuraUnmodified.configuration = dark.configuration // {
 			stylix.targets.zathura.enable = false;

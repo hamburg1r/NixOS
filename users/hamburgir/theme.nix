@@ -1,6 +1,7 @@
 {
 	config,
 	pkgs,
+	lib,
 	...
 }: {
 	wallpaper.desktop = {
@@ -8,6 +9,8 @@
 		file = "MitsuhaTakiFirstMeet.jpg";
 	};
 	stylix = {
+		polarity = lib.mkDefault "dark";
+		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 		cursor = {
 			name = "Catppuccin-Mocha-Blue-Cursors";
 			package = pkgs.catppuccin-cursors.mochaBlue;
@@ -16,7 +19,7 @@
 
 		fonts = {
 			monospace = {
-				name = "FiraCode Nerd Font Mono Light";
+				name = "FiraCode Nerd Font Mono";
 				package = pkgs.fira-code-nerdfont;
 			};
 			sansSerif = {

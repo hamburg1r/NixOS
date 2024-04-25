@@ -3,7 +3,6 @@
 	...
 }: {
 	imports = [
-		./wezterm
 		./kitty
 	];
 	programs = {

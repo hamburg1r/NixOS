@@ -1,4 +1,5 @@
 {
+	pkgs,
 	...
 }: {
 	imports = [
@@ -6,6 +7,9 @@
 		./kitty
 	];
 	programs = {
+		alacritty = {
+			enable = true;
+		};
 		wezterm = {
 			enable = true;
 		};

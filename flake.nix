@@ -58,25 +58,36 @@
 				pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
 				extraSpecialArgs = {inherit inputs outputs;};
 				modules = [
-					# > Our main home-manager configuration file <
-					# ./home-manager/home.nix
 					inputs.wallpapers.homeManagerModules.default
 					inputs.stylix.homeManagerModules.stylix
+
+					inputs.ags.homeManagerModules.default
+
+					# inputs.hyprland.homeManagerModules.default
+
+					inputs.nixvim.homeManagerModules.nixvim
+
+					inputs.webcord.homeManagerModules.default
+
 					./users/hamburgir
 				] ++ (builtins.attrValues outputs.homeManagerModules);
 			};
 		};
+		# homeConfigurations = {
+		# 	hamburgir = ;
+		# };
 	};
 
 	inputs = {
 		# Nixpkgs
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
 		# Home manager
 		home-manager.url = "github:nix-community/home-manager";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
 
 		stylix.url = "github:danth/stylix";
 		catppuccin-sddm = {
@@ -84,13 +95,32 @@
 			flake = false;
 		};
 		grub2-themes.url = "github:vinceliuice/grub2-themes";
-
 		wallpapers = {
 			url = "github:h4m6urg1r/wallpapers";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
+
+		# hyprland.url = "github:hyprwm/Hyprland";
+		superfile = {
+			url = "github:MHNightCat/superfile";
+		};
+
+
+		nixvim = {
+			url = "github:nix-community/nixvim";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+
+		webcord.url = "github:fufexan/webcord-flake";
+
+
+		ags.url = "github:Aylur/ags";
+
+
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
 
 		zsh-completions = {
 			url = "github:zsh-users/zsh-completions";

@@ -3,9 +3,11 @@
 	pkgs,
 	...
 }: {
+	# TODO: try noisetorch
 	environment.systemPackages = with pkgs; [
 		helvum
 		pavucontrol
+		easyeffects
 	];
 
 	security.rtkit.enable = true;

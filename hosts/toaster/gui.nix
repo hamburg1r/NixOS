@@ -103,13 +103,13 @@ in {
 	environment.systemPackages = [
 		catppuccin-sddm
 	];
-	services.xserver.displayManager = {
-		gdm.enable = false;
+	services.displayManager = {
+		# gdm.enable = false;
 		sddm = {
 			enable = true;
 			theme = "catppuccin-mocha";
 		};
-		lightdm.enable = false;
+		# lightdm.enable = false;
 	};
 
 	# Configure keymap in X11

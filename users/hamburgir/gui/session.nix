@@ -259,6 +259,9 @@
 		# default_dim_inactive 0.5
 		'';
 	};
+	imports = [
+		./hypr
+	];
 	wayland.windowManager.hyprland = {
 		enable = true;
 	};
