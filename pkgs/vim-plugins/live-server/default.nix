@@ -1,4 +1,7 @@
-{ vimUtils, fetchFromGitHub }:
+{
+	vimUtils,
+	fetchFromGitHub
+}:
 vimUtils.buildVimPlugin rec {
 	pname = "live-server.nvim";
 	version = "master";

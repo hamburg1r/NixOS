@@ -14,6 +14,23 @@
 		# example = prev.example.overrideAttrs (oldAttrs: rec {
 		# ...
 		# });
+		discord = prev.discord.override {
+			withOpenASAR = false;
+			withVencord = true;
+			withTTS = true;
+		};
+		rofi = prev.rofi.override {
+			plugins = [
+				prev.rofi-calc
+				prev.rofi-emoji
+			];
+		};
+		rofi-wayland = prev.rofi-wayland.override {
+			plugins = [
+				prev.rofi-calc
+				prev.rofi-emoji
+			];
+		};
 	};
 
 	stable-packages = final: _prev: {
