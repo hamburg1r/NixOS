@@ -2,6 +2,6 @@
 NixOS config
 
 #### TODO
-- [ ] Remove stylix
+- [ ] Remove colorscheme managed by stylix
 - [ ] Update nixvim
 - [ ] Remove ags
