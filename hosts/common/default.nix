@@ -13,6 +13,7 @@
 		./audio.nix
 		./boot
 		./bluetooth.nix
+		./fonts.nix
 		./network.nix
 
 		./packages
