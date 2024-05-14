@@ -6,4 +6,5 @@
 		swappy
 		# satty
 	];
+	programs.zathura.enable = true;
 }
