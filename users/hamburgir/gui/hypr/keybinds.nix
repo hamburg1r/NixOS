@@ -45,6 +45,7 @@
 			# Screenshot utilities
 			", Print, exec, wayshot --stdout | swappy -f -"
 			"SHIFT, Print, exec, wayshot -s \"$(slurp)\" --stdout | swappy -f -"
+			"CTRL, Print, exec, wayshot --slurp \"$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq '.at as $a| .size as $s| \"\\($a[0]),\\($a[1]) \\($s[0])x\\($s[1])\"' -r)\" --stdout | swappy -f -"
 
 			", XF86MonBrightnessUp, exec, brightnessctl set 1%+"
 			", XF86MonBrightnessDown, exec, brightnessctl set 1%-"
