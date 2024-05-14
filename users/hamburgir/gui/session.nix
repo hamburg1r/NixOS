@@ -103,7 +103,7 @@
 	};
 
 	wayland.windowManager.sway = {
-		enable = true;
+		enable = false;
 		package = pkgs.swayfx;
 		config = {
 			menu = "rofi -show drun";
@@ -249,7 +249,7 @@
 			];
 			output = {
 				eDP-1 = {
-					bg = "~/.config/background.jpg fill";
+					bg = builtins.toString config.wallpaper.desktop.output;
 				};
 			};
 			workspaceAutoBackAndForth = true;

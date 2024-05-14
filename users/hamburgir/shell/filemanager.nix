@@ -115,7 +115,7 @@
 
 				on-redraw = ''
 				%{{
-					if [ "$lf_width" -le 80 ]; then
+					if [ "$lf_width" -le 78 ]; then
 						lf -remote "send $id set ratios \"1:2\""
 					elif [ "$lf_width" -le 160 ]; then
 						lf -remote "send $id set ratios \"1:2:3\""
