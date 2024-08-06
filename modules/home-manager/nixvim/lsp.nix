@@ -23,8 +23,8 @@
 			html.enable = true;
 			lua-ls.enable = true;
 			nixd.enable = true;
-			# pylsp.enable = true;
-			# ruff-lsp.enable = true;
+			pylsp.enable = true;
+			ruff-lsp.enable = true;
 			tsserver.enable = true;
 		};
 	};

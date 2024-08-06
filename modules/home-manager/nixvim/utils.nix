@@ -4,11 +4,10 @@
 	programs.nixvim.plugins = {
 		auto-save = {
 			enable = true;
-			keymaps.toggle = "<Leader>ta";
 		};
 		nvim-autopairs = {
 			enable = true;
-			enableAfterQuote = true;
+			settings.enable_afterquote = true;
 		};
 		comment = {
 			enable = true;

@@ -61,13 +61,11 @@
 					inputs.wallpapers.homeManagerModules.default
 					inputs.stylix.homeManagerModules.stylix
 
-					inputs.ags.homeManagerModules.default
-
-					# inputs.hyprland.homeManagerModules.default
+					# inputs.ags.homeManagerModules.default
 
 					inputs.nixvim.homeManagerModules.nixvim
 
-					inputs.webcord.homeManagerModules.default
+					# inputs.webcord.homeManagerModules.default
 
 					./users/hamburgir
 				] ++ (builtins.attrValues outputs.homeManagerModules);
@@ -101,7 +99,6 @@
 		};
 
 
-		# hyprland.url = "github:hyprwm/Hyprland";
 		superfile = {
 			url = "github:MHNightCat/superfile";
 		};
@@ -113,15 +110,23 @@
 		};
 
 
-		webcord.url = "github:fufexan/webcord-flake";
+		# webcord.url = "github:fufexan/webcord-flake";
 
 
-		ags.url = "github:Aylur/ags";
+		# ags.url = "github:Aylur/ags";
+		fabricConfig = {
+			# url = "github:h4m6urg1r/fabricConfig.git";
+			url = "git+file:///home/hamburgir/repo/fabricConfig";
+		};
 
 
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
 
+		powerlevel10k = {
+			url = "github:romkatv/powerlevel10k";
+			flake = false;
+		};
 		zsh-completions = {
 			url = "github:zsh-users/zsh-completions";
 			flake = false;

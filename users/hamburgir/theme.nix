@@ -9,10 +9,11 @@
 		file = "MitsuhaTakiFirstMeet.jpg";
 	};
 	stylix = {
+		enable = true;
 		polarity = lib.mkDefault "dark";
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 		cursor = {
-			name = "Catppuccin-Mocha-Blue-Cursors";
+			name = "catppuccin-mocha-blue-cursors";
 			package = pkgs.catppuccin-cursors.mochaBlue;
 			# size = 24;
 		};

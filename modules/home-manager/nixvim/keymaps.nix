@@ -55,8 +55,7 @@
 		}
 		# Files
 		{
-			action = "require('telescope.builtin').grep_string";
-			lua = true;
+			action.__raw = "require('telescope.builtin').grep_string";
 			key = fgrp "G";
 			mode = [ "n" "v" ];
 			options = {
@@ -84,6 +83,15 @@
 			};
 		}
 		# Toggle
+		{
+			action = vimCmd "<cmd>ASToggle<CR>";
+			key = tgrp "a";
+			mode = [ "n" ];
+			options = {
+				desc = "Toggle autosave";
+				silent = true;
+			};
+		}
 		{
 			action = vimCmd "noh";
 			key = tgrp "h";
@@ -113,11 +121,23 @@
 		operators = {
 			gc = "Comments";
 		};
-		registrations = {
-			"<Leader>;" = "Neovim";
-			"<Leader>/" = "+Lost Something?";
-			"<Leader>b" = "Buffers";
-			"<Leader>t" = "Toggle";
-		};
+		settings.spec = [
+			{
+				__unkeyed-1 = "<Leader>;";
+				desc = "Neovim";
+			}
+			{
+				__unkeyed-1 = "<Leader>/";
+				desc = "+Lost Something?";
+			}
+			{
+				__unkeyed-1 = "<Leader>b";
+				desc = "Buffers";
+			}
+			{
+				__unkeyed-1 = "<Leader>t";
+				desc = "Toggle";
+			}
+		];
 	};
 }

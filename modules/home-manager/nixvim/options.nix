@@ -6,7 +6,7 @@
 			maplocalleader = "\\";
 			python_recommended_style = false;
 		};
-		options = {
+		opts = {
 			# Options;
 			syntax = "on";
 			  # Turns on mouse;
