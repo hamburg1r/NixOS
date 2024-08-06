@@ -10,7 +10,7 @@
 			enableFishIntegration = lib.mkDefault config.programs.fish.enable;
 		};
 		settings = {
-			background_image = "null";
+			# background_image = "null";
 			enable_audio_bell = false;
 			cursor_shape = "block";
 		};
