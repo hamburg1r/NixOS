@@ -1,5 +1,8 @@
 {
 	outputs,
+	lib,
+	pkgs,
+	config,
 	...
 }: {
 	imports = [
@@ -12,6 +15,9 @@
 		./miscellaneous.nix
 	];
 	home = {
+		activation.zshCompCacheRegen = lib.mkIf config.programs.zsh.enable (lib.hm.dag.entryAfter ["writeBoundary"] ''
+			run ${pkgs.zsh}/bin/zsh -c "autoload -U compinit && compinit"
+		'');
 		username = "hamburgir";
 		enableNixpkgsReleaseCheck = true;
 

@@ -25,7 +25,7 @@
 		};
 
 		starship = {
-			enable = true;
+			enable = false;
 			enableBashIntegration = true;
 			enableZshIntegration = true;
 			settings = {
@@ -99,24 +99,120 @@
 		bash = {
 			enable = true;
 		};
-		zsh = {
-			# initExtraFirst = "zmodload zsh/zprof";
-			initExtra = ''
-				ZLE_RPROMPT_INDENT=0
+		zsh = let
+			# ompCfg = "${config.home.homeDirectory}/.config/zsh/ompcfg.json";
+			ompCfg = builtins.toFile "ompConf.json" (builtins.toString (builtins.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON {
+				"$schema"= "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
+				version= 2;
+				console_title_template = "{{.Folder}}{{if .Root}}::root{{end}}::{{.Shell}}";
+				blocks = [
+					{
+						type = "prompt";
+						newline = true;
+						alignment = "left";
+						segments = [
+							{
+								type = "path";
+								properties = {
+									# style = "unique";
+									style = "powerlevel";
+									max_width = 50;
+								};
+								template = "{{- .Path -}}";
+							}
+							{
+								type = "git";
+								style = "plain";
+							}
+							{
+								type = "root";
+								style = "plain";
+								foreground = "red";
+								template = "\\udb80\\udda5";
+							}
+						];
+					}
+					# {
+					# 	type = "prompt";
+					# 	alignment = "right";
+					# 	segments = [
+					# 	];
+					# }
+					{
+						type = "prompt";
+						newline = true;
+						alignment = "left";
+						segments = [
+							{
+								type = "text";
+								style = "plain";
+								foreground_templates = [
+									"{{if gt .Code 0}}red{{end}}"
+									"{{if eq .Code 0}}blue{{end}}"
+								];
+								template = "\\uf101 ";
+							}
+						];
+					}
+					{
+						type = "rprompt";
+						# alignment = "right";
+						segments = [
+							{
+								template = "\\udb84\\udd05 nix-{{ .Type }}";
+								type = "nix-shell";
+							}
+							{
+								type = "executiontime";
+								style = "plain";
+								foreground = "yellow";
+								properties = {
+									threshold = 5000;
+									style = "round";
+								};
+								template = " \\uf520 {{ .FormattedMs }}";
+							}
+						];
+					}
+				];
+				secondary_prompt = {
+					foreground_templates = [
+						"{{if gt .Code 0}}red{{end}}"
+						"{{if eq .Code 0}}blue{{end}}"
+					];
+					template = "\\uf105 ";
+				};
+				transient_prompt = {
+					foreground_templates = [
+						"{{if gt .Code 0}}red{{end}}"
+						"{{if eq .Code 0}}blue{{end}}"
+					];
+					template = "\\uf101 ";
+				};
+			})));
+		in {
+			enable = true;
+			initExtraFirst = ''
+				[[ -o interactive ]] && [[ -z "$TMUX"  ]] && { tmux new-session -A -s initial;}
 			'';
 			# initExtra = ''
-			#     any-nix-shell zsh --info-right | source /dev/stdin
+			# 	# ZLE_RPROMPT_INDENT=0
+			# 	# if [[ "$HOME/.config/zsh/.p10k.zsh" ]]; then source "$HOME/.config/zsh/.p10k.zsh"; fi
 			# '';
-			enable = true;
+			initExtra = ''
+			    # any-nix-shell zsh --info-right | source /dev/stdin
+				eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config '${ompCfg}')"
+			'';
 			autosuggestion.enable = true;
 			enableCompletion = true;
+			completionInit = "autoload -Uz compinit && compinit -C";
 			enableVteIntegration = true;
 			autocd = true;
-			# defaultKeymap = "viins";
-			dirHashes = {
-				movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
-				games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";
-			};
+			defaultKeymap = "emacs";
+			# dirHashes = {
+			# 	movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
+			# 	games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";
+			# };
 			dotDir = ".config/zsh";
 			history = {
 				# expireDuplicatesFirst = true;
@@ -136,7 +232,7 @@
 				enable = true;
 			};
 			oh-my-zsh = {
-				enable = true;
+				enable = false;
 				# extraConfig = ''
 				#     zstyle :omz:plugins:ssh-agent identities id_rsa id_rsa2 id_github
 				# '';
@@ -156,7 +252,13 @@
 					name = "zsh-completions";
 					src = inputs.zsh-completions;
 				}
+				# {
+				# 	name = "powerlevel10k";
+				# 	src = inputs.powerlevel10k;
+				# 	file = "powerlevel10k.zsh-theme";
+				# }
 			];
+			zprof.enable = false;
 		};
 	};
 }
