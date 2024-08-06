@@ -13,6 +13,7 @@
 		git
 		lf
 		neovim
+		trash-cli
 		wget
 	];
 	programs.zsh = {
