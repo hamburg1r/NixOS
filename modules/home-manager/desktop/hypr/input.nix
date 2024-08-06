@@ -4,7 +4,8 @@
 }: {
     wayland.windowManager.hyprland.settings = {
 		input = {
-			kb_layout = "us";
+			kb_layout = "us,us,us";
+			kb_variant = ",colemak,dvorak";
 			# follow_mouse = 2; # or 1
 			# mouse_refocus = true;
 			numlock_by_default = false;
