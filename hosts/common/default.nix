@@ -82,6 +82,8 @@
 
 	programs.mtr.enable = lib.mkDefault true;
 
+	programs.dconf.enable = lib.mkDefault true;
+
 	nixpkgs.hostPlatform = lib.mkDefault system;
 	system.stateVersion = lib.mkDefault "24.05";
 }
