@@ -12,6 +12,7 @@
 		./dev.nix
 		./gui.nix
 		./language.nix
+		./login.nix
 		./network.nix
 		./packages
 		./time.nix
