@@ -8,5 +8,8 @@
 		bashmount = {
 			enable = true;
 		};
+		taskwarrior = {
+			enable = true;
+		};
 	};
 }
