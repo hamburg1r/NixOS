@@ -4,6 +4,7 @@
 }: {
 	services.tumbler.enable = true;
 	environment.systemPackages = with pkgs; [
+		mpv
 		ffmpegthumbnailer
 		gparted
 		gnome.zenity
