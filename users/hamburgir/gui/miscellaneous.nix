@@ -10,32 +10,32 @@
 	# ];
 
 	programs = {
-		ags = {
-			enable = true;
-			
-			# null or path, leave as null if you don't want hm to manage the config
-			# configDir =	./ags;
-
-			# package = inputs.ags.packages.x86_64-linux.default;
-			# packages to add to gjs's runtime
-			# extraPackages = [ pkgs.libnotify pkgs.gtksourceviewmm pkgs.gtksourceview4 pkgs.gtksourceview5 pkgs.gtksourceview pkgs.libsoup_3 ];
-			extraPackages = with pkgs; [
-				libsoup_3
-				libgtop
-				inotify-tools
-			];
-		};
-		eww = {
-			enable = false;
-			configDir = ./eww;
-			# package = pkgs.eww-wayland;
-			package = (pkgs.writeShellScriptBin "eww" ''
-			[[ "$1" -eq "daemon" ]] && echo "${pkgs.eww-wayland}/bin/eww" > /tmp/eww.cmd
-			${pkgs.eww-wayland}/bin/eww "$@"
-			'');
-		};
+		# ags = {
+		# 	enable = false;
+		# 	
+		# 	# null or path, leave as null if you don't want hm to manage the config
+		# 	# configDir =	./ags;
+		#
+		# 	# package = inputs.ags.packages.x86_64-linux.default;
+		# 	# packages to add to gjs's runtime
+		# 	# extraPackages = [ pkgs.libnotify pkgs.gtksourceviewmm pkgs.gtksourceview4 pkgs.gtksourceview5 pkgs.gtksourceview pkgs.libsoup_3 ];
+		# 	extraPackages = with pkgs; [
+		# 		libsoup_3
+		# 		libgtop
+		# 		inotify-tools
+		# 	];
+		# };
+		# eww = {
+		# 	enable = false;
+		# 	configDir = ./eww;
+		# 	# package = pkgs.eww-wayland;
+		# 	package = (pkgs.writeShellScriptBin "eww" ''
+		# 	[[ "$1" -eq "daemon" ]] && echo "${pkgs.eww-wayland}/bin/eww" > /tmp/eww.cmd
+		# 	${pkgs.eww-wayland}/bin/eww "$@"
+		# 	'');
+		# };
 		waybar = {
-			enable = true;
+			enable = false;
 			settings = {
 				mainBar = {
 					layer = "top";
@@ -68,8 +68,7 @@
 					];
 
 					"hyprland/workspaces" = {
-						active-only = false;
-						# format = "{icon}";
+						active-only = false; # format = "{icon}";
 						format-icons = {
 							"1" = "一";
 							"2" = "二";
@@ -401,10 +400,12 @@
 			'';
 		};
 	};
+
 	home.packages = with pkgs; [
 		helvum
 		swww
 		sassc
 		keepassxc
+		prismlauncher
 	];
 }
