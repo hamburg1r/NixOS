@@ -39,7 +39,7 @@
 				desktop = 10;
 				popups = 10;
 
-				terminal = 13;
+				terminal = 12;
 			};
 		};
 
