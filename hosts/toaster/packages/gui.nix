@@ -7,7 +7,7 @@
 		mpv
 		ffmpegthumbnailer
 		gparted
-		gnome.zenity
+		zenity
 		# dunst
 		libnotify
 		# poppler
