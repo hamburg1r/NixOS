@@ -203,7 +203,10 @@
 			    # any-nix-shell zsh --info-right | source /dev/stdin
 				eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config '${ompCfg}')"
 			'';
-			autosuggestion.enable = true;
+			autosuggestion = {
+				enable = true;
+				strategy = [ "completion" "history" ];
+			};
 			enableCompletion = true;
 			completionInit = "autoload -Uz compinit && compinit -C";
 			enableVteIntegration = true;
