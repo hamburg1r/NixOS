@@ -130,6 +130,13 @@
 			initExtra = ''
 			    # any-nix-shell zsh --info-right | source /dev/stdin
 				eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config '${ompCfg}')"
+				bindkey '^p' history-search-backward
+				bindkey '^n' history-search-forward
+
+				zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+				zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+				zstyle ':completion:*' menu no
+				zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 			'';
 			autosuggestion = {
 				enable = true;
@@ -174,14 +181,20 @@
 				# theme = "";
 			};
 			plugins = [
-				{
+				rec {
 					name = "fast-syntax-highlighting";
-					src = inputs.zsh-f-sy-h;
-					# file = "fast-syntax-highlighting";
+					src = pkgs.zsh-fast-syntax-highlighting;
+					file = "share/zsh/site-functions/${name}.plugin.zsh";
+				}
+				rec {
+					name = "zsh-completions";
+					src = pkgs.zsh-completions;
+					file = "share/zsh/site-functions/${name}.plugin.zsh";
 				}
 				{
-					name = "zsh-completions";
-					src = inputs.zsh-completions;
+					name = "fzf-tab";
+					src = pkgs.zsh-fzf-tab;
+					file = "share/fzf-tab/fzf-tab.plugin.zsh";
 				}
 				# {
 				# 	name = "powerlevel10k";

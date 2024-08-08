@@ -740,9 +740,7 @@
         "powerlevel10k": "powerlevel10k",
         "stylix": "stylix",
         "superfile": "superfile",
-        "wallpapers": "wallpapers",
-        "zsh-completions": "zsh-completions",
-        "zsh-f-sy-h": "zsh-f-sy-h"
+        "wallpapers": "wallpapers"
       }
     },
     "stylix": {
@@ -877,38 +875,6 @@
       "original": {
         "owner": "h4m6urg1r",
         "repo": "wallpapers",
-        "type": "github"
-      }
-    },
-    "zsh-completions": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1722755800,
-        "narHash": "sha256-kfqcqBWahKjnzp/N4V4uSmUso9KQDSQgnMlaJIjXjdw=",
-        "owner": "zsh-users",
-        "repo": "zsh-completions",
-        "rev": "e897589c9665750a6a21077c8d96c15dd0efc867",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zsh-users",
-        "repo": "zsh-completions",
-        "type": "github"
-      }
-    },
-    "zsh-f-sy-h": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1688591419,
-        "narHash": "sha256-RVX9ZSzjBW3LpFs2W86lKI6vtcvDWP6EPxzeTcRZua4=",
-        "owner": "zdharma-continuum",
-        "repo": "fast-syntax-highlighting",
-        "rev": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zdharma-continuum",
-        "repo": "fast-syntax-highlighting",
         "type": "github"
       }
     }

@@ -127,13 +127,5 @@
 			url = "github:romkatv/powerlevel10k";
 			flake = false;
 		};
-		zsh-completions = {
-			url = "github:zsh-users/zsh-completions";
-			flake = false;
-		};
-		zsh-f-sy-h ={
-			url = "github:zdharma-continuum/fast-syntax-highlighting";
-			flake = false;
-		};
 	};
 }
