@@ -1,11 +1,11 @@
 { inputs, ... }: {
 	programs.nixvim.colorschemes = {
 		catppuccin = {
-			enable = false;
+			enable = true;
 			settings = {
 				flavour = "mocha";
 				show_end_of_buffer = true;
-				transparent_background = false;
+				transparent_background = true;
 				integrations = {
 					cmp = true;
 					# dashboard = true;
