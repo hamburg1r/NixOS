@@ -1,4 +1,8 @@
-{ ... }: {
+{
+	lib,
+	config,
+	...
+}: {
 	programs.nixvim.plugins.cmp = {
 		enable = true;
 		settings = {
@@ -58,7 +62,7 @@
 		];
 		};
 	};
-	programs.nixvim.extraConfigLuaPost = ''
+	programs.nixvim.extraConfigLuaPost = lib.mkIf config.programs.nixvim.plugins.cmp.enable ''
 		-- If you want insert `(` after select function or method item
 		local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 		local cmp = require('cmp')
