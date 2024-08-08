@@ -1,5 +1,6 @@
 { pkgs, ... }: {
-    home.packages = with pkgs.xfce; [
+    home.packages = with pkgs; with xfce; [
+		nemo
         thunar
         ristretto
     ];
