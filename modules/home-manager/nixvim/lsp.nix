@@ -6,12 +6,25 @@
 	};
 	programs.nixvim.plugins.lsp = {
 		enable = true;
-		keymaps.lspBuf = {
-			K = "hover";
-			gD = "references";
-			gd = "definition";
-			gi = "implementation";
-			gt = "type_definition";
+		keymaps = {
+			lspBuf = {
+				K = "hover";
+				gD = "declaration";
+				gd = "definition";
+				gI = "implementation";
+				"<c-k>" = "signature_help";
+				"<leader>cwa" = "add_workspace_folder";
+				"<leader>cwr" = "remove_workspace_folder";
+				"<leader>cD" = "type_definition";
+				"<leader>cR" = "rename";
+				"<leader>cr" = "references";
+				"<leader>ca" = "code_action";
+			};
+			diagnostic = {
+				"<leader>cd" = "open_float";
+				"<leader>cll" = "setloclist";
+				"<leader>clq" = "setqflist";
+			};
 		};
 		onAttach = ''
 		if client.server_capabilities.documentSymbolProvider then
@@ -20,6 +33,7 @@
 		'';
 		servers = {
 			bashls.enable = true;
+			dartls.enable = true;
 			html.enable = true;
 			lua-ls.enable = true;
 			nixd.enable = true;
@@ -28,12 +42,25 @@
 			tsserver.enable = true;
 		};
 	};
-	programs.nixvim = {
-		extraPlugins = [
-			pkgs.vimPlugins.flutter-tools-nvim
-		];
-		extraConfigLua = ''
-		require("flutter-tools").setup({})
-		'';
-	};
+	# programs.nixvim = {
+	# 	extraPlugins = [
+	# 		pkgs.vimPlugins.flutter-tools-nvim
+	# 		pkgs.vimPlugins.plenary-nvim
+	# 	];
+	# 	extraConfigLua = ''
+	# 	require("flutter-tools").setup({
+	# 		ui = {
+	# 			notification_style = 'plugin',
+	# 		},
+	# 		flutter_lookup_cmd = "dirname $(which flutter)",
+	# 		widget_guides = {
+	# 			enabled = true,
+	# 		},
+	# 		dev_log = {
+	# 			enabled = true,
+	# 			notify_error = true,
+	# 		}
+	# 	})
+	# 	'';
+	# };
 }
