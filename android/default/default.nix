@@ -5,6 +5,7 @@
 	environment.packages = with pkgs; [
 		neovim
 		git
+		openssh
 		(pkgs.writeShellScriptBin "update" ''
 			OLDPWD = $(pwd)
 			cd ~/.config/nix-on-droid
