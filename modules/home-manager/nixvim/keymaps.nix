@@ -115,29 +115,31 @@
 
 	programs.nixvim.plugins.which-key = {
 		enable = true;
-		layout = {
-			align = "center";
+		settings = {
+			layout = {
+				align = "center";
+			};
+			operators = {
+				gc = "Comments";
+			};
+			spec = [
+				{
+					__unkeyed-1 = "<Leader>;";
+					desc = "Neovim";
+				}
+				{
+					__unkeyed-1 = "<Leader>/";
+					desc = "+Lost Something?";
+				}
+				{
+					__unkeyed-1 = "<Leader>b";
+					desc = "Buffers";
+				}
+				{
+					__unkeyed-1 = "<Leader>t";
+					desc = "Toggle";
+				}
+			];
 		};
-		operators = {
-			gc = "Comments";
-		};
-		settings.spec = [
-			{
-				__unkeyed-1 = "<Leader>;";
-				desc = "Neovim";
-			}
-			{
-				__unkeyed-1 = "<Leader>/";
-				desc = "+Lost Something?";
-			}
-			{
-				__unkeyed-1 = "<Leader>b";
-				desc = "Buffers";
-			}
-			{
-				__unkeyed-1 = "<Leader>t";
-				desc = "Toggle";
-			}
-		];
 	};
 }

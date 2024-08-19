@@ -10,7 +10,7 @@
 		cmdline.completion.completeopt = "menu,menuone,noinsert";
 		mapping = let luasnip = "require('luasnip')"; in {
 			__raw = ''{
-				[ "<C-Space>" ] = cmp.mapping.complete(),
+				[ "<C-Tab>" ] = cmp.mapping.complete(),
 				[ "<C-c>" ] = cmp.mapping.close(),
 				[ "<C-d>" ] = cmp.mapping.scroll_docs(1),
 				[ "<C-u>" ] = cmp.mapping.scroll_docs(-1),
