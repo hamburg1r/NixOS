@@ -12,7 +12,7 @@
 			if [[ ! -d "~/.config/nix-on-droid/.git" ]]; then
 				echo "\"~/.config/nix-on-droid\" is not a git repo. Continuing"
 			else
-				git pull
+				${git}/bin/git pull
 			fi
 			nix-on-droid switch --flake ~/.config/nix-on-droid
 			cd $OLDPWD

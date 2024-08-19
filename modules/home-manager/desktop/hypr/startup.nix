@@ -12,14 +12,14 @@
 			# "vesktop"
 			# "${pkgs.discord}/bin/discord"
 			# "discord"
-			"${pkgs.easyeffects}/bin/easyeffects"
+			"${pkgs.stable.easyeffects}/bin/easyeffects"
 			"${inputs.fabricConfig.packages.x86_64-linux.default}/bin/desktopEnv &"
 			(if config.programs.foot.enable then "foot --server" else "")
 		];
 		exec = [
 			# "ags"
-			"swww-daemon --no-cache"
-			"swww img ${config.wallpaper.desktop.output}"
+			"${pkgs.swww}/bin/swww-daemon --no-cache"
+			"${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
 		];
 	};
 }
