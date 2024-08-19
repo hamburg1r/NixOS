@@ -139,7 +139,10 @@
 			'';
 			autosuggestion = {
 				enable = true;
-				strategy = [ "completion" "history" ];
+				strategy = [
+					"history"
+					"completion"
+				];
 			};
 			enableCompletion = true;
 			completionInit = "autoload -Uz compinit && compinit -C";
