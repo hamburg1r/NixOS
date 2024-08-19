@@ -48,7 +48,7 @@
 					# ./nixos/configuration.nix
 					inputs.wallpapers.nixosModules.default
 					./hosts/toaster
-				];
+				] ++ (builtins.attrValues outputs.nixosModules);
 			};
 		};
 

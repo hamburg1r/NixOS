@@ -19,9 +19,6 @@
 		./users.nix
 		./vm.nix
 
-		outputs.nixosModules.automount
-
-
 		./syncthing.nix
 	];
 
