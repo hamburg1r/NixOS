@@ -1,5 +1,4 @@
 {
-	config,
 	pkgs,
 	...
 }: {
@@ -7,7 +6,7 @@
 	environment.systemPackages = with pkgs; [
 		helvum
 		pavucontrol
-		easyeffects
+		stable.easyeffects
 	];
 
 	security.rtkit.enable = true;
