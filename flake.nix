@@ -5,6 +5,8 @@
 		self,
 		nixpkgs,
 		home-manager,
+		nixpkgs-stable,
+		nix-on-droid,
 		...
 	} @ inputs: let
 		inherit (self) outputs;
@@ -71,20 +73,30 @@
 				] ++ (builtins.attrValues outputs.homeManagerModules);
 			};
 		};
-		# homeConfigurations = {
-		# 	hamburgir = ;
-		# };
+
+		nixOnDroidConfigurations = {
+			default = nix-on-droid.lib.nixOnDroidConfiguration {
+				pkgs = import nixpkgs-stable { system = "aarch64-linux"; };
+				modules = [ ./android/default ];
+			};
+		};
 	};
 
 	inputs = {
 		# Nixpkgs
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
 		# Home manager
 		home-manager.url = "github:nix-community/home-manager";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+		# Android
+		nix-on-droid = {
+			url = "github:nix-community/nix-on-droid/release-24.05";
+			inputs.nixpkgs.follows = "nixpkgs-stable";
+		};
 
 
 		stylix.url = "github:danth/stylix";
