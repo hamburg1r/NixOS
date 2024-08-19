@@ -2,7 +2,11 @@
 	...
 }: {
 	boot = {
-		tmp.cleanOnBoot = true;
+		tmp = {
+			cleanOnBoot = true;
+			useTmpfs = true;
+			# tmpfsSize = "30%";
+		};
 		supportedFilesystems = [ "btrfs" "fat32" "ntfs" "vfat" ];
 	};
 
