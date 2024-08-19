@@ -36,12 +36,15 @@
 			"AUTO_REMOVE_SLASH"
 			"AUTO_PUSHD"
 			# TODO: complete setup of zsh
-			# From BASH_AUTO_LIST     zoptions(1) Line 153
+			# From BASH_AUTO_LIST     zshoptions(1) Line 153
 			"CD_SILENT"
 			"EXTENDED_HISTORY"
+			"HIST_IGNORE_SPACE"
 			"HIST_FCNTL_LOCK"
 			"HIST_FIND_NO_DUPS"
+			"HIST_IGNORE_ALL_DUPS"
 			"HIST_IGNORE_DUPS"
+			"HIST_SAVE_NO_DUPS"
 			"PUSHD_IGNORE_DUPS"
 			"RM_STAR_WAIT"
 			"SHARE_HISTORY"
