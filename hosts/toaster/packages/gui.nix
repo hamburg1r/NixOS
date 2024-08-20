@@ -11,7 +11,8 @@
 		# dunst
 		libnotify
 		# poppler
-		xfce.thunar
+		nemo
+		# xfce.thunar
 		xfce.ristretto
 		## xorg
 		# xclip
