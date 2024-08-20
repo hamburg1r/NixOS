@@ -36,7 +36,15 @@
 			dartls.enable = true;
 			html.enable = true;
 			lua-ls.enable = true;
-			nixd.enable = true;
+			nixd = {
+				enable = true;
+				settings = {
+					options = {
+						toaster.expr = ''(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.toaster.options'';
+						hamburgir.expr = ''(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options'';
+					};
+				};
+			};
 			pylsp.enable = true;
 			ruff-lsp.enable = true;
 			tsserver.enable = true;
