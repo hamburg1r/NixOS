@@ -74,7 +74,7 @@
 
 				"${mod}, f, fullscreen, 0"
 				"${mod} SHIFT, f, fullscreen, 1"
-				"${mod} CTRL, f, fakefullscreen,"
+				"${mod} CTRL, f, fullscreenstate, -1 2,"
 
 				"${mod} SHIFT, space, togglefloating,"
 				"${mod}, space, cyclenext, floating"
