@@ -41,6 +41,16 @@
 				mode = "virtualtext";
 			};
 		};
+		markdown-preview = {
+			enable = true;
+		};
+		#TODO: move to git.nix
+		diffview = {
+			enable = true;
+		};
+		gitsigns = {
+			enable = true;
+		};
 	};
 
 	programs.nixvim.extraConfigLua = ''

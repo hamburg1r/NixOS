@@ -27,6 +27,10 @@
 						path = "/home/hamburgir/Documents/synced";
 						devices = [ "Realme Narzo N55" ];
 					};
+					"GATE" = {
+						path = "/home/hamburgir/Documents/GATE";
+						devices = [ "Realme Narzo N55" ];
+					};
 					# "Documents" = {
 					# 	path = "/home/hamburgir/Documents"
 					# };

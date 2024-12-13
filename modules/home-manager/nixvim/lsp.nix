@@ -35,7 +35,7 @@
 			bashls.enable = true;
 			dartls.enable = true;
 			html.enable = true;
-			lua-ls.enable = true;
+			lua_ls.enable = true;
 			nixd = {
 				enable = true;
 				settings = {
@@ -46,8 +46,8 @@
 				};
 			};
 			pylsp.enable = true;
-			ruff-lsp.enable = true;
-			tsserver.enable = true;
+			ruff_lsp.enable = true;
+			ts_ls.enable = true;
 		};
 	};
 	# programs.nixvim = {

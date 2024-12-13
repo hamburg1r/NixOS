@@ -93,10 +93,10 @@
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 		# Android
-		nix-on-droid = {
-			url = "github:nix-community/nix-on-droid/release-24.05";
-			inputs.nixpkgs.follows = "nixpkgs-stable";
-		};
+		# nix-on-droid = {
+		# 	url = "github:nix-community/nix-on-droid/release-24.05";
+		# 	inputs.nixpkgs.follows = "nixpkgs-stable";
+		# };
 
 
 		stylix.url = "github:danth/stylix";
@@ -119,6 +119,15 @@
 		nixvim = {
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		live-server = {
+			url = "github:barrett-ruth/live-server.nvim";
+			flake = false;
+		};
+		journal-nvim = {
+			url = "github:jakobkhansen/journal.nvim";
+			flake = false;
 		};
 
 

@@ -1,6 +1,7 @@
 {
 	pkgs,
+	inputs,
 	...
 }: {
-	live-server = pkgs.callPackage ./live-server {};
+	live-server = pkgs.callPackage ./live-server { inherit inputs; };
 }

@@ -39,7 +39,7 @@
 			# sensibleOnTop = false;
 			shortcut = "Space";
 			secureSocket = false;
-			# terminal = "screen-256color";
+			terminal = "screen-256color";
 			tmuxp.enable = true;
 		};
 		zellij = {

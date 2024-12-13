@@ -1,5 +1,6 @@
 { config, ... }: {
 	programs.nixvim = {
+		editorconfig.enable = true;
 		globals = {
 			# Mr. Mapleader;
 			mapleader = " ";

@@ -3,8 +3,8 @@
 	vimUtils
 }:
 vimUtils.buildVimPlugin {
-	pname = "live-server.nvim";
+	pname = "journal.nvim";
 	version = "master";
 	dontBuild = true;
-	src = inputs.live-server;
+	src = inputs.journal-nvim;
 }

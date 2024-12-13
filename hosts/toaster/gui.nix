@@ -79,8 +79,8 @@ in {
 	services.xserver.desktopManager = {
 		xfce.enable = false;
 		gnome.enable = false;
-		plasma5.enable = false;
 	};
+	services.desktopManager.plasma6.enable = true;
 
 
 	services.xserver.windowManager = {
@@ -125,15 +125,15 @@ in {
 		enable = true;
 		xwayland.enable = true;
 	};
-	xdg.portal = {
-		enable = true;
-		extraPortals = with pkgs; [
-			xdg-desktop-portal-wlr
-			xdg-desktop-portal-gtk
-			xdg-desktop-portal-hyprland
-		];
-		# gtkUsePortal=true;
-	};
+	# xdg.portal = {
+	# 	enable = true;
+	# 	extraPortals = with pkgs; [
+	# 		xdg-desktop-portal-wlr
+	# 		xdg-desktop-portal-gtk
+	# 		xdg-desktop-portal-hyprland
+	# 	];
+	# 	# gtkUsePortal=true;
+	# };
 
 	security.polkit.enable = true;
 	systemd = {

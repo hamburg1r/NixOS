@@ -4,7 +4,7 @@
 }: {
 	# This one brings our custom packages from the 'pkgs' directory
 	additions = final: prev: import ../pkgs {pkgs = final;} // {
-		vimPlugins = prev.vimPlugins // final.callPackage ../pkgs/vim-plugins {  };
+		vimPlugins = prev.vimPlugins // final.callPackage ../pkgs/vim-plugins { inherit inputs; };
 	};
 
 	# This one contains whatever you want to overlay

@@ -18,6 +18,7 @@
 	];
 	programs.zsh = {
 		enable = lib.mkDefault true;
+		enableBashCompletion = true;
 		enableCompletion = true;
 		autosuggestions = {
 			enable = lib.mkDefault true;
@@ -49,6 +50,7 @@
 			"RM_STAR_WAIT"
 			"SHARE_HISTORY"
 		];
+		
 	};
 	environment.pathsToLink = lib.mkIf config.programs.zsh.enable [ "/share/zsh" ];
 }

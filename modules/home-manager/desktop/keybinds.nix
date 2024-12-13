@@ -98,9 +98,9 @@
 				", XF86AudioMute, exec, ${pamixer} -t"
 
 				# Screenshot utilities
-				", Print, exec, wayshot --stdout | swappy -f -"
-				"SHIFT, Print, exec, wayshot -s \"$(slurp)\" --stdout | swappy -f -"
-				"CTRL, Print, exec, wayshot --slurp \"$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq '.at as $a| .size as $s| \"\\($a[0]),\\($a[1]) \\($s[0])x\\($s[1])\"' -r)\" --stdout | swappy -f -"
+				", Print, exec, ${pkgs.wayshot}/bin/wayshot --stdout | ${pkgs.swappy}/bin/swappy -f -"
+				"SHIFT, Print, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(${pkgs.slurp}/bin/slurp)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
+				"CTRL, Print, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq '.at as $a| .size as $s| \"\\($a[0]),\\($a[1]) \\($s[0])x\\($s[1])\"' -r)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
 
 				", XF86MonBrightnessUp, exec, brightnessctl set 1%+"
 				", XF86MonBrightnessDown, exec, brightnessctl set 1%-"
@@ -128,6 +128,10 @@
 				"${mod}, TAB, changegroupactive,"
 				"${mod} SHIFT, TAB, changegroupactive, b"
 				"${mod}, t, togglegroup,"
+
+				# Global keybinds
+				"CTRL ALT, m, sendshortcut, CTRL SHIFT, m, class:^(discord)"
+				"CTRL ALT, n, sendshortcut, CTRL SHIFT, d, class:^(discord)"
 			] ++ (
 			# 	builtins.concatLists [
 			# 		( builtins.concatMap (
