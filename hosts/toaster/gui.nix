@@ -102,7 +102,7 @@ in {
 
 	environment.systemPackages = [
 		catppuccin-sddm
-	];
+	] ++ (if config.services.desktopManager.plasma6.enable then [pkgs.kdePackages.sddm-kcm] else []);
 	services.displayManager = {
 		# gdm.enable = false;
 		sddm = {
