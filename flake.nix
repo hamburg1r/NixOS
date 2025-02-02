@@ -21,7 +21,7 @@
 	in rec {
 
 		packages = forAllSystems (system: import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; });
-		devShells = forAllSystems (pkgs: import ./shell.nix {inherit pkgs;});
+		devShells = forAllSystems (system: import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};});
 
 		overlays = import ./overlays {inherit inputs;};
 
@@ -115,6 +115,10 @@
 		};
 		journal-nvim = {
 			url = "github:jakobkhansen/journal.nvim";
+			flake = false;
+		};
+		plugin-autosave = {
+			url = "github:0x00-ketsu/autosave.nvim";
 			flake = false;
 		};
 

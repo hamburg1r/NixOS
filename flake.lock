@@ -1228,6 +1228,22 @@
         "type": "github"
       }
     },
+    "plugin-autosave": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734787237,
+        "narHash": "sha256-b4a27oGpZRdxlxMWlBDbbLW+ARJS60OqF91Zqk55j0o=",
+        "owner": "0x00-ketsu",
+        "repo": "autosave.nvim",
+        "rev": "348f72cf0241e3e736e3396c4834def2f8ef8d10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0x00-ketsu",
+        "repo": "autosave.nvim",
+        "type": "github"
+      }
+    },
     "plugin-base16": {
       "flake": false,
       "locked": {
@@ -3884,6 +3900,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "nvf": "nvf",
+        "plugin-autosave": "plugin-autosave",
         "powerlevel10k": "powerlevel10k",
         "stylix": "stylix",
         "superfile": "superfile",
