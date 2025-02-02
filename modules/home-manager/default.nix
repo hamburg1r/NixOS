@@ -5,4 +5,10 @@
 	# my-module = import ./my-module.nix;
 	desktop = import ./desktop;
 	nixvim = import ./nixvim;
+	nvf = {
+		programs.nvf = {
+			enable = true;
+			settings = import ./nvf {};
+		};
+	};
 }

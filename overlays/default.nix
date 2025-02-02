@@ -3,7 +3,7 @@
 	...
 }: {
 	# This one brings our custom packages from the 'pkgs' directory
-	additions = final: prev: import ../pkgs {pkgs = final;} // {
+	additions = final: prev: import ../pkgs { inherit inputs; pkgs = final; } // {
 		vimPlugins = prev.vimPlugins // final.callPackage ../pkgs/vim-plugins { inherit inputs; };
 	};
 

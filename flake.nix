@@ -10,7 +10,6 @@
 		...
 	} @ inputs: let
 		inherit (self) outputs;
-		# Supported systems for your flake packages, shell, etc.
 		systems = [
 			"aarch64-linux"
 			"i686-linux"
@@ -18,46 +17,29 @@
 			"aarch64-darwin"
 			"x86_64-darwin"
 		];
-		# This is a function that generates an attribute by calling a function you
-		# pass to it, with each system as an argument
 		forAllSystems = nixpkgs.lib.genAttrs systems;
 	in rec {
-		# Your custom packages
-		# Accessible through 'nix build', 'nix shell', etc
-		packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-		# Formatter for your nix files, available through 'nix fmt'
-		# Other options beside 'alejandra' include 'nixpkgs-fmt'
-		# formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
-		# Your custom packages and modifications, exported as overlays
+		packages = forAllSystems (system: import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; });
+
 		overlays = import ./overlays {inherit inputs;};
-		# Reusable nixos modules you might want to export
-		# These are usually stuff you would upstream into nixpkgs
+
 		nixosModules = import ./modules/nixos;
-		# Reusable home-manager modules you might want to export
-		# These are usually stuff you would upstream into home-manager
 		homeManagerModules = import ./modules/home-manager;
 
-		# NixOS configuration entrypoint
-		# Available through 'nixos-rebuild --flake .#your-hostname'
 		nixosConfigurations = {
 			toaster = nixpkgs.lib.nixosSystem {
 				specialArgs = {inherit inputs outputs; system = "x86_64-linux";};
 				modules = [
-					# > Our main nixos configuration file <
-					# ./nixos/configuration.nix
 					inputs.wallpapers.nixosModules.default
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
 			};
 		};
 
-		# Standalone home-manager configuration entrypoint
-		# Available through 'home-manager --flake .#hamburgir'
-
 		homeConfigurations = {
 			hamburgir = home-manager.lib.homeManagerConfiguration {
-				pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+				pkgs = nixpkgs.legacyPackages.x86_64-linux;
 				extraSpecialArgs = {inherit inputs outputs;};
 				modules = [
 					inputs.wallpapers.homeManagerModules.default
@@ -66,6 +48,7 @@
 					# inputs.ags.homeManagerModules.default
 
 					inputs.nixvim.homeManagerModules.nixvim
+					inputs.nvf.homeManagerModules.default
 
 					# inputs.webcord.homeManagerModules.default
 
@@ -86,7 +69,7 @@
 		# Nixpkgs
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
 		# Home manager
 		home-manager.url = "github:nix-community/home-manager";
@@ -118,7 +101,11 @@
 
 		nixvim = {
 			url = "github:nix-community/nixvim";
-			inputs.nixpkgs.follows = "nixpkgs";
+			# inputs.nixpkgs.follows = "nixpkgs";
+		};
+		nvf = {
+			url = "github:notashelf/nvf";
+			inputs.nixpkgs.follows = "nixpkgs-unstable";
 		};
 
 		live-server = {
@@ -135,10 +122,10 @@
 
 
 		# ags.url = "github:Aylur/ags";
-		fabricConfig = {
+		# fabricConfig = {
 			# url = "github:h4m6urg1r/fabricConfig.git";
-			url = "git+file:///home/hamburgir/repo/fabricConfig";
-		};
+			# url = "git+file:///home/hamburgir/repo/fabricConfig";
+		# };
 
 
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
