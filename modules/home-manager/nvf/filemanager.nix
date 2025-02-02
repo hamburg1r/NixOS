@@ -15,6 +15,7 @@
 				findFile = ldr "tg";
 				refresh = ldr "tr";
 			};
+			openOnSetup = false;
 			setupOpts = {
 				actions = {
 					open_file = {
