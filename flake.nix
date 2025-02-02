@@ -21,6 +21,7 @@
 	in rec {
 
 		packages = forAllSystems (system: import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; });
+		devShells = forAllSystems (pkgs: import ./shell.nix {inherit pkgs;});
 
 		overlays = import ./overlays {inherit inputs;};
 
