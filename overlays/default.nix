@@ -15,8 +15,8 @@
 		# ...
 		# });
 		discord = prev.discord.override {
-			withOpenASAR = true;
-			# withVencord = true;
+			withOpenASAR = false;
+			withVencord = true;
 			withTTS = true;
 		};
 		rofi = prev.rofi.override {
