@@ -15,7 +15,6 @@
 		./utils.nix
 	];
 	programs.nixvim = {
-		enable = false;
 		extraPackages = with pkgs; [
 			fd
 			ripgrep

@@ -7,7 +7,6 @@
 	nixvim = import ./nixvim;
 	nvf = {
 		programs.nvf = {
-			enable = true;
 			settings = import ./nvf {};
 		};
 	};

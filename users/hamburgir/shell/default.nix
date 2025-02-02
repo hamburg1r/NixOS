@@ -3,6 +3,7 @@
 }: {
 	imports = [
 		./aliases.nix
+		./editor.nix
 		./media.nix
 		./filemanager.nix
 		./multiplexer.nix
