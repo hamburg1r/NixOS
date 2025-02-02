@@ -1,4 +1,8 @@
-{ inputs, ... }: {
+{
+	inputs,
+	config,
+	...
+}: {
 	programs.nixvim.colorschemes = {
 		catppuccin = {
 			enable = true;
@@ -6,26 +10,28 @@
 				flavour = "mocha";
 				show_end_of_buffer = true;
 				transparent_background = true;
-				integrations = {
-					cmp = true;
-					# dashboard = true;
-					fidget = true;
-					# gitgutter = true;
+				integrations = let
+					p = name: config.programs.nixvim.plugins.${name}.enable;
+				in {
+					cmp = p "cmp";
+					blink_cmp = p "blink-cmp";
+					# dashboard = p "dashboard";
+					fidget = p "fidget";
+					# gitgutter = p "gitgutter";
 					# gitsigns = true;
 					# harpoon = true;
 					# hop = true;
 					# neogit = true;
 					# neotree = true;
-					noice = true;
+					noice = p "noice";
 					# notifier = true;
-					notify = true;
+					notify = p "notify";
 					# nvimtree = true;
-					treesitter = true;
-					treesitter_context = true;
-					ts_rainbow = true;
-					# ts_rainbow2 = true;
+					treesitter = p "treesitter";
+					treesitter_context = p "treesitter-context";
+					# rainbow_delimiter = p "rainbow-delimiter";
 					# ufo = true;
-					which_key = true;
+					which_key = p "which-key";
 					window_picker = true;
 
 					dap = {
@@ -43,7 +49,7 @@
 					navic.enabled = true;
 
 					telescope = {
-						enabled = true;
+						enabled = p "telescope";
 					};
 				};
 			};

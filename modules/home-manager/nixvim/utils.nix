@@ -38,7 +38,7 @@
 			# ];
 			userDefaultOptions = {
 				names = false;
-				mode = "virtualtext";
+				# mode = "virtualtext"; #FIXME
 			};
 		};
 		markdown-preview = {
