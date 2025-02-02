@@ -5,8 +5,10 @@
 	pkgs,
 	...
 }: let
+	overlays = import ../overlays { inherit inputs; };
+	pkgs' = pkgs.extend overlays.additions;
 	nvf-config = inputs.nvf.lib.neovimConfiguration {
-		inherit pkgs;
+		pkgs = pkgs';
 		modules = [
 			# {
 			# 	config.vim.theme.name = "catppuccin";

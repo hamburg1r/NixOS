@@ -4,60 +4,75 @@
 	config,
 	...
 }: let
-	inherit (lib.types) submodule mkOption mkEnableOption oneOf listOf str bool int;
+	inherit (lib) mkEnableOption mkOption;
+	inherit (lib.types) submodule enum listOf str bool int;
 	inherit (lib.nvim.types) luaInline mkPluginSetupOption;
 	inherit (lib.generators) mkLuaInline;
 in {
-	options.vim.autosave = {
+	options.vim.autosave.nvim = {
 		setupOpts = mkPluginSetupOption "autosave" {
-			enable = mkEnableOption "Enable autosave at startup." true;
-			prompt = submodule {
-				options = {
-					enable = mkEnableOption "Prompt when saved" true;
-					style = mkOption {
-						default = if ( config.vim.notify.nvim-notify.enable or config.vim.mini.notify.enable ) then "notify" else "stdout";
-						type = oneOf [ "stdout" "notify" ];
-						description = "Prompt type";
-					};
-					message = mkOption {
-						default = mkLuaInline ''
-						function()
-							return 'Autosave: saved at ' .. vim.fn.strftime('%H:%M:%S')
-						end
-						'';
-						type = luaInline;
-						description = "Message to print after saving";
+			enable = mkOption {
+				type = bool;
+				default = true;
+				description = "Enable autosave at startup.";
+			};
+			prompt = mkOption {
+				type = submodule {
+					options = {
+						enable = mkOption {
+							type = bool;
+							default = true;
+							description = "Prompt when saved.";
+						};
+						style = mkOption {
+							default = if ( config.vim.notify.nvim-notify.enable or config.vim.mini.notify.enable ) then "notify" else "stdout";
+							type = enum [ "stdout" "notify" ];
+							description = "Prompt type";
+						};
+						message = mkOption {
+							default = mkLuaInline ''
+							function()
+								return 'Autosave: saved at ' .. vim.fn.strftime('%H:%M:%S')
+							end
+							'';
+							type = luaInline;
+							description = "Message to print after saving";
+						};
 					};
 				};
+				default = {};
 			};
 			events = mkOption {
 				default = [ "InsertLeave" "TextChanged" ];
 				type = listOf str;
 				description = "events that will trigger the plugin.";
 			};
-			conditions = submodule {
-				options = {
-					exists = mkOption {
-						default = true;
-						type = bool;
-						description = "if true, enables this condition. If the file doesn't exist it won't save it (e.g. if you nvim stuff.txt and don't save the file then this condition won't be met)";
-					};
-					modifiable = mkOption {
-						default = true;
-						type = bool;
-						description = "if true, enables this condition. If the file isn't modifiable, then this condition isn't met.";
-					};
-					filename_is_not = mkOption {
-						default = [];
-						type = listOf str;
-						description = "if there is one or more filenames (should be array) in the table, it enables this condition. Use this to exclude filenames that you don't want to automatically save.";
-					};
-					filetype_is_not = mkOption {
-						default = [];
-						type = listOf str;
-						description = "if there is one or more filetypes (should be array) in the table, it enables this condition. Use this to exclude filetypes that you don't want to automatically save.";
+			conditions = mkOption {
+				type = submodule {
+					options = {
+						exists = mkOption {
+							default = true;
+							type = bool;
+							description = "if true, enables this condition. If the file doesn't exist it won't save it (e.g. if you nvim stuff.txt and don't save the file then this condition won't be met)";
+						};
+						modifiable = mkOption {
+							default = true;
+							type = bool;
+							description = "if true, enables this condition. If the file isn't modifiable, then this condition isn't met.";
+						};
+						filename_is_not = mkOption {
+							default = [];
+							type = listOf str;
+							description = "if there is one or more filenames (should be array) in the table, it enables this condition. Use this to exclude filenames that you don't want to automatically save.";
+						};
+						filetype_is_not = mkOption {
+							default = [];
+							type = listOf str;
+							description = "if there is one or more filetypes (should be array) in the table, it enables this condition. Use this to exclude filetypes that you don't want to automatically save.";
+						};
 					};
 				};
+				default = {};
 			};
 			write_all_buffers = mkOption {
 				default = false;
@@ -92,20 +107,20 @@ in {
 			};
 		};
 
-		# lazy.plugins = {
-		# 	autosave = {
-		# 		# package = pkgs.vimPlugins.autosave;
-		# 		package = "autosave";
-		# 		setupModule = "autosave";
-		# 		inherit (config.vim.autosave) setupOpts;
-		# 		event = [ "InsertLeave" ];
-		# 		cmd = [
-		# 			"ASToggle"
-		# 			"ASEnable"
-		# 			"ASDisable"
-		# 		];
-		# 	};
-		# };
+		lazy.plugins = {
+			${pkgs.vimPlugins.autosave.pname} = {
+				package = pkgs.vimPlugins.autosave;
+				# package = "autosave-nvim";
+				setupModule = "autosave";
+				inherit (config.vim.autosave.nvim) setupOpts;
+				event = [ "InsertLeave" "TextChanged" ];
+				cmd = [
+					"ASToggle"
+					"ASEnable"
+					"ASDisable"
+				];
+			};
+		};
 		# luaConfigRC = lib.nvim.dag.entryAnywhere ''
 		# 	require('autosave').setup(${lib.nvim.lua.toLuaObject config.vim.autosave.setupOpts})
 		# '';

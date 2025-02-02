@@ -117,7 +117,7 @@
 			url = "github:jakobkhansen/journal.nvim";
 			flake = false;
 		};
-		plugin-autosave = {
+		autosave-nvim = {
 			url = "github:0x00-ketsu/autosave.nvim";
 			flake = false;
 		};
