@@ -2,6 +2,9 @@ name: "Test"
 on:
   pull_request:
   push:
+    paths:
+      - 'flake.lock'
+      - 'modules/home-manager/nvf/**'
 jobs:
   tests:
     runs-on: ubuntu-latest
