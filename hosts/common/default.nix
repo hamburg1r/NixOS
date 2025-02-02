@@ -57,6 +57,15 @@
 			experimental-features = "nix-command flakes";
 			min-free = lib.mkDefault 1073741824;
 			max-free = lib.mkDefault 1073741824;
+
+			substituters = [
+				"https://hamburgir.cachix.org"
+				"https://cache.nixos.org/"
+			];
+			trusted-public-keys = [
+				"hamburgir.cachix.org-1:KMZ+IBiEsG1s+wrw3+Dh14ZC0aGZucZivjbN7qMZK7Q="
+			];
+
 		};
 
 		# gc = {
