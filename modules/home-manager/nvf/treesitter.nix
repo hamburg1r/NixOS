@@ -16,6 +16,7 @@
 		python.treesitter.enable = true;
 		# sql.treesitter.enable = true;
 		ts.treesitter.enable = true;
+		typst.treesitter.enable = true;
 	};
 	vim.treesitter = {
 		# enable = true;
