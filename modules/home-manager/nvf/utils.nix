@@ -106,6 +106,9 @@ in {
 				};
 			};
 		};
+		autosave.nvim.setupOpts = {
+			prompt.enable = false;
+		};
 
 		lazy.plugins = {
 			${pkgs.vimPlugins.autosave.pname} = {
