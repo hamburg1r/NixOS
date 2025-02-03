@@ -1,8 +1,17 @@
 {
+	pkgs,
 	...
 }: {
+	home.packages = [ pkgs.kdePackages.xwaylandvideobridge ];
 	wayland.windowManager.hyprland.settings = {
 		windowrulev2 = [
+			"opacity 0.0 override, class:^(xwaylandvideobridge)$"
+			"noanim, class:^(xwaylandvideobridge)$"
+			"noinitialfocus, class:^(xwaylandvideobridge)$"
+			"maxsize 1 1, class:^(xwaylandvideobridge)$"
+			"noblur, class:^(xwaylandvideobridge)$"
+			"nofocus, class:^(xwaylandvideobridge)$"
+
 			"float, class:(org.qbittorrent.qBittorrent), title:^(?!qBittorrent)(.*)"
 			"float, class:(thunar), title:(File Operation Progress)"
 			"float, class:(nemo), initialTitle:!(Home)"

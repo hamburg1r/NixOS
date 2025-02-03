@@ -6,6 +6,7 @@
 }: {
 	wayland.windowManager.hyprland.settings = {
 		exec-once = [
+			"xwaylandvideobridge"
 			"${pkgs.wl-clipboard}/bin/wl-paste -t image --watch ${pkgs.cliphist}/bin/cliphist store"
 			"${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.cliphist}/bin/cliphist store"
 
