@@ -1,4 +1,5 @@
 {
+	pkgs,
 	...
 }: {
 	vim.languages = {
@@ -11,7 +12,10 @@
 		# java.lsp.enable = true;
 		# lua.lsp.enable = true;
 		# markdown.lsp.enable = true;
-		nix.lsp.enable = true;
+		nix.lsp = {
+			enable = true;
+			# server = pkgs.nixd;
+		};
 		# php.lsp.enable = true;
 		# python.lsp.enable = true;
 		# sql.lsp.enable = true;
