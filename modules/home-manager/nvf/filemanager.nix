@@ -43,6 +43,7 @@
 					group_empty = true;
 					# https://notashelf.github.io/nvf/options.html#opt-vim.filetree.nvimTree.setupOpts.renderer.highlight_git
 				};
+				update_focused_file.enable = true;
 			};
 		};
 	};

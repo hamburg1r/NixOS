@@ -13,7 +13,7 @@
 			# "${pkgs.vesktop}/bin/vesktop"
 			# "vesktop"
 			# "${pkgs.discord}/bin/discord"
-			# "discord"
+			"discord"
 
 			"${pkgs.stable.easyeffects}/bin/easyeffects"
 

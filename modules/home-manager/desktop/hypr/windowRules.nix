@@ -31,7 +31,7 @@
 			# For some reason first window of foot was opening in 1st workspace
 			"workspace e+0, class:(footclient)|(foot),"
 
-			"workspace 2, class:(firefox),"
+			# "workspace 2, class:(firefox),"
 
 			"workspace 4 silent, class:(discord),"
 
