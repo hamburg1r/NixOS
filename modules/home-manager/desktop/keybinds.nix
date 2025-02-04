@@ -48,7 +48,8 @@
 		wayland.windowManager.hyprland.settings = let
 			mod = cfg.modifier;
 			terminal = {
-				command = "footclient";
+				command = "ghostty";
+				# command = "footclient";
 				# command = "kitty";
 				# command = "wezterm start";
 				launch = terminal.command;
