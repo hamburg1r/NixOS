@@ -6,6 +6,7 @@
 		./colorscheme.nix
 		./debugging.nix
 		./filemanager.nix
+		./keybinds.nix
 		./languages.nix
 		./notify.nix
 		./options.nix
