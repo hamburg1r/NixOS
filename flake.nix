@@ -88,7 +88,10 @@
 			url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
 			flake = false;
 		};
-		grub2-themes.url = "github:vinceliuice/grub2-themes";
+		grub2-themes = {
+			url = "github:vinceliuice/grub2-themes";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 		wallpapers = {
 			url = "github:h4m6urg1r/wallpapers";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -106,7 +109,7 @@
 		};
 		nvf = {
 			url = "github:notashelf/nvf";
-			inputs.nixpkgs.follows = "nixpkgs-unstable";
+			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 		live-server = {
@@ -119,6 +122,10 @@
 		};
 		autosave-nvim = {
 			url = "github:0x00-ketsu/autosave.nvim";
+			flake = false;
+		};
+		tiny-code-action = {
+			url = "github:rachartier/tiny-code-action.nvim";
 			flake = false;
 		};
 
