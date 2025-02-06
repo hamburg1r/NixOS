@@ -3,6 +3,8 @@
 	...
 }: {
 	vim.languages = {
+		enableFormat = false;
+		enableExtraDiagnostics = true;
 		dart = {
 			enable = true;
 			flutter-tools = {

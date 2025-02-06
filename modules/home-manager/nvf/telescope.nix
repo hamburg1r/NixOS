@@ -32,13 +32,18 @@
 			liveGrep = ldr "fg";
 			findProjects = ldr "fp";
 		};
-		setupOpts.defaults = {
-			# layout_strategy = "flex";
-			path_display = [
-				"absolute"
-				"smart"
-				"shorten"
-			];
+		setupOpts = {
+			defaults = {
+				layout_strategy = "vertical";
+				layout_config = {
+					preview_cutoff = 5;
+				};
+				path_display = [
+					"absolute"
+					"smart"
+					# "shorten"
+				];
+			};
 		};
 	};
 }

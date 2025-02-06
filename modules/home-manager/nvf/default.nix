@@ -8,10 +8,13 @@
 		./filemanager.nix
 		./keybinds.nix
 		./languages.nix
+		./lsp.nix
 		./notify.nix
 		./options.nix
 		./telescope.nix
 		./treesitter.nix
+		./ui.nix
 		./utils.nix
 	];
+	vim.lazy.enable = true;
 }

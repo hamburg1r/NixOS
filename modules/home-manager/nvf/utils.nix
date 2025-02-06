@@ -4,7 +4,7 @@
 	config,
 	...
 }: let
-	inherit (lib) mkEnableOption mkOption;
+	inherit (lib) mkOption;
 	inherit (lib.types) submodule enum listOf str bool int;
 	inherit (lib.nvim.types) luaInline mkPluginSetupOption;
 	inherit (lib.generators) mkLuaInline;

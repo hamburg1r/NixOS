@@ -5,20 +5,22 @@
 		nvim-cmp = {
 			enable = true;
 			mappings = let
-				c = m: "<C-${m}";
+				c = m: "<C-${m}>";
 			in {
 				close = c "c";
-				complete = c "CR";
+				complete = c "a";
 				confirm = null;
 				next = c "n";
 				previous = c "p";
 				scrollDocsDown = c "d";
 				scrollDocsUp = c "u";
 			};
-			setupOpts = {
-				# completion.completeopt = "menu,menuone,noinsert";
-			};
-			sources = {};
+			# setupOpts = {
+			# 	# completion.completeopt = "menu,menuone,noinsert";
+			# };
+			# sources = {
+			# 	nvim = 
+			# };
 		};
 	};
 }
