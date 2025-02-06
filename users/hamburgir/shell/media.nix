@@ -8,8 +8,5 @@
 		pamixer
 		playerctl
 		# ncspot
-		spotify-cli-linux
-		spotifyd
-		spotify
 	];
 }

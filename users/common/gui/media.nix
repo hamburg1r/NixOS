@@ -1,7 +1,11 @@
-{ pkgs, ... }: {
-    home.packages = with pkgs; with xfce; [
+{
+	pkgs,
+	...
+}: {
+	home.packages = with pkgs; with xfce; [
 		nemo
-        # thunar
-        ristretto
-    ];
+		# thunar
+		ristretto
+		spotify
+	];
 }
