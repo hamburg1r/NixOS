@@ -15,9 +15,9 @@
 				scrollDocsDown = c "d";
 				scrollDocsUp = c "u";
 			};
-			# setupOpts = {
-			# 	# completion.completeopt = "menu,menuone,noinsert";
-			# };
+			setupOpts = {
+				completion.completeopt = "menu,menuone,noinsert,noselect";
+			};
 			# sources = {
 			# 	nvim = 
 			# };

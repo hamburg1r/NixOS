@@ -2,10 +2,6 @@
 	...
 }: {
 	vim = {
-		# luaConfigPre = ''
-		# 	vim.keymap.del('i', '<c-n>') 
-		# 	vim.keymap.del('i', '<c-p>') 
-		# '';
 		keymaps = let
 			cmd = s: "<CMD>${s}<CR>";
 
