@@ -11,6 +11,7 @@
 		./lsp.nix
 		./notify.nix
 		./options.nix
+		./snippets.nix
 		./telescope.nix
 		./treesitter.nix
 		./ui.nix
