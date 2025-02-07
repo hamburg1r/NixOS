@@ -31,6 +31,7 @@ in {
 				c = m: "<leader>c${m}";
 			in {
 				# codeAction = c "a";
+				codeAction = null;
 				hover = c "h";
 				documentHighlight = c "H";
 
