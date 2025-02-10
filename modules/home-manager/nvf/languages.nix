@@ -13,7 +13,7 @@
 				color = {
 					enable = true;
 					highlightBackground = true;
-					# virtualText.enable = true;
+					virtualText.enable = true;
 				};
 			};
 		};
@@ -22,7 +22,7 @@
 		};
 		typst = {
 			enable = true;
-			extensions.typst-preview-nvim.setupOpts.open_cmd = "${pkgs.zathura}/bin/zathura";
+			extensions.typst-preview-nvim.setupOpts.open_cmd = "${pkgs.zathura}/bin/zathura %s";
 		};
 	};
 }
