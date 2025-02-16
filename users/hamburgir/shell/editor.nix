@@ -2,7 +2,9 @@
 	pkgs,
 	...
 }: {
-	# home.packages = [ pkgs.nvf ];
-	programs.nvf.enable = true;
+	home.packages = [
+		pkgs.nvf # Saves memory
+	];
+	programs.nvf.enable = false;
 	programs.nixvim.enable = false;
 }
