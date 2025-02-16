@@ -79,19 +79,22 @@
 		nix-output-monitor
 		nvd
 	];
-	programs.nh = {
-		enable = true;
-		clean = {
+	programs = {
+		nh = {
 			enable = true;
-			extraArgs = "--keep-since 3d --keep 3";
-			# TODO: !!important!! change
+			clean = {
+				enable = true;
+				extraArgs = "--keep-since 3d --keep 5";
+				dates = "daily";
+				# TODO: !!important!! change
+			};
+			flake = "/home/hamburgir/repo/NixOS";
 		};
-		flake = "/home/hamburgir/repo/NixOS";
+
+		mtr.enable = lib.mkDefault true;
+
+		dconf.enable = lib.mkDefault true;
 	};
-
-	programs.mtr.enable = lib.mkDefault true;
-
-	programs.dconf.enable = lib.mkDefault true;
 
 	nixpkgs.hostPlatform = lib.mkDefault system;
 	system.stateVersion = lib.mkDefault "24.05";
