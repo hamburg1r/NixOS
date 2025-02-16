@@ -23,7 +23,7 @@ in {
 			enable = true;
 			lspconfig.enable = true;
 			lightbulb.enable = true;
-			lspSignature.enable = !(config.vim.autocomplete.blink-cmp.enable); # TODO: remove after adding blink
+			lspSignature.enable = !config.vim.autocomplete.blink-cmp.enable;
 			lspkind.enable = true;
 			nvim-docs-view.enable = false;
 			trouble.enable = false;
