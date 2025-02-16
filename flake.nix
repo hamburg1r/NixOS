@@ -108,7 +108,7 @@
 			# inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nvf = {
-			url = "github:notashelf/nvf";
+			url = "github:NotAShelf/nvf";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
@@ -128,6 +128,10 @@
 			url = "github:rachartier/tiny-code-action.nvim";
 			flake = false;
 		};
+		# blink-cmp = {
+		# 	url = "github:Saghen/blink.cmp";
+		# 	flake = false;
+		# };
 
 
 		# webcord.url = "github:fufexan/webcord-flake";
@@ -135,7 +139,7 @@
 
 		# ags.url = "github:Aylur/ags";
 		# fabricConfig = {
-			# url = "github:h4m6urg1r/fabricConfig.git";
+			# url = "github:hamburg1r/fabricConfig.git";
 			# url = "git+file:///home/hamburgir/repo/fabricConfig";
 		# };
 
