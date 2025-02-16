@@ -1,6 +1,5 @@
 {
 	config,
-	pkgs,
 	...
 }: {
 	imports = [
@@ -15,10 +14,10 @@
 			enable = false;
 		};
 		kitty = {
-			enable = false;
+			enable = true;
 		};
 		ghostty = {
-			enable = true;
+			enable = false;
 			enableBashIntegration = config.programs.bash.enable;
 			enableZshIntegration = config.programs.zsh.enable;
 			enableFishIntegration = config.programs.fish.enable;
