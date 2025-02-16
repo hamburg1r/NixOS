@@ -403,9 +403,12 @@
 
 	home.packages = with pkgs; [
 		helvum
+
 		swww
 		sassc
 		keepassxc
+
 		prismlauncher
+		lutris
 	];
 }
