@@ -26,20 +26,21 @@
 			"stayfocused, class:(polkit-gnome-authentication-agent-1)"
 			"pin, class:(polkit-gnome-authentication-agent-1)"
 
-			"syncfullscreen off, class:(footclient)|(foot),"
+			"syncfullscreen off, class:(footclient)|(foot)"
 
 			# For some reason first window of foot was opening in 1st workspace
-			"workspace e+0, class:(footclient)|(foot),"
+			"workspace e+0, class:(footclient)|(foot)"
 
 			# "workspace 2, class:(firefox),"
 
-			"workspace 4 silent, class:(discord),"
+			"workspace 4 silent, class:(discord)"
 
-			"workspace 4 silent, class:(vesktop),"
+			"workspace 4 silent, class:(vesktop)"
 
-			"workspace 5 silent, title:^(Spotify),"
+			"workspace 5 silent, class:(spotify)"
+			"workspace 5 silent, class:(Spotify)"
 
-			"workspace special:easyeffects silent, class:(com.github.wwmm.easyeffects),"
+			"workspace special:easyeffects silent, class:(com.github.wwmm.easyeffects)"
 		];
 	};
 }

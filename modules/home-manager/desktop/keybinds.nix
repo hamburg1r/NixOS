@@ -48,8 +48,7 @@
 		wayland.windowManager.hyprland.settings = let
 			mod = cfg.modifier;
 			terminal = {
-				command = "ghostty";
-				# command = "footclient";
+				command = "footclient";
 				# command = "kitty";
 				# command = "wezterm start";
 				launch = terminal.command;
@@ -131,8 +130,8 @@
 				"${mod}, t, togglegroup,"
 
 				# Global keybinds
-				"CTRL ALT, m, sendshortcut, CTRL SHIFT, m, class:^(discord)"
-				"CTRL ALT, n, sendshortcut, CTRL SHIFT, d, class:^(discord)"
+				"CTRL ALT, m, sendshortcut, CTRL SHIFT, m, title:(.*)(- Discord)$"
+				"CTRL ALT, n, sendshortcut, CTRL SHIFT, d, title:(.*)(- Discord)$"
 			] ++ (
 			# 	builtins.concatLists [
 			# 		( builtins.concatMap (
