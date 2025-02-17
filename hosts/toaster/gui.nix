@@ -5,70 +5,7 @@
 	lib,
 	config,
 	...
-}: let
-	package = {
-		cfg,
-		flavour,
-		lib,
-		pkgs,
-		qtbase,
-		qtsvg,
-		qtgraphicaleffects,
-		qtquickcontrols2,
-		srcPath,
-		wrapQtAppsHook,
-		stdenv
-	}: stdenv.mkDerivation rec {
-		name = "Catppuccin-${flavour}";
-
-		src = "${inputs.catppuccin-sddm}/";
-
-		nativeBuildInputs = [
-			wrapQtAppsHook
-			pkgs.imagemagick
-		];
-		buildInputs = [
-			qtbase
-			qtsvg
-			qtgraphicaleffects
-			qtquickcontrols2
-		];
-
-		dontUnpack = true;
-		installPhase = ''
-			mkdir -p $out/share/sddm/themes
-			cp -aR $src $out/share/sddm/themes/${name}
-			chmod +w -R $out
-			if [[ ${if cfg.background == null then "false" else "true"} ]]; then
-				convert ${cfg.background} $out/share/sddm/themes/${name}/backgrounds/wall.jpg
-			fi
-		'';
-		postFixup = ''
-			sed -i '/^Font=/s/.*/Font="${cfg.font}"/' $out/share/sddm/themes/${name}/theme.conf
-			sed -i '/^FontSize=/s/.*/FontSize="${cfg.fontSize}"/' $out/share/sddm/themes/${name}/theme.conf
-			sed -i '/^ClockEnabled=/s/.*/ClockEnabled="${cfg.clockEnabled}"/' $out/share/sddm/themes/${name}/theme.conf
-			sed -i '/^CustomBackground=/s/.*/CustomBackground="${if cfg.background != null then cfg.customBackground else "false"}"/' $out/share/sddm/themes/${name}/theme.conf
-			sed -i '/^LoginBackground=/s/.*/LoginBackground="${cfg.loginBackground}"/' $out/share/sddm/themes/${name}/theme.conf
-		'';
-
-		meta = {
-			description = "Catppuccin ${flavour} sddm theme";
-			license = lib.licenses.gpl3;
-		};
-	};
-	catppuccin-sddm = pkgs.libsForQt5.callPackage package{
-		cfg = {
-			font = "Noto Sans";
-			fontSize = "9";
-			clockEnabled = "true";
-			customBackground = "true";
-			loginBackground = "true";
-			background = config.wallpaper.sddm.output;
-		};
-		flavour = "Mocha";
-		srcPath = "catppuccin-mocha";
-	};
-in {
+}: {
 	# Enable the X11 windowing system.
 
 	wallpaper.sddm = {
@@ -100,14 +37,12 @@ in {
 
 	programs.sway.enable = true;
 
-	environment.systemPackages = [
-		catppuccin-sddm
-	] ++ (if config.services.desktopManager.plasma6.enable then [pkgs.kdePackages.sddm-kcm] else []);
+	environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];
 	services.displayManager = {
 		# gdm.enable = false;
 		sddm = {
 			enable = true;
-			theme = "catppuccin-mocha";
+			# theme = "catppuccin-mocha";
 		};
 		# lightdm.enable = false;
 	};
