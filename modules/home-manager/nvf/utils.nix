@@ -124,8 +124,19 @@ in {
 				];
 			};
 		};
-		# luaConfigRC = lib.nvim.dag.entryAnywhere ''
-		# 	require('autosave').setup(${lib.nvim.lua.toLuaObject config.vim.autosave.setupOpts})
-		# '';
+		utility	= {
+		# 	new-file-template = {
+		# 		enable = true;
+		# 	};
+			images.image-nvim = {
+				enable = true;
+			};
+			leetcode-nvim = {
+				enable = true;
+				setupOpts = {
+					image_support = true;
+				};
+			};
+		};
 	};
 }
