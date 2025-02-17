@@ -83,19 +83,6 @@
         "type": "github"
       }
     },
-    "catppuccin-sddm": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1711143119,
-        "narHash": "sha256-+YxKzuu2p46QoCZykXLYFwkXcJ+uJ7scwDU7vJ4b1pA=",
-        "type": "tarball",
-        "url": "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip"
-      }
-    },
     "devshell": {
       "inputs": {
         "nixpkgs": [
@@ -718,11 +705,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1738816619,
-        "narHash": "sha256-5yRlg48XmpcX5b5HesdGMOte+YuCy9rzQkJz+imcu6I=",
+        "lastModified": 1739796833,
+        "narHash": "sha256-gdYcpVy4V53F2AZfHgQ1P5qfuhmR8KMi0fvVQ8vQahk=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "2eccff41bab80839b1d25b303b53d339fbb07087",
+        "rev": "4f90da509bd7f249ca36e145c4752a798b886641",
         "type": "github"
       },
       "original": {
@@ -1051,7 +1038,6 @@
     "root": {
       "inputs": {
         "autosave-nvim": "autosave-nvim",
-        "catppuccin-sddm": "catppuccin-sddm",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
         "journal-nvim": "journal-nvim",
@@ -1129,11 +1115,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1739375014,
-        "narHash": "sha256-0fNbvZ1Dod4rDIfwGnC7CzJ3wRFSF1v5AvNCmNkVgXo=",
+        "lastModified": 1739797006,
+        "narHash": "sha256-o56UVXQB73/S+qNqX1cGskd24PQ2RMNoqSjv8F7b/4w=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "e86de61bb8f5f2b6459d0be3e3291ad16db4b777",
+        "rev": "211a8440e7ebcbae5fa272d95612a4c1732d8bc4",
         "type": "github"
       },
       "original": {
@@ -1364,11 +1350,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706902753,
-        "narHash": "sha256-y8EkfNUBohmqNhxS1e9GRQIqMn41ffK4HG+NPcuQxPU=",
+        "lastModified": 1739796993,
+        "narHash": "sha256-sRrkuweiYCtPbATL9KV+KMnzyj02YG6e9r7tEEcSBdo=",
         "owner": "h4m6urg1r",
         "repo": "wallpapers",
-        "rev": "100d7428f3f1e5558e653daeb32ac1fda957aed2",
+        "rev": "a0852fa5afb70784f65a0a2eb869d61b8585f15e",
         "type": "github"
       },
       "original": {

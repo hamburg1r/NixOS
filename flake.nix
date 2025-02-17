@@ -84,10 +84,10 @@
 
 
 		stylix.url = "github:danth/stylix";
-		catppuccin-sddm = {
-			url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
-			flake = false;
-		};
+		# catppuccin-sddm = {
+		# 	url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
+		# 	flake = false;
+		# };
 		grub2-themes = {
 			url = "github:vinceliuice/grub2-themes";
 			inputs.nixpkgs.follows = "nixpkgs";
