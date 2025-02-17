@@ -44,20 +44,21 @@
 	};
 	config = let
 		cfg = config.desktop;
-	in {
+		mod = cfg.modifier;
+		terminal = {
+			command = "footclient";
+			# command = "kitty";
+			# command = "wezterm start";
+			launch = terminal.command;
+			# launch = "foot";
+			# launch = "kitty";
+			# launch = "wezterm start";
+		};
+		pamixer = "${pkgs.pamixer}/bin/pamixer";
+
+		in {
 		wayland.windowManager.hyprland.settings = let
-			mod = cfg.modifier;
-			terminal = {
-				command = "footclient";
-				# command = "kitty";
-				# command = "wezterm start";
-				launch = terminal.command;
-				# launch = "foot";
-				# launch = "kitty";
-				# launch = "wezterm start";
-			};
 			launcher = "${pkgs.rofi-wayland}/bin/rofi -modi drun,run,combi -show drun";
-			pamixer = "${pkgs.pamixer}/bin/pamixer";
 		in {
 			# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 			bind = [
