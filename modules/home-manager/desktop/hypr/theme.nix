@@ -1,14 +1,20 @@
+# TODO: remove mkForce
 {
 	config,
+	lib,
 	...
 }: let
 	cfg = config.wallpaper.hyprland;
 in {
 	wayland.windowManager.hyprland.settings = {
 		general = {
-			"col.inactive_border" = "rgb(1e1e2e)";
-			"col.active_border" = "rgb(89b4fa)";
-			"col.nogroup_border" = "rgb(11111b)";
+			gaps_in = lib.mkForce cfg.gaps.in';
+			gaps_out = lib.mkForce cfg.gaps.out;
+			gaps_workspaces = lib.mkForce cfg.gaps.workspaces;
+
+			"col.inactive_border" = lib.mkForce "rgb(1e1e2e)";
+			"col.active_border" = lib.mkForce "rgb(89b4fa)";
+			"col.nogroup_border" = lib.mkForce "rgb(11111b)";
 		};
 		decoration = {
 			inherit (cfg) rounding;
@@ -39,7 +45,7 @@ in {
 			};
 
 			shadow = {
-				enable = true;
+				enabled = true;
 				range = 5; # TODO
 				render_power = 1; # TODO
 				sharp = false; # TODO
@@ -49,11 +55,10 @@ in {
 				# offset = [ 0 0 ]; # TODO
 				# scale = 1.0;
 			};
-
-			animations = {
-				enable = true;
-				first_launch_animation = true;
-			}
+		};
+		animations = {
+			enabled = true;
+			first_launch_animation = true;
 		};
 	};
 }

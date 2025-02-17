@@ -6,10 +6,6 @@
 		border_size = 2;
 		no_border_on_floating = false;
 
-		gaps_in = config.wallpaper.hyprland.gaps.in';
-		gaps_out = config.wallpaper.hyprland.gaps.out;
-		gaps_workspaces = config.wallpaper.hyprland.gaps.workspaces;
-
 		layout = "dwindle";
 		no_focus_fallback = true;
 		resize_on_border = true;

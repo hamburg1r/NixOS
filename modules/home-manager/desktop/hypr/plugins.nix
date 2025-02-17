@@ -1,7 +1,7 @@
 {
 	...
 }: {
-	wayland.windowManager.hyprland.plugins = {
+	wayland.windowManager.hyprland.plugins = [
 		#hy3?
-	};
+	];
 }
