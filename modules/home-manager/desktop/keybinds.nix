@@ -46,8 +46,8 @@
 		cfg = config.desktop;
 		mod = cfg.modifier;
 		terminal = {
-			command = "footclient";
-			# command = "kitty";
+			# command = "footclient";
+			command = "kitty";
 			# command = "wezterm start";
 			launch = terminal.command;
 			# launch = "foot";
