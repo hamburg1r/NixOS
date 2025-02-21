@@ -130,6 +130,7 @@ in {
 		# 	};
 			images.image-nvim = {
 				enable = true;
+				setupOpts.backend = "kitty";
 			};
 			leetcode-nvim = {
 				enable = true;
