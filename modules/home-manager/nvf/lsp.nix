@@ -64,7 +64,11 @@ in {
 			enableLSP = true;
 			enableTreesitter = true;
 			# bash.lsp.enable = true;
-			# clang.lsp.enable = true;
+			clang.lsp = {
+				enable = true;
+				# package = ;
+				server = "ccls";
+			};
 			# css.lsp.enable = true;
 			dart.lsp.enable = false;
 			# html.lsp.enable = true;
@@ -75,7 +79,7 @@ in {
 				enable = true;
 			};
 			# php.lsp.enable = true;
-			# python.lsp.enable = true;
+			python.lsp.enable = true;
 			# sql.lsp.enable = true;
 			# ts.lsp.enable = true;
 			typst.lsp.enable = true;

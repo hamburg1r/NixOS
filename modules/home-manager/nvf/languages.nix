@@ -5,6 +5,10 @@
 	vim.languages = {
 		enableFormat = false;
 		enableExtraDiagnostics = true;
+		clang = {
+			enable = true;
+			# cHeader = true;
+		};
 		dart = {
 			enable = true;
 			flutter-tools = {
@@ -23,6 +27,9 @@
 		typst = {
 			enable = true;
 			extensions.typst-preview-nvim.setupOpts.open_cmd = "${pkgs.zathura}/bin/zathura %s";
+		};
+		python = {
+			enable = true;
 		};
 	};
 }

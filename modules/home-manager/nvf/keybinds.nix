@@ -19,6 +19,13 @@
 				action = cmd "nohlsearch";
 			}
 			{
+				key = tl "w";
+				mode = "n";
+				silent = true;
+				desc = "Toggle wrap";
+				action = cmd "set wrap!";
+			}
+			{
 				key = c "a";
 				mode = "n";
 				silent = true;
