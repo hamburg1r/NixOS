@@ -18,9 +18,9 @@ in {
 		};
 		decoration = {
 			inherit (cfg) rounding;
-			active_opacity = cfg.opacity.active;
-			inactive_opacity = cfg.opacity.inactive;
-			fullscreen_opacity = 1.0;
+			# active_opacity = cfg.opacity.active;
+			# inactive_opacity = cfg.opacity.inactive;
+			# fullscreen_opacity = 1.0;
 			dim_inactive = cfg.dim.enable;
 			dim_strength = cfg.dim.strength;
 			dim_special = cfg.dim.special;
