@@ -4,9 +4,14 @@
 	lib,
 	...
 }: {
-	wallpaper.desktop = {
-		dir = "your_name";
-		file = "MitsuhaTakiFirstMeet.jpg";
+	wallpaper = {
+		desktop = {
+			dir = "your_name";
+			file = "MitsuhaTakiFirstMeet.jpg";
+		};
+		hyprland = {
+			blur.enabled = true;
+		};
 	};
 	stylix = {
 		enable = true;
