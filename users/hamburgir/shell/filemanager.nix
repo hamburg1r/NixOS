@@ -239,22 +239,22 @@
 				cd = "push :mkdir<space>";
 			};
 			extraConfig = let
-				previewer = pkgs.writeShellScriptBin "pv.sh" ''
-					file=$1
-					w=$2
-					h=$3
-					x=$4
-					y=$5
-					
-					if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
-						# TODO: remove this shit
-						# ''${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
-						${pkgs.chafa}/bin/chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
-						exit 1
-					fi
-					
-					${pkgs.pistol}/bin/pistol "$file"
-				'';
+				# previewer = pkgs.writeShellScriptBin "pv.sh" ''
+				# 	file=$1
+				# 	w=$2
+				# 	h=$3
+				# 	x=$4
+				# 	y=$5
+				# 	
+				# 	if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+				# 		${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+				# 		# ''${pkgs.chafa}/bin/chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
+				# 		exit 1
+				# 	else
+				# 		${pkgs.pistol}/bin/pistol "$file"
+				# 	fi
+				# 	
+				# '';
 				cleaner = pkgs.writeShellScriptBin "clean.sh" ''
 					${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
 				'';
@@ -343,7 +343,7 @@
 			in
 			''
 				# set cleaner ${cleaner}/bin/clean.sh
-				set previewer ${previewer}/bin/pv.sh
+				set previewer ${pkgs.pistol}/bin/pistol
 			'';
 			# ''
 			# 	set previewer ${previewer}/bin/previewer.sh
@@ -369,6 +369,8 @@
 				{ mime = "application/json"; command = batcmd "--language=json";}
 				{ mime = "application/javascript"; command = batcmd "";}
 				{ mime = "text/*"; command = batcmd "";}
+				{ mime = "image/jpeg|image/png|image/gif"; command = "kitty +kitten icat --silent --transfer-mode=file --align=left --place=%pistol-extra0%x%pistol-extra1%@%pistol-extra2%x%pistol-extra3%";}
+				{ mime = "image/svg+xml"; command = "${pkgs.librsvg}/bin/rsvg-convert -w %pistol-extra0% -h %pistol-extra1% \"$1\""; }
 			];
 		};
 	};

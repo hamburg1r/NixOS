@@ -230,6 +230,7 @@
 			};
 			defaultCommand = "${pkgs.fd}/bin/fd --type f";
 			defaultOptions = [
+				"--preview=${pkgs.pistol}/bin/pistol"
 				"--border=rounded"
 				"--marker=+"
 				"--prompt=\\\" \\\""

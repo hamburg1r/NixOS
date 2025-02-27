@@ -12,6 +12,9 @@
 	programs = {
 		tmux = {
 			enable = true;
+			extraConfig = ''
+				set -g allow-passthrough on
+			'';
 			aggressiveResize = true;
 			baseIndex = 1;
 			disableConfirmationPrompt = true;
