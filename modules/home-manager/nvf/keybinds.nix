@@ -12,6 +12,13 @@
 			tl = m: lldr "t${m}";
 		in [
 			{
+				key = tl "r";
+				mode = "n";
+				silent = true;
+				desc = "Toggle relative numbers";
+				action = cmd "set relativenumber!";
+			}
+			{
 				key = tl "h";
 				mode = "n";
 				silent = true;

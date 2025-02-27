@@ -19,6 +19,7 @@
 
 			# Sets numberline;
 			number = true;
+			relativenumber = false;
 			ruler = true;
 
 			# Tab related settings;
