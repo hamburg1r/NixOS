@@ -65,7 +65,10 @@
 			trusted-public-keys = [
 				"hamburgir.cachix.org-1:KMZ+IBiEsG1s+wrw3+Dh14ZC0aGZucZivjbN7qMZK7Q="
 			];
-
+			trusted-users = [
+				"root"
+				"hamburgir"
+			];
 		};
 
 		# gc = {
@@ -88,6 +91,7 @@
 				dates = "daily";
 				# TODO: !!important!! change
 			};
+			# FIXME: change if not this path
 			flake = "/home/hamburgir/repo/NixOS";
 		};
 
