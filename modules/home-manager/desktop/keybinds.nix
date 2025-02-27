@@ -54,7 +54,7 @@
 			# launch = "kitty";
 			# launch = "wezterm start";
 		};
-		pamixer = "${pkgs.pamixer}/bin/pamixer";
+		pamixer = "${pkgs.stable.pamixer}/bin/pamixer";
 
 		in {
 		wayland.windowManager.hyprland.settings = let

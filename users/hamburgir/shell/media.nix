@@ -5,7 +5,7 @@
 	home.packages = with pkgs; [
 		alsa-utils
 		ani-cli
-		pamixer
+		stable.pamixer
 		playerctl
 		# ncspot
 	];
