@@ -409,6 +409,7 @@
 		keepassxc
 
 		prismlauncher
+		gamescope
 		lutris
 	];
 }
