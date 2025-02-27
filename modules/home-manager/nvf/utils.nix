@@ -136,6 +136,7 @@ in {
 				enable = true;
 				setupOpts = {
 					image_support = true;
+					lang = "cpp";
 				};
 			};
 		};
