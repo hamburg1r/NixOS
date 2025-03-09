@@ -11,8 +11,8 @@
             };
         };
         git = {
-            #delta.enable = lib.mkDefault true;
-            diff-so-fancy.enable = lib.mkDefault true;
+            delta.enable = lib.mkDefault true;
+            # diff-so-fancy.enable = lib.mkDefault true;
             ignores = lib.mkDefault [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
         };
         lazygit.enable = lib.mkDefault true;
