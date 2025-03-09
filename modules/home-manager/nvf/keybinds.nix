@@ -40,6 +40,13 @@
 				action = "function() require('tiny-code-action').code_action() end";
 				lua = true;
 			}
+			{
+				key = ldr ";f";
+				mode = "n";
+				silent = true;
+				desc = "Open flutter commands";
+				action = cmd "Telescope flutter commands";
+			}
 		];
 	};
 }

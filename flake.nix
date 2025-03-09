@@ -23,7 +23,7 @@
 		packages = forAllSystems (system: import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; });
 		devShells = forAllSystems (system: import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};});
 
-		overlays = import ./overlays {inherit inputs;};
+		overlays = import ./overlays { inherit inputs; pkgs = nixpkgs.legacyPackages."x86_64-linux"; };
 
 		nixosModules = import ./modules/nixos;
 		homeManagerModules = import ./modules/home-manager;
@@ -48,8 +48,8 @@
 
 					# inputs.ags.homeManagerModules.default
 
-					inputs.nixvim.homeManagerModules.nixvim
-					inputs.nvf.homeManagerModules.default
+					# inputs.nixvim.homeManagerModules.nixvim
+					# inputs.nvf.homeManagerModules.default
 
 					# inputs.webcord.homeManagerModules.default
 
@@ -68,12 +68,12 @@
 
 	inputs = {
 		# Nixpkgs
-		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11?shallow=1";
 
 		# Home manager
-		home-manager.url = "github:nix-community/home-manager";
+		home-manager.url = "github:nix-community/home-manager?shallow=1";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 		# Android
@@ -83,51 +83,51 @@
 		# };
 
 
-		stylix.url = "github:danth/stylix";
+		stylix.url = "github:danth/stylix?shallow=1";
 		# catppuccin-sddm = {
 		# 	url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
 		# 	flake = false;
 		# };
 		grub2-themes = {
-			url = "github:vinceliuice/grub2-themes";
+			url = "github:vinceliuice/grub2-themes?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		wallpapers = {
-			url = "github:h4m6urg1r/wallpapers";
+			url = "github:h4m6urg1r/wallpapers?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 
 		superfile = {
-			url = "github:MHNightCat/superfile";
+			url = "github:MHNightCat/superfile?shallow=1";
 		};
 
 
-		nixvim = {
-			url = "github:nix-community/nixvim";
-			# inputs.nixpkgs.follows = "nixpkgs";
-		};
-		nvf = {
-			url = "github:NotAShelf/nvf";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		live-server = {
-			url = "github:barrett-ruth/live-server.nvim";
-			flake = false;
-		};
-		journal-nvim = {
-			url = "github:jakobkhansen/journal.nvim";
-			flake = false;
-		};
-		autosave-nvim = {
-			url = "github:0x00-ketsu/autosave.nvim";
-			flake = false;
-		};
-		tiny-code-action = {
-			url = "github:rachartier/tiny-code-action.nvim";
-			flake = false;
-		};
+		# nixvim = {
+		# 	url = "github:nix-community/nixvim";
+		# 	# inputs.nixpkgs.follows = "nixpkgs";
+		# };
+		# nvf = {
+		# 	url = "github:NotAShelf/nvf";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
+		#
+		# live-server = {
+		# 	url = "github:barrett-ruth/live-server.nvim";
+		# 	flake = false;
+		# };
+		# journal-nvim = {
+		# 	url = "github:jakobkhansen/journal.nvim";
+		# 	flake = false;
+		# };
+		# autosave-nvim = {
+		# 	url = "github:0x00-ketsu/autosave.nvim";
+		# 	flake = false;
+		# };
+		# tiny-code-action = {
+		# 	url = "github:rachartier/tiny-code-action.nvim";
+		# 	flake = false;
+		# };
 		# blink-cmp = {
 		# 	url = "github:Saghen/blink.cmp";
 		# 	flake = false;
@@ -139,17 +139,17 @@
 
 		# ags.url = "github:Aylur/ags";
 		# fabricConfig = {
-			# url = "github:hamburg1r/fabricConfig.git";
-			# url = "git+file:///home/hamburgir/repo/fabricConfig";
+		# 	url = "github:hamburg1r/fabricConfig.git";
+		# 	url = "git+file:///home/hamburgir/repo/fabricConfig";
 		# };
 
 
-		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+		nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
 
 
-		powerlevel10k = {
-			url = "github:romkatv/powerlevel10k";
-			flake = false;
-		};
+		# powerlevel10k = {
+		# 	url = "github:romkatv/powerlevel10k";
+		# 	flake = false;
+		# };
 	};
 }

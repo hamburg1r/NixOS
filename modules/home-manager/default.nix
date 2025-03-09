@@ -4,10 +4,10 @@
 	# List your module files here
 	# my-module = import ./my-module.nix;
 	desktop = import ./desktop;
-	nixvim = import ./nixvim;
-	nvf = {
-		programs.nvf = {
-			settings = import ./nvf {};
-		};
-	};
+	# nixvim = import ./nixvim;
+	# nvf = {
+	# 	programs.nvf = {
+	# 		settings = import ./nvf {};
+	# 	};
+	# };
 }

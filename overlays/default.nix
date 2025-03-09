@@ -1,5 +1,6 @@
 {
 	inputs,
+	pkgs,
 	...
 }: {
 	# This one brings our custom packages from the 'pkgs' directory
@@ -14,6 +15,19 @@
 		# example = prev.example.overrideAttrs (oldAttrs: rec {
 		# ...
 		# });
+		neovim-with-lsp = prev.symlinkJoin {
+			name = "neovim-with-lsp";
+			paths = [ prev.neovim ];
+			nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+			postBuild = ''
+				wrapProgram $out/bin/nvim \
+				--prefix PATH : ${pkgs.lib.makeBinPath [
+					pkgs.gcc
+					prev.lua-language-server
+					prev.basedpyright
+				]}
+			'';
+		};
 		discord = prev.discord.override {
 			withOpenASAR = false;
 			withVencord = true;
