@@ -17,6 +17,38 @@
 		audio.enable = true;
 		pulse.enable = true;
 		jack.enable = true;
+		extraConfig = let
+			quantum = "1024";
+			rate = "48000";
+		in {
+			pipewire."92-low-latency" = {
+				"context.properties" = {
+					"default.clock.rate" = rate;
+					"default.clock.quantum" = quantum;
+					"default.clock.min-quantum" = quantum;
+					"default.clock.max-quantum" = quantum;
+				};
+			};
+			pipewire-pulse."92-low-latency" = {
+				"context.properties" = [
+					{
+						name = "libpipewire-module-protocol-pulse";
+						args = { };
+					}
+				];
+				"pulse.properties" = {
+					"pulse.min.req" = "${quantum}/${rate}";
+					"pulse.default.req" = "${quantum}/${rate}";
+					"pulse.max.req" = "${quantum}/${rate}";
+					"pulse.min.quantum" = "${quantum}/${rate}";
+					"pulse.max.quantum" = "${quantum}/${rate}";
+				};
+				"stream.properties" = {
+					"node.latency" = "${quantum}/${rate}";
+					"resample.quality" = 1;
+				};
+			};
+		};
 		wireplumber = {
 			# TODO: check out NixOS wiki for updates on this
 			configPackages = [
