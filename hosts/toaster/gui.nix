@@ -35,6 +35,7 @@
 
 	services.xserver.excludePackages = [ pkgs.xterm ];
 
+	programs.droidcam.enable = true;
 	programs.sway.enable = true;
 
 	environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];

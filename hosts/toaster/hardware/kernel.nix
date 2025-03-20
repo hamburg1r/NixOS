@@ -18,12 +18,9 @@
 		kernelModules = [
 			"kvm-amd"
 			"8812au"
-			# "v4l2loopback"
+			"v4l2loopback"
 		];
 		extraModprobeConfig = lib.mkIf (builtins.elem "v4l2loopback" config.boot.kernelModules) ''
-			# exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
-			# card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
-			# https://github.com/umlaeute/v4l2loopback
 			options v4l2loopback exclusive_caps=1 card_label="VCam"
 		'';
 		kernelParams = lib.mkIf (!config.custom.plymouth.enable) [
