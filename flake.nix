@@ -97,12 +97,6 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
-
-		superfile = {
-			url = "github:MHNightCat/superfile?shallow=1";
-		};
-
-
 		# nixvim = {
 		# 	url = "github:nix-community/nixvim";
 		# 	# inputs.nixpkgs.follows = "nixpkgs";

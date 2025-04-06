@@ -7,9 +7,7 @@
 	# TODO: move stuff to common profile(potentially?)
 	xdg.configFile."lf/icons".source = ./lf-icons;
 
-	home.packages = with pkgs; [
-		inputs.superfile.packages.x86_64-linux.default
-	];
+	home.packages = with pkgs; [ ];
 	programs = {
 		yazi = {
 			enable = false;
