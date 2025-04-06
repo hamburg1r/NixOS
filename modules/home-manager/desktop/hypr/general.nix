@@ -3,7 +3,6 @@
 	...
 }: {
 	wayland.windowManager.hyprland.settings.general = rec {
-		border_size = 2;
 		no_border_on_floating = false;
 
 		layout = "dwindle";

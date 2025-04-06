@@ -14,7 +14,7 @@
 		};
 	};
 	stylix = {
-		enable = true;
+		enable = false;
 		polarity = lib.mkDefault "dark";
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 		cursor = {
@@ -62,5 +62,12 @@
 			fzf.enable = false;
 		};
 	};
-	fonts.fontconfig.enable = true;
+
+	userTheme.cursors = {
+		name = "catppuccin-mocha-blue-cursors";
+		package = pkgs.catppuccin-cursors.mochaBlue;
+		size = 24;
+	};
+
+	theme.enable = true;
 }

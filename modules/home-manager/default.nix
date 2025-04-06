@@ -10,4 +10,5 @@
 	# 		settings = import ./nvf {};
 	# 	};
 	# };
+	theme = import ./theme;
 }

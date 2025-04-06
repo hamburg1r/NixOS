@@ -17,13 +17,13 @@
 			enable = true;
 		};
 		ghostty = {
-			enable = false;
+			enable = true;
 			enableBashIntegration = config.programs.bash.enable;
 			enableZshIntegration = config.programs.zsh.enable;
 			enableFishIntegration = config.programs.fish.enable;
 		};
 		foot = {
-			enable = true;
+			enable = false;
 			settings = {
 				main = {
 					# term = "xterm-256color";

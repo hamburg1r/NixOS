@@ -11,10 +11,6 @@ in {
 			gaps_in = lib.mkForce cfg.gaps.in';
 			gaps_out = lib.mkForce cfg.gaps.out;
 			gaps_workspaces = lib.mkForce cfg.gaps.workspaces;
-
-			"col.inactive_border" = lib.mkForce "rgb(1e1e2e)";
-			"col.active_border" = lib.mkForce "rgb(89b4fa)";
-			"col.nogroup_border" = lib.mkForce "rgb(11111b)";
 		};
 		decoration = {
 			inherit (cfg) rounding;
@@ -44,17 +40,6 @@ in {
 				popups = false;
 			};
 
-			shadow = {
-				enabled = true;
-				range = 5; # TODO
-				render_power = 1; # TODO
-				sharp = false; # TODO
-				ignore_window = true;
-				# color = ; # TODO
-				# color_inactive = ; # TODO
-				# offset = [ 0 0 ]; # TODO
-				# scale = 1.0;
-			};
 		};
 		animations = {
 			enabled = true;
