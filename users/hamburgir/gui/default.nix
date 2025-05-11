@@ -2,6 +2,7 @@
 	...
 }: {
 	imports = [
+		./game.nix
 		./miscellaneous.nix
 		./socialMedia.nix
 		./terminal.nix

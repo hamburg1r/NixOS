@@ -407,9 +407,5 @@
 		swww
 		sassc
 		keepassxc
-
-		prismlauncher
-		gamescope
-		lutris
 	];
 }
