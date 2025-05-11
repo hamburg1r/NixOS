@@ -7,5 +7,7 @@
 		gamescope
 		lutris
 		steam
-	]
+		steam-run
+		proton-ge-bin
+	];
 }

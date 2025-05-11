@@ -10,6 +10,7 @@
 		./boot
 		./bluetooth.nix
 		./dev.nix
+		./game.nix
 		./gui.nix
 		./language.nix
 		./login.nix
@@ -24,6 +25,5 @@
 
 	programs.nix-ld = {
 		enable = true;
-		libraries = with pkgs; [];
 	};
 }
