@@ -5,6 +5,7 @@
 	imports = [
 		./wezterm
 		./kitty
+		./ghostty
 	];
 	programs = {
 		alacritty = {
