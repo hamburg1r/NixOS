@@ -32,7 +32,6 @@
 			platformTheme.name = "qtct";
 			style = {
 				package = pkgs.dracula-qt5-theme;
-				name = "Dracula";
 			};
 		};
 		fonts.fontconfig = {
