@@ -7,5 +7,6 @@
 		# thunar
 		ristretto
 		spotify
+		ytmdesktop
 	];
 }

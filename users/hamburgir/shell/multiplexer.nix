@@ -52,5 +52,4 @@
 			enableFishIntegration = false;
 		};
 	};
-	stylix.targets.zellij.enable = false;
 }

@@ -4,6 +4,8 @@
 }: {
 	services.tumbler.enable = true;
 	environment.systemPackages = with pkgs; [
+		vulkan-loader
+		vulkan-tools
 		mpv
 		ffmpegthumbnailer
 		gparted

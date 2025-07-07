@@ -22,12 +22,14 @@
 
 			(if config.programs.foot.enable then "foot --server" else "echo")
 
-			"spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
+			# "spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
+			"ytmdesktop"
 		];
 		exec = [
 			# "ags"
 			"${pkgs.swww}/bin/swww-daemon --no-cache"
-			"${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
+			"${pkgs.swww}/bin/swww restore"
+			# "${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
 		];
 	};
 }

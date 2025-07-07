@@ -119,14 +119,12 @@
 			})));
 		in {
 			enable = true;
-			initExtraFirst = ''
-				[[ -o interactive ]] && [[ -z "$TMUX"  ]] && { tmux new-session -A -s initial;}
-			'';
-			# initExtra = ''
-			# 	# ZLE_RPROMPT_INDENT=0
-			# 	# if [[ "$HOME/.config/zsh/.p10k.zsh" ]]; then source "$HOME/.config/zsh/.p10k.zsh"; fi
-			# '';
-			initExtra = ''
+			initContent = ''
+				eval "$(zellij setup --generate-auto-start zsh)"
+
+				# ZLE_RPROMPT_INDENT=0
+				# if [[ "$HOME/.config/zsh/.p10k.zsh" ]]; then source "$HOME/.config/zsh/.p10k.zsh"; fi
+
 			    # any-nix-shell zsh --info-right | source /dev/stdin
 				eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config '${ompCfg}')"
 				bindkey '^p' history-search-backward

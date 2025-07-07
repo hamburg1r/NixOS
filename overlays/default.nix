@@ -15,6 +15,7 @@
 		# example = prev.example.overrideAttrs (oldAttrs: rec {
 		# ...
 		# });
+		# TODO: remove this?
 		neovim-with-lsp = prev.symlinkJoin {
 			name = "neovim-with-lsp";
 			paths = [ prev.neovim ];
@@ -22,15 +23,17 @@
 			postBuild = ''
 				wrapProgram $out/bin/nvim \
 				--prefix PATH : ${pkgs.lib.makeBinPath [
-					pkgs.gcc
-					prev.lua-language-server
 					prev.basedpyright
+					pkgs.gcc
+					pkgs.live-server
+					prev.lua-language-server
+					# pkgs.nodejs_20
 				]}
 			'';
 		};
 		discord = prev.discord.override {
 			withOpenASAR = false;
-			withVencord = true;
+			# withVencord = true;
 			withTTS = true;
 		};
 		rofi = prev.rofi.override {

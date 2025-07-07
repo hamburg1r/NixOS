@@ -48,6 +48,7 @@
 		terminal = {
 			# command = "footclient";
 			command = "kitty";
+			# command = "ghostty";
 			# command = "wezterm start";
 			launch = terminal.command;
 			# launch = "foot";
@@ -69,6 +70,7 @@
 				"${mod}, e, exec, ${terminal.launch} lf"
 				# "${mod}, e, exec, wezterm start lf"
 				"${mod}, r, exec, ${launcher}"
+				"${mod} ALT, r, exec, hyprctl reload"
 				"${mod} SHIFT, r, exec, ags quit; ags"
 				"${mod}, p, pseudo, " # dwindle"
 				"${mod} SHIFT, t, togglesplit, " # dwindle"

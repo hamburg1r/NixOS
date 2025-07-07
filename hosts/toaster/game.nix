@@ -4,7 +4,7 @@
 }: {
 	programs = {
 		nix-ld = {
-			libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+			# libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
 		};
 		gamescope = {
 			enable = true;
@@ -19,6 +19,9 @@
 		};
 	};
 	environment = {
-		systemPackages = pkgs.mangohud;
+		systemPackages = [
+			pkgs.mangohud
+			# pkgs.proton-ge-bin
+		];
 	};
 }

@@ -6,7 +6,7 @@
 		nixpkgs,
 		home-manager,
 		nixpkgs-stable,
-		nix-on-droid,
+		# nix-on-droid,
 		...
 	} @ inputs: let
 		inherit (self) outputs;
@@ -44,7 +44,6 @@
 				extraSpecialArgs = {inherit inputs outputs;};
 				modules = [
 					inputs.wallpapers.homeManagerModules.default
-					inputs.stylix.homeManagerModules.stylix
 
 					# inputs.ags.homeManagerModules.default
 
@@ -58,12 +57,12 @@
 			};
 		};
 
-		nixOnDroidConfigurations = {
-			default = nix-on-droid.lib.nixOnDroidConfiguration {
-				pkgs = import nixpkgs-stable { system = "aarch64-linux"; };
-				modules = [ ./android/default ];
-			};
-		};
+		# nixOnDroidConfigurations = {
+		# 	default = nix-on-droid.lib.nixOnDroidConfiguration {
+		# 		pkgs = import nixpkgs-stable { system = "aarch64-linux"; };
+		# 		modules = [ ./android/default ];
+		# 	};
+		# };
 	};
 
 	inputs = {
@@ -83,7 +82,6 @@
 		# };
 
 
-		stylix.url = "github:danth/stylix?shallow=1";
 		# catppuccin-sddm = {
 		# 	url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
 		# 	flake = false;

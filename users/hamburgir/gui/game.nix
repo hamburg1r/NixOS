@@ -6,8 +6,8 @@
 		prismlauncher
 		gamescope
 		lutris
+		heroic
 		steam
 		steam-run
-		proton-ge-bin
 	];
 }

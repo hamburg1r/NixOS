@@ -10,5 +10,7 @@
 		};
 	};
 
+	services.tailscale.enable = true;
+
 	# services.openssh.ports = [ 22 8022 ];
 }

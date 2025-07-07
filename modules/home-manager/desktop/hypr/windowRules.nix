@@ -37,6 +37,7 @@
 
 			"workspace 4 silent, class:(vesktop)"
 
+			"workspace 5 silent, class:(YouTube Music Desktop App)"
 			"workspace 5 silent, class:(spotify)"
 			"workspace 5 silent, class:(Spotify)"
 

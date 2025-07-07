@@ -2,8 +2,6 @@
 	...
 }: {
 	home.sessionVariables = {
-		# EDITOR = "nvim";
-
 		# TODO: move this shite
 		# NIXOS_OZONE_WL = "1";
 
@@ -11,6 +9,8 @@
 
 		TERMINAL = "footclient";
 		EDITOR = "nvim";
-		MANPAGER="nvim +Man!";
+		MANPAGER = "nvim +Man!";
+		ZELLIJ_AUTO_ATTACH = 1;
+		# ZELLIJ_AUTO_EXIT = 1;
 	};
 }
