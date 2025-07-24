@@ -10,6 +10,10 @@
 	# ];
 
 	programs = {
+		ashell = {
+			enable = true;
+			settings = {};
+		};
 		# ags = {
 		# 	enable = false;
 		# 	

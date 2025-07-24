@@ -87,7 +87,7 @@
 			enable = true;
 			clean = {
 				enable = true;
-				extraArgs = "--keep-since 3d --keep 5";
+				extraArgs = "--nogcroots --keep-since 3d --keep 5";
 				dates = "daily";
 				# TODO: !!important!! change
 			};

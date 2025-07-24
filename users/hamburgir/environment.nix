@@ -7,6 +7,7 @@
 
 		# MOZ_USE_XINPUT2 = "1";
 
+		ELECTRON_OZONE_PLATFORM_HINT = "auto";
 		TERMINAL = "footclient";
 		EDITOR = "nvim";
 		MANPAGER = "nvim +Man!";

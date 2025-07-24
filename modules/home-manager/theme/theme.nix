@@ -29,10 +29,10 @@
 		};
 		qt = {
 			enable = true;
-			platformTheme.name = "qtct";
-			style = {
-				package = pkgs.dracula-qt5-theme;
-			};
+			platformTheme.name = "gtk3";
+			# style = {
+			# 	package = pkgs.dracula-qt5-theme;
+			# };
 		};
 		fonts.fontconfig = {
 			enable = true;
