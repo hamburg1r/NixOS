@@ -8,6 +8,12 @@
 			# enable = false;
 			allowPing = true;
 		};
+
+		networkmanager = {
+			wifi.powersave = false;
+			# macAddress = "random";
+			# logLevel = "DEBUG";
+		};
 	};
 
 	services.tailscale.enable = true;
