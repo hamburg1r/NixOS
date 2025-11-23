@@ -4,13 +4,13 @@
 	virtualisation = {
 		# waydroid.enable = true;
 		# lxd.enable = true;
-		# docker = {
-		# 	enable = false;
-		# 	rootless = {
-		# 		enable = true;
-		# 		setSocketVariable = true;
-		# 	};
-		# };
+		docker = {
+			enable = false;
+			rootless = {
+				enable = true;
+				setSocketVariable = true;
+			};
+		};
 		podman = {
 			enable = true;
 			# Create a `docker` alias for podman, to use it as a drop-in replacement

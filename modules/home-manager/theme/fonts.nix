@@ -36,6 +36,7 @@
 			type = types.listOf types.package;
 			default = [
 				pkgs.nerd-fonts.fira-code
+				pkgs.nerd-fonts.jetbrains-mono
 				pkgs.fira
 				pkgs.roboto-slab
 				pkgs.noto-fonts-color-emoji

@@ -68,7 +68,7 @@
 				}}
 				'';
 
-				dragon-out = ''%files=(''${fx}) && ${pkgs.xdragon}/bin/xdragon -a -x ''${files[@]}'';
+				dragon-out = ''%files=(''${fx}) && ${pkgs.dragon-drop}/bin/xdragon -a -x "''${files[@]}"'';
 
 				editor-open = ''$$EDITOR $f'';
 

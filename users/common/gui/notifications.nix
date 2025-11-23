@@ -64,7 +64,7 @@
 					# corner_radius = 10;
 					format = "<b>%s</b>\\n%b\\n<i>%a</i>";
 					idle_threshold = 0;
-					dmenu = "${pkgs.rofi-wayland}/bin/rofi-wayland -dmenu";
+					dmenu = "${pkgs.rofi}/bin/rofi -dmenu";
 				};
 				# shortcuts = {
 				# 	close = "ctrl+shift+space";

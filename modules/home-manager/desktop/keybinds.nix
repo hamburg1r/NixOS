@@ -59,7 +59,7 @@
 
 		in {
 		wayland.windowManager.hyprland.settings = let
-			launcher = "${pkgs.rofi-wayland}/bin/rofi -modi drun,run,combi -show drun";
+			launcher = "${pkgs.rofi}/bin/rofi -modi drun,run,combi -show drun";
 		in {
 			# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 			bind = [

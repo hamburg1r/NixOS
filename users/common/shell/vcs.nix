@@ -11,10 +11,13 @@
             };
         };
         git = {
-            delta.enable = lib.mkDefault true;
             # diff-so-fancy.enable = lib.mkDefault true;
             ignores = lib.mkDefault [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
+            settings = {
+                init.defaultBranch = "main";
+            };
         };
+        delta.enable = lib.mkDefault true;
         lazygit.enable = lib.mkDefault true;
     };
 }

@@ -1,34 +1,18 @@
 {
+	config,
 	lib,
 	pkgs,
 	...
 }: {
 	# TODO: move stuff to common profile(potentially?)
 	programs = {
-		atuin = {
-			enable = false;
+		oh-my-posh = {
+			enable = true;
+			enableBashIntegration = config.programs.bash.enable;
+			enableFishIntegration = config.programs.fish.enable;
+			enableZshIntegration = config.programs.zsh.enable;
+			# ompCfg = builtins.toFile "ompConf.json" (builtins.toString (builtins.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON {
 			settings = {
-				auto_sync = true;
-				update_check = false;
-				sync_frequency = "10m";
-				search_mode = "fuzzy";
-				filter_mode = "global";
-				exit_mode = "return-original";
-			};
-		};
-		broot = {
-			enable = true;
-		};
-		command-not-found = {
-			enable = true;
-		};
-
-		bash = {
-			enable = true;
-		};
-		zsh = let
-			# ompCfg = "${config.home.homeDirectory}/.config/zsh/ompcfg.json";
-			ompCfg = builtins.toFile "ompConf.json" (builtins.toString (builtins.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON {
 				"$schema"= "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
 				version= 2;
 				console_title_template = "{{.Folder}}{{if .Root}}::root{{end}}::{{.Shell}}";
@@ -55,7 +39,7 @@
 								type = "root";
 								style = "plain";
 								foreground = "red";
-								template = "\\udb80\\udda5";
+								template = "❄️";
 							}
 						];
 					}
@@ -77,7 +61,7 @@
 									"{{if gt .Code 0}}red{{end}}"
 									"{{if eq .Code 0}}blue{{end}}"
 								];
-								template = "\\uf101 ";
+								template = " ";
 							}
 						];
 					}
@@ -86,7 +70,7 @@
 						# alignment = "right";
 						segments = [
 							{
-								template = "\\udb84\\udd05 nix-{{ .Type }}";
+								template = "❄️nix-{{ .Type }}";
 								type = "nix-shell";
 							}
 							{
@@ -97,7 +81,7 @@
 									threshold = 5000;
 									style = "round";
 								};
-								template = " \\uf520 {{ .FormattedMs }}";
+								template = "  {{ .FormattedMs }}";
 							}
 						];
 					}
@@ -107,16 +91,40 @@
 						"{{if gt .Code 0}}red{{end}}"
 						"{{if eq .Code 0}}blue{{end}}"
 					];
-					template = "\\uf105 ";
+					template = " ";
 				};
 				transient_prompt = {
 					foreground_templates = [
 						"{{if gt .Code 0}}red{{end}}"
 						"{{if eq .Code 0}}blue{{end}}"
 					];
-					template = "\\uf101 ";
+					template = " ";
 				};
-			})));
+			};
+		};
+		atuin = {
+			enable = false;
+			settings = {
+				auto_sync = true;
+				update_check = false;
+				sync_frequency = "10m";
+				search_mode = "fuzzy";
+				filter_mode = "global";
+				exit_mode = "return-original";
+			};
+		};
+		broot = {
+			enable = true;
+		};
+		command-not-found = {
+			enable = true;
+		};
+
+		bash = {
+			enable = true;
+		};
+		zsh = let
+			# ompCfg = "${config.xdg.configHome}/zsh/ompcfg.json";
 		in {
 			enable = true;
 			initContent = ''
@@ -126,7 +134,8 @@
 				# if [[ "$HOME/.config/zsh/.p10k.zsh" ]]; then source "$HOME/.config/zsh/.p10k.zsh"; fi
 
 			    # any-nix-shell zsh --info-right | source /dev/stdin
-				eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config '${ompCfg}')"
+				# TODO: remove escape seq
+				# eval "$(''${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ''${ompCfg}')"
 				bindkey '^p' history-search-backward
 				bindkey '^n' history-search-forward
 
@@ -151,7 +160,7 @@
 			# 	movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
 			# 	games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";
 			# };
-			dotDir = ".config/zsh";
+			dotDir = "${config.xdg.configHome}/zsh";
 			history = {
 				# expireDuplicatesFirst = true;
 				extended = true;

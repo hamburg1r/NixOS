@@ -17,7 +17,7 @@
 			vulkan-extension-layer
 
 			mesa
-			amdvlk
+			# amdvlk
 
 			libGL
 			libGLU

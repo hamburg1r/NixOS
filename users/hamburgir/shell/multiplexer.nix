@@ -6,7 +6,7 @@
 	home.file."Zellij" = {
 		enable = config.programs.zellij.enable;
 		source = ./zellij;
-		target = ".config/zellij";
+		target = "${config.xdg.configHome}/zellij";
 	};
 
 	programs = {

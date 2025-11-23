@@ -18,7 +18,7 @@
 		};
 		less = {
 			enable = lib.mkDefault true;
-			keys = lib.mkDefault ''
+			config = lib.mkDefault ''
 				i quit
 			'';
 		};
