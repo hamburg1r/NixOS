@@ -5,7 +5,7 @@
 	home = {
 		packages = [
 			# pkgs.nvf # Saves memory
-			pkgs.neovim-with-lsp
+			pkgs.neovim
 		];
 		shellAliases = {
 			vi = "nvim";
