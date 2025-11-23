@@ -3,7 +3,7 @@
 	...
 }: {
 	home.packages = with pkgs; [
-		prismlauncher
+		# prismlauncher
 		gamescope
 		lutris
 		heroic
