@@ -2,6 +2,7 @@
 	...
 }: {
 	imports = [
+		./ai.nix
 		./aliases.nix
 		./editor.nix
 		./media.nix
