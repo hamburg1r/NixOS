@@ -6,7 +6,7 @@
 		nemo
 		# thunar
 		ristretto
-		spotify
+		# spotify
 		youtube-music
 	];
 }
