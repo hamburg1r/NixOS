@@ -18,7 +18,7 @@
 		kernelModules = [
 			"kvm-amd"
 			"8812au"
-			# "v4l2loopback"
+			"v4l2loopback"
 		];
 		extraModprobeConfig = lib.mkIf (builtins.elem "v4l2loopback" config.boot.kernelModules) ''
 			options v4l2loopback exclusive_caps=1 card_label="VCam"
