@@ -15,6 +15,7 @@
             ignores = lib.mkDefault [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
             settings = {
                 init.defaultBranch = "main";
+                pull.rebase = true;
             };
         };
         delta.enable = lib.mkDefault true;
