@@ -34,7 +34,8 @@
 		discord = prev.discord.override {
 			withOpenASAR = false;
 			# withVencord = true;
-			withTTS = true;
+			withEquicord = true;
+			# withTTS = true;
 		};
 		rofi = prev.rofi.override {
 			plugins = [
