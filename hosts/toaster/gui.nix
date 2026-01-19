@@ -17,8 +17,8 @@
 		xfce.enable = false;
 	};
 	services.desktopManager = {
-		plasma6.enable = true;
-		gnome.enable = false;
+		plasma6.enable = false;
+		gnome.enable = true;
 	};
 
 
