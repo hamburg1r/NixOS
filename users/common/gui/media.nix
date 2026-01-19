@@ -7,6 +7,6 @@
 		# thunar
 		ristretto
 		# spotify
-		youtube-music
+		pear-desktop # youtube-music
 	];
 }
