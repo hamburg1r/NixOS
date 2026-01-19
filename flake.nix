@@ -33,6 +33,7 @@
 				specialArgs = {inherit inputs outputs; system = "x86_64-linux";};
 				modules = [
 					inputs.wallpapers.nixosModules.default
+					inputs.ignis-config.nixosModules.default
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
 			};
@@ -44,6 +45,7 @@
 				extraSpecialArgs = {inherit inputs outputs;};
 				modules = [
 					inputs.wallpapers.homeManagerModules.default
+					inputs.ignis-config.homeManagerModules.default
 
 					# inputs.ags.homeManagerModules.default
 
@@ -92,6 +94,11 @@
 		};
 		wallpapers = {
 			url = "github:h4m6urg1r/wallpapers?shallow=1";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		ignis-config = {
+			url = "git+file:///home/hamburgir/repo/ignis-config";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 

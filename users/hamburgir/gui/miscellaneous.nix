@@ -11,7 +11,7 @@
 
 	programs = {
 		ashell = {
-			enable = true;
+			enable = false;
 			settings = {};
 		};
 		# ags = {
@@ -38,8 +38,11 @@
 		# 	${pkgs.eww-wayland}/bin/eww "$@"
 		# 	'');
 		# };
-		waybar = {
+		ignis-desktop = {
 			enable = true;
+		};
+		waybar = {
+			enable = false;
 			# settings = {
 			# 	mainBar = {
 			# 		layer = "top";
