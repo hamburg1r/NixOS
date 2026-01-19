@@ -10,7 +10,7 @@
 		# mouse_refocus = true;
 		numlock_by_default = false;
 		touchpad = {
-			natural_scroll = false;
+			natural_scroll = true;
 			drag_lock = true;
 			tap-and-drag = true;
 		};
