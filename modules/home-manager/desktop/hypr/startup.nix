@@ -2,34 +2,42 @@
 	inputs,
 	config,
 	pkgs,
+	lib,
 	...
 }: {
 	wayland.windowManager.hyprland.settings = {
-		exec-once = [
-			"xwaylandvideobridge"
-			"${pkgs.wl-clipboard}/bin/wl-paste -t image --watch ${pkgs.cliphist}/bin/cliphist store"
-			"${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.cliphist}/bin/cliphist store"
+		exec-once = lib.concatLists [
+			[
+				"xwaylandvideobridge"
+				"${pkgs.wl-clipboard}/bin/wl-paste -t image --watch ${pkgs.cliphist}/bin/cliphist store"
+				"${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.cliphist}/bin/cliphist store"
 
-			# "${pkgs.vesktop}/bin/vesktop"
-			# "vesktop"
-			# "${pkgs.discord}/bin/discord"
-			"discord"
+				# "${pkgs.vesktop}/bin/vesktop"
+				# "vesktop"
+				# "${pkgs.discord}/bin/discord"
+				"discord"
 
-			"${pkgs.stable.easyeffects}/bin/easyeffects"
+				"${pkgs.stable.easyeffects}/bin/easyeffects"
 
-			# "${inputs.fabricConfig.packages.x86_64-linux.default}/bin/desktopEnv &"
-			"waybar"
-
-			(if config.programs.foot.enable then "foot --server" else "echo")
-
-			# "spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
-			"ytmdesktop"
+				# "${inputs.fabricConfig.packages.x86_64-linux.default}/bin/desktopEnv &"
+			]
+			(lib.optionals config.programs.waybar.enable ["waybar"])
+			(lib.optionals config.programs.foot.enable ["foot --server"])
+			[
+				# "spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
+				"ytmdesktop"
+			]
 		];
-		exec = [
-			# "ags"
-			"${pkgs.swww}/bin/swww-daemon --no-cache"
-			"${pkgs.swww}/bin/swww restore"
-			# "${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
+		exec = lib.concatLists [
+			[
+				# "ags"
+			]
+			(lib.optionals config.programs.ignis-desktop.enable ["ignis-desktop"])
+			[
+				"${pkgs.swww}/bin/swww-daemon --no-cache"
+				"${pkgs.swww}/bin/swww restore"
+				# "${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
+			]
 		];
 	};
 }
