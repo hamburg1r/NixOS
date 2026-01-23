@@ -2,6 +2,7 @@
 	...
 }: {
 	imports = [
+		./desktopEnvironments.nix
 		./game.nix
 		./media.nix
 		./miscellaneous.nix
