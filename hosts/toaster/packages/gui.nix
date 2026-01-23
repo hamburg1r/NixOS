@@ -15,7 +15,7 @@
 		# poppler
 		nemo
 		# xfce.thunar
-		xfce.ristretto
+		ristretto
 		## xorg
 		# xclip
 		# xdotool
