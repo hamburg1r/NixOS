@@ -1,4 +1,5 @@
 {
+	outputs,
 	config,
 	lib,
 	...
@@ -8,6 +9,12 @@
 		./shell
 		./theme.nix
 		./specialisation.nix
+	];
+	nixpkgs.overlays = [
+		outputs.overlays.additions
+		outputs.overlays.modifications
+		outputs.overlays.stable-packages
+		outputs.overlays.unstable-packages
 	];
 	home = {
 		homeDirectory = lib.mkDefault "/home/${config.home.username}";

@@ -34,6 +34,8 @@
 				modules = [
 					inputs.wallpapers.nixosModules.default
 					inputs.ignis-config.nixosModules.default
+					inputs.niri.nixosModules.niri
+
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
 			};
@@ -46,6 +48,7 @@
 				modules = [
 					inputs.wallpapers.homeManagerModules.default
 					inputs.ignis-config.homeManagerModules.default
+					inputs.niri.homeModules.config
 
 					# inputs.ags.homeManagerModules.default
 
@@ -92,13 +95,18 @@
 			url = "github:vinceliuice/grub2-themes?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
 		wallpapers = {
 			url = "github:h4m6urg1r/wallpapers?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-
 		ignis-config = {
 			url = "git+file:///home/hamburgir/repo/ignis-config";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		niri = {
+			url = "github:sodiboo/niri-flake?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
@@ -144,11 +152,5 @@
 
 
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
-
-
-		# powerlevel10k = {
-		# 	url = "github:romkatv/powerlevel10k";
-		# 	flake = false;
-		# };
 	};
 }

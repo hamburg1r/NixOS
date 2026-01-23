@@ -1,4 +1,5 @@
 {
+	inputs,
 	outputs,
 	lib,
 	pkgs,
@@ -25,14 +26,11 @@
 	};
 	nixpkgs = {
 		overlays = [
-			outputs.overlays.additions
-			outputs.overlays.modifications
-			outputs.overlays.stable-packages
-			outputs.overlays.unstable-packages
-                                                                                
+			inputs.niri.overlays.niri
+
 			# You can also add overlays exported from other flakes:
 			# neovim-nightly-overlay.overlays.default
-                                                                                
+
 			# Or define it inline, for example:
 			# (final: prev: {
 			#   hi = final.hello.overrideAttrs (oldAttrs: {
@@ -45,7 +43,7 @@
 			allowUnfreePredicate = (_: true);
 		};
 	};
-                                                                                
+
 	# manual = {
 	# 	manpages.enable = true;
 	# 	html.enable = true;
