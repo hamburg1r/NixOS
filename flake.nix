@@ -48,7 +48,7 @@
 				modules = [
 					inputs.wallpapers.homeManagerModules.default
 					inputs.ignis-config.homeManagerModules.default
-					inputs.niri.homeModules.config
+					inputs.niri.homeModules.niri
 
 					# inputs.ags.homeManagerModules.default
 

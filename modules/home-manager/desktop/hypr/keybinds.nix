@@ -8,10 +8,18 @@
 let
 	cfg = config.desktop; # This comes from the main keybinds.nix options
 	mod = cfg.modifier;
-	terminal = {
-		command = cfg.keybinds.terminal;
-		launch = terminal.command;
-	};
+
+	listToString = list: lib.strings.concatStringsSep " " list;
+
+	terminalExe = listToString cfg.programs.terminal;
+
+	# Converts [["modifiers"], ["key"]] into "Modifier, Key"
+	formatHyprKeybindKey = keybindList:
+		let
+			modifiers = lib.map lib.strings.toUpper (lib.head keybindList);
+			key = lib.strings.toUpper (lib.head (lib.last keybindList));
+		in lib.strings.concatStringsSep ", " (modifiers ++ [ key ]);
+
 	pamixer = lib.getExe pkgs.stable.pamixer;
 in
 {
@@ -21,11 +29,11 @@ in
 		in {
 			# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 			bind = [
-				"${mod}, Return, exec, ${terminal.command}"
+				"${mod}, ${formatHyprKeybindKey cfg.keybinds.terminal}, exec, ${terminalExe}"
 				# "${mod}, Return, exec, wezterm start"
 				"${mod} SHIFT, c, killactive, "
 				"${mod} SHIFT, q, exit, "
-				"${mod}, e, exec, ${terminal.launch} lf"
+				"${mod}, e, exec, ${terminalExe} lf"
 				# "${mod}, e, exec, wezterm start lf"
 				"${mod}, r, exec, ${launcher}"
 				"${mod} ALT, r, exec, hyprctl reload"
