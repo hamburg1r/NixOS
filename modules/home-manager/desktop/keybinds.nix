@@ -44,7 +44,7 @@
 						description = "key used for moving to the first column/window";
 					};
 					last = mkOption {
-						default = [ "end" "f" ];
+						default = [ "end" "apostrophe" ];
 						type = types.listOf types.str;
 						description = "key used for moving to the last column/window";
 					};
@@ -74,6 +74,11 @@
 					type = types.listOf types.raw;
 					description = "key used to fullscreen window, format: [ [\"modifier1\", ...], [\"key\"] ]";
 				};
+				maximize = mkOption {
+					default = [ ["Shift"] ["f"] ];
+					type = types.listOf types.raw;
+					description = "key used to maximize window to edges, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
 				toggle-windowed-fullscreen = mkOption {
 					default = [ ["Control"] ["f"] ];
 					type = types.listOf types.raw;
@@ -83,6 +88,88 @@
 					default = [ ["Shift"] ["q"] ];
 					type = types.listOf types.raw;
 					description = "key used to quit session, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-tabbed-window = mkOption {
+					default = [ [] ["t"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle column tabbed display, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				column-size-preset-next = mkOption {
+					default = [ [] ["bracketright"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				column-size-preset-back = mkOption {
+					default = [ [] ["bracketleft"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-width-preset-next = mkOption {
+					default = [ ["Shift"] ["bracketright"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-width-preset-back = mkOption {
+					default = [ ["Shift"] ["bracketleft"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-height-preset-next = mkOption {
+					default = [ ["Shift"] ["period"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-height-preset-back = mkOption {
+					default = [ ["Shift"] ["comma"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-floating = mkOption {
+					default = [ ["Shift"] ["space"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle window floating, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				move-column-to-first = mkOption {
+					default = [ ["Control"] ["Home"] ];
+					type = types.listOf types.raw;
+					description = "key used to move column to first position, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				move-column-to-last = mkOption {
+					default = [ ["Control"] ["End"] ];
+					type = types.listOf types.raw;
+					description = "key used to move column to last position, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				no-mod = {
+					speaker-volume-up = mkOption {
+						default = [ [] ["XF86AudioRaiseVolume"] ];
+						type = types.listOf types.raw;
+						description = "key used to increase speaker volume, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
+					speaker-volume-down = mkOption {
+						default = [ [] ["XF86AudioLowerVolume"] ];
+						type = types.listOf types.raw;
+						description = "key used to decrease speaker volume, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
+					speaker-mute = mkOption {
+						default = [ [] ["XF86AudioMute"] ];
+						type = types.listOf types.raw;
+						description = "key used to toggle speaker mute, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
+					mic-volume-up = mkOption {
+						default = [ ["Control"] ["XF86AudioRaiseVolume"] ];
+						type = types.listOf types.raw;
+						description = "key used to increase microphone volume, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
+					mic-volume-down = mkOption {
+						default = [ ["Control"] ["XF86AudioLowerVolume"] ];
+						type = types.listOf types.raw;
+						description = "key used to decrease microphone volume, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
+					mic-mute = mkOption {
+						default = [ ["Control"] ["XF86AudioMute"] ];
+						type = types.listOf types.raw;
+						description = "key used to toggle microphone mute, format: [ [\"modifier1\", ...], [\"key\"] ]";
+					};
 				};
 			};
 		};

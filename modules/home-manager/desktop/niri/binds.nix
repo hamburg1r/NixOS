@@ -51,8 +51,19 @@
 		lib.foldl' (acc: key: acc // { "Shift+${key}" = { action = { "move-column-${direction}" = []; }; }; }) {} keys;
 
 	genMoveWinBinds = keys: direction:
-		lib.foldl' (acc: key: acc // { "Shift+${key}" = { action = { "move-window-${direction}" = []; }; }; }) {} keys;
+		lib.foldl' (acc: key: acc // { "Shift+${key}" = { action = {
+			${
+				if direction == "left" then "consume-or-expel-window-left"
+				else if direction == "right" then "consume-or-expel-window-right"
+				else if direction == "up" then "move-window-up-or-to-workspace-up"
+				else if direction == "down" then "move-window-down-or-to-workspace-down"
+				else "move-window-${direction}"
+			} = [];
+		}; }; }) {} keys;
 
+	genMoveToColBinds = keys: direction:
+			lib.foldl' (acc: key: acc // { "Ctrl+${key}" = { action = { "move-column-to-${direction}" = []; }; }; }) {} keys;
+	
 in {
 	programs.niri.settings.binds = mkBinds ({
 		"${formatKeybindKey keybinds.terminal}" = {
@@ -74,22 +85,51 @@ in {
 		"${formatKeybindKey keybinds.fullscreen}" = {
 			action.fullscreen-window = [];
 		};
+		"${formatKeybindKey keybinds.maximize}" = {
+			action.maximize-window-to-edges = [];
+		};
 		"${formatKeybindKey keybinds.toggle-windowed-fullscreen}" = {
 			action.toggle-windowed-fullscreen = [];
 		};
 		"${formatKeybindKey keybinds.quit}" = {
 			action.quit = [];
 		};
+		"${formatKeybindKey keybinds.toggle-tabbed-window}" = {
+			action.toggle-column-tabbed-display = [];
+		};
+		"${formatKeybindKey keybinds.column-size-preset-next}" = {
+			action.switch-preset-column-width = [];
+		};
+		"${formatKeybindKey keybinds.column-size-preset-back}" = {
+			action.switch-preset-column-width-back = [];
+		};
+		"${formatKeybindKey keybinds.window-width-preset-next}" = {
+			action.switch-preset-window-height = [];
+		};
+		"${formatKeybindKey keybinds.window-width-preset-back}" = {
+			action.switch-preset-window-height-back = [];
+		};
+		"${formatKeybindKey keybinds.window-height-preset-next}" = {
+			action.switch-preset-window-height = [];
+		};
+		"${formatKeybindKey keybinds.window-height-preset-back}" = {
+			action.switch-preset-window-height-back = [];
+		};
+		"${formatKeybindKey keybinds.toggle-floating}" = {
+			action.toggle-window-floating = [];
+		};
 	} // (genFocusColBinds keybinds.movement.left "left")
 	// (genFocusColBinds keybinds.movement.right "right")
 	// (genFocusWinBinds keybinds.movement.up "up")
 	// (genFocusWinBinds keybinds.movement.down "down")
-	// (genMoveColBinds keybinds.movement.left "left")
-	// (genMoveColBinds keybinds.movement.right "right")
+	// (genMoveWinBinds keybinds.movement.left "left")
+	// (genMoveWinBinds keybinds.movement.right "right")
 	// (genMoveWinBinds keybinds.movement.up "up")
 	// (genMoveWinBinds keybinds.movement.down "down")
 	// (genFocusColBinds keybinds.movement.first "first")
 	// (genFocusColBinds keybinds.movement.last "last")
+	// (genMoveToColBinds keybinds.movement.first "first")
+	// (genMoveToColBinds keybinds.movement.last "last")
 	);
 	# 	binds = {
 	# 	"Mod+Shift+Slash" = { action.show-hotkey-overlay = []; };
