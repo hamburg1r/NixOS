@@ -9,6 +9,7 @@ in {
 	imports = [
 		./binds.nix
 		./movement.nix
+		./settings.nix
 		./startup.nix
 		./xwayland.nix
 
