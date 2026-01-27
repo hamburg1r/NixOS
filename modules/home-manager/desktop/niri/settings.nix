@@ -2,6 +2,6 @@
 	...
 }: {
 	programs.niri.settings = {
-		# prefer-no-csd = true;
+		prefer-no-csd = true;
 	};
 }
