@@ -64,106 +64,106 @@
 					type = types.listOf types.raw;
 					description = "key used to take screenshot, format: [ [\"modifier1\", ...], [\"key\"] ]";
 				};
-				                close-window = mkOption {
-				                    default = [ ["Shift"] ["x"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to close window, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                fullscreen = mkOption {
-				                    default = [ [] ["f"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to fullscreen window, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                maximize = mkOption {
-				                    default = [ ["Shift"] ["f"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to maximize window to edges, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                toggle-windowed-fullscreen = mkOption {
-				                    default = [ ["Control"] ["f"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to toggle windowed fullscreen, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                quit = mkOption {
-				                    default = [ ["Shift"] ["q"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to quit session, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                toggle-tabbed-window = mkOption {
-				                    default = [ [] ["t"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to toggle column tabbed display, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                column-size-preset-next = mkOption {
-				                    default = [ [] ["bracketright"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to next column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                column-size-preset-back = mkOption {
-				                    default = [ [] ["bracketleft"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to previous column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                window-width-preset-next = mkOption {
-				                    default = [ ["Shift"] ["bracketright"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to next window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                window-width-preset-back = mkOption {
-				                    default = [ ["Shift"] ["bracketleft"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to previous window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                window-height-preset-next = mkOption {
-				                    default = [ ["Shift"] ["period"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to next window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                window-height-preset-back = mkOption {
-				                    default = [ ["Shift"] ["comma"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to cycle to previous window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                toggle-floating = mkOption {
-				                    default = [ ["Shift"] ["space"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to toggle window floating, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                move-column-to-first = mkOption {
-				                    default = [ ["Control"] ["Home"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to move column to first position, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                move-column-to-last = mkOption {
-				                    default = [ ["Control"] ["End"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to move column to last position, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                toggle-focus-floating = mkOption {
-				                    default = [ [] ["space"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to switch focus between floating and tiling windows, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                toggle-workspace-overview = mkOption {
-				                    default = [ [] ["o"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to toggle the workspace overview, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                fake-maximize = mkOption {
-				                    default = [ ["Alt"] ["f"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to maximize the current column, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                center-visible-columns = mkOption {
-				                    default = [ ["Shift"] ["c"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to center visible columns, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
-				                center-column = mkOption {
-				                    default = [ [] ["c"] ];
-				                    type = types.listOf types.raw;
-				                    description = "key used to center the current column, format: [ [\"modifier1\", ...], [\"key\"] ]";
-				                };
+				close-window = mkOption {
+					default = [ ["Shift"] ["x"] ];
+					type = types.listOf types.raw;
+					description = "key used to close window, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				fullscreen = mkOption {
+					default = [ [] ["f"] ];
+					type = types.listOf types.raw;
+					description = "key used to fullscreen window, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				maximize = mkOption {
+					default = [ ["Shift"] ["f"] ];
+					type = types.listOf types.raw;
+					description = "key used to maximize window to edges, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-windowed-fullscreen = mkOption {
+					default = [ ["Control"] ["f"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle windowed fullscreen, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				quit = mkOption {
+					default = [ ["Shift"] ["q"] ];
+					type = types.listOf types.raw;
+					description = "key used to quit session, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-tabbed-window = mkOption {
+					default = [ [] ["t"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle column tabbed display, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				column-size-preset-next = mkOption {
+					default = [ [] ["bracketright"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				column-size-preset-back = mkOption {
+					default = [ [] ["bracketleft"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous column size preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-width-preset-next = mkOption {
+					default = [ ["Shift"] ["bracketright"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-width-preset-back = mkOption {
+					default = [ ["Shift"] ["bracketleft"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous window width preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-height-preset-next = mkOption {
+					default = [ ["Shift"] ["period"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to next window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				window-height-preset-back = mkOption {
+					default = [ ["Shift"] ["comma"] ];
+					type = types.listOf types.raw;
+					description = "key used to cycle to previous window height preset, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-floating = mkOption {
+					default = [ ["Shift"] ["space"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle window floating, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				move-column-to-first = mkOption {
+					default = [ ["Control"] ["Home"] ];
+					type = types.listOf types.raw;
+					description = "key used to move column to first position, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				move-column-to-last = mkOption {
+					default = [ ["Control"] ["End"] ];
+					type = types.listOf types.raw;
+					description = "key used to move column to last position, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-focus-floating = mkOption {
+					default = [ [] ["space"] ];
+					type = types.listOf types.raw;
+					description = "key used to switch focus between floating and tiling windows, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				toggle-workspace-overview = mkOption {
+					default = [ [] ["o"] ];
+					type = types.listOf types.raw;
+					description = "key used to toggle the workspace overview, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				fake-maximize = mkOption {
+					default = [ ["Alt"] ["f"] ];
+					type = types.listOf types.raw;
+					description = "key used to maximize the current column, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				center-visible-columns = mkOption {
+					default = [ ["Shift"] ["c"] ];
+					type = types.listOf types.raw;
+					description = "key used to center visible columns, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
+				center-column = mkOption {
+					default = [ [] ["c"] ];
+					type = types.listOf types.raw;
+					description = "key used to center the current column, format: [ [\"modifier1\", ...], [\"key\"] ]";
+				};
 				no-mod = {
 					speaker-volume-up = mkOption {
 						default = [ [] ["XF86AudioRaiseVolume"] ];

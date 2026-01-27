@@ -8,7 +8,10 @@
 in {
 	imports = [
 		./binds.nix
+		./input.nix
+		./layout.nix
 		./movement.nix
+		./output.nix
 		./settings.nix
 		./startup.nix
 		./xwayland.nix

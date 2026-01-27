@@ -73,6 +73,7 @@ in {
 		};
 		"${formatKeybindKey keybinds.app-launcher}" = {
 			action.spawn = programs.app-launcher;
+			repeat = false;
 		};
 		"${formatKeybindKey keybinds.show-help}" = {
 			action.show-hotkey-overlay = [];
@@ -120,12 +121,14 @@ in {
 		};
 		"${formatKeybindKey keybinds.toggle-floating}" = {
 			action.toggle-window-floating = [];
+			repeat = false;
 		};
 		"${formatKeybindKey keybinds.toggle-focus-floating}" = {
 			action.switch-focus-between-floating-and-tiling = [];
 		};
 		"${formatKeybindKey keybinds.toggle-workspace-overview}" = {
 			action.toggle-overview = [];
+			repeat = false;
 		};
 		"${formatKeybindKey keybinds.fake-maximize}" = {
 			action.maximize-column = [];
