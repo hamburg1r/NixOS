@@ -10,6 +10,7 @@
 		# satty
 		rofi
 		qbittorrent
+		peazip
 	];
 	programs.zathura.enable = true;
 }
