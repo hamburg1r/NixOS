@@ -4,45 +4,45 @@
 }: {
 	home.packages = [ pkgs.stable.kdePackages.xwaylandvideobridge ];
 	wayland.windowManager.hyprland.settings = {
-		windowrulev2 = [
-			"opacity 0.0 override, class:^(xwaylandvideobridge)$"
-			"noanim, class:^(xwaylandvideobridge)$"
-			"noinitialfocus, class:^(xwaylandvideobridge)$"
-			"maxsize 1 1, class:^(xwaylandvideobridge)$"
-			"noblur, class:^(xwaylandvideobridge)$"
-			"nofocus, class:^(xwaylandvideobridge)$"
+		windowrule = [
+			"opacity 0.0 override, match:class ^(xwaylandvideobridge)$"
+			"no_anim on, match:class ^(xwaylandvideobridge)$"
+			"no_initial_focus on, match:class ^(xwaylandvideobridge)$"
+			"size 1 1, match:class ^(xwaylandvideobridge)$"
+			"no_blur on, match:class ^(xwaylandvideobridge)$"
+			"no_focus on, match:class ^(xwaylandvideobridge)$"
 
-			"float, class:(org.qbittorrent.qBittorrent)"
-			"float, class:(thunar), title:(File Operation Progress)"
-			"float, class:(nemo), initialTitle:!(Home)"
+			"float on, match:class (org.qbittorrent.qBittorrent)"
+			"float on, match:class (thunar), match:title (File Operation Progress)"
+			"float on, match:class (nemo), match:initial_title !(Home)"
 
-			"move 77% 76%, class:(firefox), title:(Picture-in-Picture)"
-			"size 22% 22%, class:(firefox), title:(Picture-in-Picture)"
-			"float, class:(firefox), title:(Picture-in-Picture)"
-			"pin, class:(firefox), title:(Picture-in-Picture)"
-			"suppressevent fullscreen, class:(firefox), title:(Picture-in-Picture)"
-			"suppressevent maximize, class:(firefox), title:(Picture-in-Picture)"
+			"move 77% 76%, match:class (firefox), match:title (Picture-in-Picture)"
+			"size 22% 22%, match:class (firefox), match:title (Picture-in-Picture)"
+			"float on, match:class (firefox), match:title (Picture-in-Picture)"
+			"pin on, match:class (firefox), match:title (Picture-in-Picture)"
+			"suppress_event fullscreen, match:class (firefox), match:title (Picture-in-Picture)"
+			"suppress_event maximize, match:class (firefox), match:title (Picture-in-Picture)"
 
-			"stayfocused, class:(polkit-gnome-authentication-agent-1)"
-			"pin, class:(polkit-gnome-authentication-agent-1)"
+			"stay_focused on, match:class (polkit-gnome-authentication-agent-1)"
+			"pin on, match:class (polkit-gnome-authentication-agent-1)"
 
-			"syncfullscreen off, class:(footclient)|(foot)"
+			"sync_fullscreen off, match:class (footclient)|(foot)"
 
 			# For some reason first window of foot was opening in 1st workspace
-			"workspace e+0, class:(footclient)|(foot)"
+			"workspace e+0, match:class (footclient)|(foot)"
 
 			# "workspace 2, class:(firefox),"
 
-			"workspace 4 silent, class:(discord)"
+			"workspace 4 silent, match:class (discord)"
 
-			"workspace 4 silent, class:(vesktop)"
+			"workspace 4 silent, match:class (vesktop)"
 
-			"workspace 5 silent, class:(com\\.github\\.th_ch\\.youtube_music)"
-			"workspace 5 silent, class:(YouTube Music Desktop App)"
-			"workspace 5 silent, class:(spotify)"
-			"workspace 5 silent, class:(Spotify)"
+			"workspace 5 silent, match:class (com\\.github\\.th_ch\\.youtube_music)"
+			"workspace 5 silent, match:class (YouTube Music Desktop App)"
+			"workspace 5 silent, match:class (spotify)"
+			"workspace 5 silent, match:class (Spotify)"
 
-			"workspace special:easyeffects silent, class:(com.github.wwmm.easyeffects)"
+			"workspace special:easyeffects silent, match:class (com.github.wwmm.easyeffects)"
 		];
 	};
 }
