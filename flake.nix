@@ -49,6 +49,7 @@
 					inputs.wallpapers.homeManagerModules.default
 					inputs.ignis-config.homeManagerModules.default
 					inputs.niri.homeModules.niri
+					inputs.noctalia.homeModules.default
 
 					# inputs.ags.homeManagerModules.default
 
@@ -97,16 +98,21 @@
 		};
 
 		wallpapers = {
-			url = "github:h4m6urg1r/wallpapers?shallow=1";
+			url = "github:hamburg1r/wallpapers?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		ignis-config = {
-			url = "git+file:///home/hamburgir/repo/ignis-config";
+			url = "github:hamburg1r/ignis-config?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 		niri = {
 			url = "github:sodiboo/niri-flake?shallow=1";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		noctalia = {
+			url = "github:noctalia-dev/noctalia-shell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
