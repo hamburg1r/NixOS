@@ -159,7 +159,7 @@
 					
 					# nuke
 					if [[ $ans == y ]]; then
-						${pkgs.trash-cli}/bin/trash-put $fx
+						${pkgs.trash-cli}/bin/trash-put "''${files[@]}"
 						if [[ $len == 1 ]]; then
 							echo "trashed '$files'"
 						else
