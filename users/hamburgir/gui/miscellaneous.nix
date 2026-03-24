@@ -409,7 +409,7 @@
 	};
 
 	home.packages = with pkgs; [
-		helvum
+		crosspipe
 
 		swww
 		sassc

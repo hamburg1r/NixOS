@@ -141,7 +141,7 @@
 			};
 			startup = [
 				{ command = "discord"; }
-				{ command = "pavucontrol"; }
+				{ command = "pwvucontrol"; }
 				{ command = "eww daemon && eww open topbar"; }
 				{ command = "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.cliphist}/bin/cliphist store"; }
 				{ command = "${pkgs.wl-clipboard}/bin/wl-paste -t image --watch ${pkgs.cliphist}/bin/cliphist store"; }
