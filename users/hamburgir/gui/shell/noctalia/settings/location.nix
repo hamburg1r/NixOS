@@ -1,0 +1,16 @@
+{
+  location = {
+    name = "Delhi";
+    weatherEnabled = true;
+    weatherShowEffects = true;
+    useFahrenheit = false;
+    use12hourFormat = true;
+    showWeekNumberInCalendar = false;
+    showCalendarEvents = true;
+    showCalendarWeather = true;
+    analogClockInCalendar = false;
+    firstDayOfWeek = -1;
+    hideWeatherTimezone = false;
+    hideWeatherCityName = false;
+  };
+}

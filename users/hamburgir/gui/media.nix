@@ -11,4 +11,8 @@
 			pkgs.mpvScripts.mpris
 		];
 	};
+
+	home.packages = with pkgs; [
+		crosspipe
+	];
 }

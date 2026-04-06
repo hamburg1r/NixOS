@@ -26,7 +26,7 @@
 	services = {
 		dunst = {
 			inherit (config.gtk) iconTheme;
-			enable = true;
+			enable = !config.programs.noctalia-shell.enable;
 			settings = {
 				global = {
 					monitor = 0;
