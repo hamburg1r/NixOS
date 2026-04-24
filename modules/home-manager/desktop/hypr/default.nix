@@ -16,5 +16,6 @@
 		./monitors.nix
 		./startup.nix
 		./windowRules.nix
+		./layout.nix
 	];
 }

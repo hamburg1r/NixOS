@@ -16,7 +16,6 @@ submap = reset
 				gaps_in = 4;
 				gaps_out = 8;
 			};
-			general.layout = "dwindle";
 			misc = {
 				disable_hyprland_logo = true;
 				disable_splash_rendering = true;

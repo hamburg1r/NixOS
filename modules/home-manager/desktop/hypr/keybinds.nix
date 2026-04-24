@@ -38,8 +38,6 @@ in
 				"${mod}, r, exec, ${launcher}"
 				"${mod} ALT, r, exec, hyprctl reload"
 				"${mod} SHIFT, r, exec, ags quit; ags"
-				"${mod}, p, pseudo, " # dwindle"
-				"${mod} SHIFT, t, togglesplit, " # dwindle"
 
 				"${mod}, f, fullscreen, 0"
 				"${mod} SHIFT, f, fullscreen, 1"
@@ -145,24 +143,28 @@ in
 			# 		"${mod} CTRL, k, hy3:changefocus, raise"
 			# 		"${mod} CTRL, j, hy3:changefocus, lower"
 			# 	] else []
-			# ) ++ (
-				builtins.concatLists (
-					builtins.genList (
-						x: let
-							ws = let c = (x + 1) / 10;
-								in builtins.toString (x + 1 - (c * 10));
-							in [
-								"${mod}, ${ws}, workspace, ${builtins.toString (x + 1)}"
-								"${mod} SHIFT, ${ws}, movetoworkspace, ${builtins.toString (x + 1)}"
-								# (
-								# 	if config.wm.hyprland.layout == "hy3" then
-								# 		"${mod} SHIFT, ${ws}, hy3:movetoworkspace, ${builtins.toString (x + 1)}"
-								# 	else "${mod} SHIFT, ${ws}, hyprctl dispatch movetoworkspace ${builtins.toString (x + 1)}"
-								# )
-							]
-						)
-					10
-				)
+			if cfg.hyprland.layoutName == "dwindle" then [
+				"${mod}, p, pseudo,"
+				"${mod} SHIFT, t, togglesplit,"
+			] else [ ]
+			) ++ (
+			builtins.concatLists (
+				builtins.genList (
+					x: let
+						ws = let c = (x + 1) / 10;
+							in builtins.toString (x + 1 - (c * 10));
+						in [
+							"${mod}, ${ws}, workspace, ${builtins.toString (x + 1)}"
+							"${mod} SHIFT, ${ws}, movetoworkspace, ${builtins.toString (x + 1)}"
+							# (
+							# 	if config.wm.hyprland.layout == "hy3" then
+							# 		"${mod} SHIFT, ${ws}, hy3:movetoworkspace, ${builtins.toString (x + 1)}"
+							# 	else "${mod} SHIFT, ${ws}, hyprctl dispatch movetoworkspace ${builtins.toString (x + 1)}"
+							# )
+						]
+					)
+				10
+			)
 			);
 
 			binde = [
