@@ -1,4 +1,5 @@
 {
+	inputs,
 	pkgs,
 	...
 }: {
@@ -6,6 +7,7 @@
 		packages = [
 			# pkgs.nvf # Saves memory
 			pkgs.neovim
+			inputs.mcp-hub.packages."x86_64-linux".default
 		];
 		shellAliases = {
 			vi = "nvim";

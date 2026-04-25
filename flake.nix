@@ -35,6 +35,7 @@
 					inputs.wallpapers.nixosModules.default
 					inputs.ignis-config.nixosModules.default
 					inputs.niri.nixosModules.niri
+					inputs.dms.nixosModules.dank-material-shell
 
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
@@ -115,6 +116,14 @@
 			url = "github:noctalia-dev/noctalia-shell";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		dms = {
+			url = "github:AvengeMedia/DankMaterialShell";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		dms-plugin-registry = {
+			url = "github:AvengeMedia/dms-plugin-registry";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 
 		# nixvim = {
 		# 	url = "github:nix-community/nixvim";
@@ -145,6 +154,10 @@
 		# 	url = "github:Saghen/blink.cmp";
 		# 	flake = false;
 		# };
+		mcp-hub = {
+			url = "github:ravitemer/mcp-hub";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 
 
 		# webcord.url = "github:fufexan/webcord-flake";

@@ -13,7 +13,7 @@
 			settings = {};
 		};
 		ignis-desktop = {
-			enable = true;
+			enable = false;
 		};
 	};
 

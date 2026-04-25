@@ -17,6 +17,7 @@
 			"file:///tmp"
 		];
 	};
+	xdg.configFile."gtk-3.0/bookmarks".force = true;
 
 	services.network-manager-applet.enable = true;
 }

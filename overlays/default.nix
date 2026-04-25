@@ -32,7 +32,7 @@
 			'';
 		};
 		discord = prev.discord.override {
-			withOpenASAR = false;
+			# withOpenASAR = true;
 			# withVencord = true;
 			withEquicord = true;
 			# withTTS = true;
