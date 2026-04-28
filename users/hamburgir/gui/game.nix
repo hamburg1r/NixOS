@@ -5,7 +5,7 @@
 	home.packages = with pkgs; [
 		# prismlauncher
 		gamescope
-		lutris
+		faugus-launcher
 		heroic
 		steam
 		steam-run
