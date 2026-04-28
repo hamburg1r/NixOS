@@ -34,7 +34,6 @@
 				modules = [
 					inputs.wallpapers.nixosModules.default
 					inputs.ignis-config.nixosModules.default
-					inputs.niri.nixosModules.niri
 					inputs.dms.nixosModules.dank-material-shell
 
 					./hosts/toaster
