@@ -18,7 +18,7 @@
 	};
 
 	home.packages = with pkgs; [
-		swww
+		awww
 		keepassxc
 	];
 }

@@ -34,9 +34,9 @@
 			]
 			(lib.optionals config.programs.ignis-desktop.enable ["ignis-desktop"])
 			[
-				"${pkgs.swww}/bin/swww-daemon --no-cache"
-				"${pkgs.swww}/bin/swww restore"
-				# "${pkgs.swww}/bin/swww img ${config.wallpaper.desktop.output}"
+				"${pkgs.awww}/bin/awww-daemon --no-cache"
+				"${pkgs.awww}/bin/awww restore"
+				# "${pkgs.awww}/bin/awww img ${config.wallpaper.desktop.output}"
 			]
 		];
 	};
