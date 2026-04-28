@@ -19,5 +19,5 @@
 	};
 	xdg.configFile."gtk-3.0/bookmarks".force = true;
 
-	services.network-manager-applet.enable = true;
+	services.network-manager-applet.enable = !config.programs.dank-material-shell.enable;
 }
