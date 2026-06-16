@@ -82,6 +82,30 @@ in {
 			action.screenshot = [];
 			repeat = false;
 		};
+		"${formatKeybindKey keybinds.fullscreen-screenshot}" = {
+			action.screenshot-screen = [];
+			repeat = false;
+		};
+		"${formatKeybindKey keybinds.window-screenshot}" = {
+			action.screenshot-window = [];
+			repeat = false;
+		};
+		"${formatKeybindKey keybinds.set-dynamic-cast-window}" = {
+			action.set-dynamic-cast-window = [];
+			repeat = false;
+		};
+		"${formatKeybindKey keybinds.set-dynamic-cast-monitor}" = {
+			action.set-dynamic-cast-monitor = [];
+			repeat = false;
+		};
+		"${formatKeybindKey keybinds.clear-dynamic-cast-target}" = {
+			action.clear-dynamic-cast-target = [];
+			repeat = false;
+		};
+		# "${formatKeybindKey keybinds.stop-cast}" = {
+		# 	action.stop-cast = [];
+		# 	repeat = false;
+		# };
 		"${formatKeybindKey keybinds.close-window}" = {
 			action.close-window = [];
 			repeat = false;
