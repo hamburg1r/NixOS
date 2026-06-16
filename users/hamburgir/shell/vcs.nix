@@ -8,6 +8,7 @@
 		};
 		git = {
 			enable = true;
+            lfs.enable = true;
 			settings = {
 				user.name = "Hamburgir";
 				user.email = "shantnuprofid@gmail.com";
