@@ -124,6 +124,10 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
+		nixvimConfig = {
+			url = "github:hamburg1r/nixvimConfig";
+			# inputs.nixpkgs.follows = "nixpkgs";
+		};
 		# nixvim = {
 		# 	url = "github:nix-community/nixvim";
 		# 	# inputs.nixpkgs.follows = "nixpkgs";
@@ -153,10 +157,10 @@
 		# 	url = "github:Saghen/blink.cmp";
 		# 	flake = false;
 		# };
-		mcp-hub = {
-			url = "github:ravitemer/mcp-hub";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+		# mcp-hub = {
+		# 	url = "github:ravitemer/mcp-hub";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
 
 
 		# webcord.url = "github:fufexan/webcord-flake";
