@@ -12,25 +12,6 @@
 	# You can change versions, add patches, set compilation flags, anything really.
 	# https://nixos.wiki/wiki/Overlays
 	modifications = final: prev: {
-		# example = prev.example.overrideAttrs (oldAttrs: rec {
-		# ...
-		# });
-		# TODO: remove this?
-		neovim-with-lsp = prev.symlinkJoin {
-			name = "neovim-with-lsp";
-			paths = [ prev.neovim ];
-			nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-			postBuild = ''
-				wrapProgram $out/bin/nvim \
-				--prefix PATH : ${pkgs.lib.makeBinPath [
-					prev.basedpyright
-					pkgs.gcc
-					pkgs.live-server
-					prev.lua-language-server
-					# pkgs.nodejs_20
-				]}
-			'';
-		};
 		discord = prev.discord.override {
 			# withOpenASAR = true;
 			# withVencord = true;
