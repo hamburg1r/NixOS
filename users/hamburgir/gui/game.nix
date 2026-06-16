@@ -6,7 +6,7 @@
 		# prismlauncher
 		gamescope
 		faugus-launcher
-		heroic
+		# heroic
 		steam
 		steam-run
 	];
