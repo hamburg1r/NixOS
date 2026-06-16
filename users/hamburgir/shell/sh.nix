@@ -7,7 +7,7 @@
 	# TODO: move stuff to common profile(potentially?)
 	programs = {
 		oh-my-posh = {
-			enable = true;
+			enable = false;
 			enableBashIntegration = config.programs.bash.enable;
 			enableFishIntegration = config.programs.fish.enable;
 			enableZshIntegration = config.programs.zsh.enable;
@@ -44,10 +44,10 @@
 						];
 					}
 					# {
-					# 	type = "prompt";
-					# 	alignment = "right";
-					# 	segments = [
-					# 	];
+					#	type = "prompt";
+					#	alignment = "right";
+					#	segments = [
+					#	];
 					# }
 					{
 						type = "prompt";
@@ -133,17 +133,31 @@
 				# ZLE_RPROMPT_INDENT=0
 				# if [[ "$HOME/.config/zsh/.p10k.zsh" ]]; then source "$HOME/.config/zsh/.p10k.zsh"; fi
 
-			    # any-nix-shell zsh --info-right | source /dev/stdin
+				# any-nix-shell zsh --info-right | source /dev/stdin
 				# TODO: remove escape seq
 				# eval "$(''${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ''${ompCfg}')"
-				bindkey '^p' history-search-backward
-				bindkey '^n' history-search-forward
 
 				zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 				zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
 				zstyle ':completion:*' menu no
 				zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-			'';
+			''
+			# + lib.optionalString config.programs.starship.enable ''
+			# 	_transient_prompt_preexec() {
+			# 		_cmd_was_run=1
+			# 	}
+			#
+			# 	zle-line-finish() {
+			# 		if [[ -n "$_cmd_was_run" ]]; then
+			# 		PROMPT="$(starship module character) "
+			# 		unset _cmd_was_run
+			# 		fi
+			# 	}
+			#
+			# 	add-zsh-hook preexec _transient_prompt_preexec
+			# 	zle -N zle-line-finish
+			# ''
+			;
 			autosuggestion = {
 				enable = true;
 				strategy = [
@@ -152,24 +166,29 @@
 				];
 			};
 			enableCompletion = true;
-			completionInit = "autoload -Uz compinit && compinit -C";
+			envExtra = "fpath+=(${pkgs.zsh-completions}/share/zsh/site-functions)";
+
+			completionInit = " autoload -Uz compinit && compinit -C";
 			enableVteIntegration = true;
 			autocd = true;
 			defaultKeymap = "emacs";
 			# dirHashes = {
-			# 	movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
-			# 	games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";
+			#	movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
+			#	games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";
 			# };
 			dotDir = "${config.xdg.configHome}/zsh";
 			history = {
 				# expireDuplicatesFirst = true;
-				extended = true;
-				ignoreDups = true;
+				extended = false;
+				ignoreAllDups = true;
 				ignorePatterns = [
 					"bash"
+                    "btop"
 					"clear"
 					"killall *"
+					"nh *"
 					"pkill *"
+                    "rm *"
 					"zsh"
 				];
 				ignoreSpace = true;
@@ -193,22 +212,17 @@
 				rec {
 					name = "fast-syntax-highlighting";
 					src = pkgs.zsh-fast-syntax-highlighting;
-					file = "share/zsh/site-functions/${name}.plugin.zsh";
+					file = "share/zsh/plugins/${name}/${name}.plugin.zsh";
 				}
 				rec {
-					name = "zsh-completions";
-					src = pkgs.zsh-completions;
-					file = "share/zsh/site-functions/${name}.plugin.zsh";
-				}
-				{
 					name = "fzf-tab";
 					src = pkgs.zsh-fzf-tab;
-					file = "share/fzf-tab/fzf-tab.plugin.zsh";
+					file = "share/${name}/${name}.plugin.zsh";
 				}
 				# {
-				# 	name = "powerlevel10k";
-				# 	src = inputs.powerlevel10k;
-				# 	file = "powerlevel10k.zsh-theme";
+				#	name = "powerlevel10k";
+				#	src = inputs.powerlevel10k;
+				#	file = "powerlevel10k.zsh-theme";
 				# }
 			];
 			zprof.enable = false;
@@ -248,7 +262,7 @@
 			];
 		};
 		starship = {
-			enable = false;
+			enable = true;
 			enableBashIntegration = true;
 			enableZshIntegration = true;
 			settings = {
@@ -286,7 +300,7 @@
 				directory = {
 					format = "in [$path ]($style)[$read_only]($read_only_style)";
 					fish_style_pwd_dir_length = 1;
-					home_symbol = "󰋜";
+					# home_symbol = "󰋜";
 					read_only = " ";
 					style = "blue bold";
 				};
