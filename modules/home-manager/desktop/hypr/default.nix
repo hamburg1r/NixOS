@@ -18,4 +18,5 @@
 		./windowRules.nix
 		./layout.nix
 	];
+	wayland.windowManager.hyprland.configType = "lua";
 }
