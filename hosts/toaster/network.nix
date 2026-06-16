@@ -5,7 +5,7 @@
 		hostName = "toaster";
 
 		firewall = {
-			# enable = false;
+			enable = false;
 			allowPing = true;
 		};
 
