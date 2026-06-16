@@ -50,7 +50,24 @@
 			"RM_STAR_WAIT"
 			"SHARE_HISTORY"
 		];
-		
+		interactiveShellInit = ''
+            zmodload zsh/terminfo
+
+            # Bind terminfo keys if available
+            [[ -n "$terminfo[khome]" ]] && bindkey "$terminfo[khome]" beginning-of-line
+            [[ -n "$terminfo[kend]"  ]] && bindkey "$terminfo[kend]"  end-of-line
+            [[ -n "$terminfo[kdch1]" ]] && bindkey "$terminfo[kdch1]" delete-char
+
+            # Fallback: also bind the alternate sequences explicitly
+            bindkey "^[[1~" beginning-of-line
+            bindkey "^[[4~" end-of-line
+            bindkey "^[[H"  beginning-of-line
+            bindkey "^[[F"  end-of-line
+            bindkey "^[[3~" delete-char
+
+            bindkey "^P" up-line-or-history
+            bindkey "^N" down-line-or-history
+        '';
 	};
 	environment.pathsToLink = lib.mkIf config.programs.zsh.enable [ "/share/zsh" ];
 }
