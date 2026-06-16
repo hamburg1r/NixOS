@@ -44,15 +44,6 @@
 	programs.sway.enable = true;
 
 	environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];
-	services.displayManager = {
-		gdm.enable = true;
-		# sddm = {
-			# enable = true;
-			# theme = "catppuccin-mocha";
-		# };
-		# lightdm.enable = false;
-	};
-
 	# Configure keymap in X11
 	services.xserver = {
 		enable = true;
