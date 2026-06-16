@@ -17,7 +17,11 @@
 				};
 				app-launcher = mkOption {
 					type = types.listOf types.str;
-					default = [ "${pkgs.rofi}/bin/rofi" "-show" "drun" ];
+					default =
+						if config.programs.dank-material-shell.enable then
+							[ "${lib.getExe inputs.dms.packages.${pkgs.system}.default}" "ipc" "call" "spotlight" "toggle" ]
+						else
+							[ "${lib.getExe pkgs.rofi}" "-show" "drun" ];
 					description = "The application launcher command.";
 				};
 			};
