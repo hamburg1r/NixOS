@@ -1,8 +1,9 @@
 {
-	pkgs,
-	...
+    pkgs,
+    ...
 }: {
-	home.packages = with pkgs; [
-		gemini-cli
-	];
+    home.packages = with pkgs; [
+        antigravity
+        antigravity-cli
+    ];
 }
