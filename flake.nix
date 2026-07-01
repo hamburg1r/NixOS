@@ -49,7 +49,6 @@
 					inputs.wallpapers.homeManagerModules.default
 					inputs.ignis-config.homeManagerModules.default
 					inputs.niri.homeModules.niri
-					inputs.noctalia.homeModules.default
 
 					# inputs.ags.homeManagerModules.default
 
@@ -111,10 +110,6 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
-		noctalia = {
-			url = "github:noctalia-dev/noctalia-shell";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
 		dms = {
 			url = "github:AvengeMedia/DankMaterialShell";
 			inputs.nixpkgs.follows = "nixpkgs";

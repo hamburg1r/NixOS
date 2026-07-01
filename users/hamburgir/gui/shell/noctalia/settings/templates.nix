@@ -1,6 +1,0 @@
-{
-  templates = {
-    activeTemplates = [];
-    enableUserTheming = false;
-  };
-}
