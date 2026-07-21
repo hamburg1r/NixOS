@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.tmux = {
@@ -34,6 +34,24 @@
       # Synchronize panes (toggle)
       bind S set-window-option synchronize-panes\; display-message "synchronize-panes #{?pane_synchronized,on,off}"
 
+      # Fast window jumping (Alt+1 to Alt+9)
+      bind -n M-1 select-window -t 1
+      bind -n M-2 select-window -t 2
+      bind -n M-3 select-window -t 3
+      bind -n M-4 select-window -t 4
+      bind -n M-5 select-window -t 5
+      bind -n M-6 select-window -t 6
+      bind -n M-7 select-window -t 7
+      bind -n M-8 select-window -t 8
+      bind -n M-9 select-window -t 9
+
+      # Sessionizer
+      bind f run-shell "tmux neww ${inputs.scripts.packages.${pkgs.system}.tmux-sessionizer}/bin/tmux-sessionizer"
+      bind F run-shell "${inputs.scripts.packages.${pkgs.system}.tmux-session-clear}/bin/tmux-session-clear"
+
+      # Floating Scratchpad (Alt+g)
+      bind -n M-g display-popup -E "tmux new-session -A -s scratch"
+
       # Reload config (Note: ~/.tmux.conf is usually a symlink to the generated config by Home Manager)
       bind r source-file ~/.tmux.conf\; display-message "Tmux config reloaded!"
     '';
@@ -47,17 +65,6 @@
     # newSession = true;
     plugins = with pkgs; [
       tmuxPlugins.cpu
-      {
-        plugin = tmuxPlugins.resurrect;
-        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-      }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '60' # minutes
-        '';
-      }
     ];
     customPaneNavigationAndResize = true;
     resizeAmount = 1;

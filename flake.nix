@@ -168,6 +168,11 @@
 		# };
 
 
+		scripts = {
+			url = "git+file:///home/hamburgir/repo/scripts";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
 		nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
 	};
 }
