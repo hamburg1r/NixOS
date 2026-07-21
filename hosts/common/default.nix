@@ -37,6 +37,9 @@
 		];
 		config = {
 			allowUnfree = lib.mkDefault true;
+			permittedInsecurePackages = [
+				"pnpm-10.29.2"
+			];
 		};
 	};
 
@@ -88,8 +91,7 @@
 			clean = {
 				enable = true;
 				extraArgs = "--nogcroots --keep-since 3d --keep 5";
-				dates = "daily";
-				# TODO: !!important!! change
+				dates = "weekly";
 			};
 			# FIXME: change if not this path
 			flake = "/home/hamburgir/repo/NixOS";

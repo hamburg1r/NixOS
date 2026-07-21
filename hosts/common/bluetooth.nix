@@ -4,7 +4,8 @@
 	hardware.bluetooth = {
 		settings = {
 			General = {
-				ControllerMode = "bredr";
+				Enable = "Source,Sink,Media,Socket";
+				ControllerMode = "dual";
 			};
 		};
 	};
