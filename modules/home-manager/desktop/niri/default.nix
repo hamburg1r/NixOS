@@ -15,6 +15,7 @@ in {
 		./settings.nix
 		./startup.nix
 		./xwayland.nix
+		./window-rules.nix
 
 		./debug.nix
 	];
