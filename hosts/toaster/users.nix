@@ -10,6 +10,7 @@
 			"networkmanager"
 			"wheel"
 			"storage"
+			"inputs"
 		];
 		openssh.authorizedKeys.keys = [
 		];
