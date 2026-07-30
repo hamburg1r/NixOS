@@ -229,7 +229,7 @@
 		};
 		fzf = {
 			enable = true;
-			changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
+			changeDirWidget.command = "${pkgs.fd}/bin/fd --type d";
 			colors = lib.mkForce {
 				bg = "-1";
 				"bg+" = "bright-black";
