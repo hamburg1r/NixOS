@@ -28,16 +28,15 @@
         fsType = "btrfs";
     };
 
-    fileSystems."/boot/efi" = {
-        device = "/dev/disk/by-label/EFI";
-        fsType = "vfat";
+    fileSystems."/mnt/games" = {
+        device = "/dev/disk/by-label/games";
+        fsType = "ext4";
     };
 
-    swapDevices = [{
-        device = "/dev/disk/by-label/swap";
-        priority = 60;
-        size = null;
-    }];
+    fileSystems."/mnt/other" = {
+        device = "/dev/disk/by-label/other";
+        fsType = "ext4";
+    };
 
     # Periodic balance to prevent chunk imbalance recurring
     systemd.services."btrfs-balance-home" = {
