@@ -8,6 +8,7 @@
 
 	config = mkIf config.theme.enable {
 		home.pointerCursor = {
+			enable = true;
 			package = config.userTheme.cursors.package;
 			gtk.enable = true;
 			hyprcursor.enable = config.wayland.windowManager.sway.enable;
