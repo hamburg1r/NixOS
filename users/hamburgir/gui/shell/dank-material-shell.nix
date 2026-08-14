@@ -1,10 +1,21 @@
 {
 	inputs,
+	config,
+	lib,
+	pkgs,
 	...
 }: {
 	imports = [
 		inputs.dms.homeModules.dank-material-shell
 		inputs.dms-plugin-registry.homeModules.default
+	];
+
+	# Bongo Cat needs libinput/evtest on PATH (HM has no NixOS-style services.path).
+	systemd.user.services.dms.Service.Environment = lib.mkAfter [
+		"PATH=${lib.makeBinPath [
+			pkgs.libinput
+			pkgs.evtest
+		]}:${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
 	];
 
 	programs = {
