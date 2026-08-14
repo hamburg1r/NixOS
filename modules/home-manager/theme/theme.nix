@@ -20,20 +20,20 @@
 		gtk = {
 			enable = true;
 			iconTheme = {
-				package = pkgs.dracula-icon-theme;
-				name = "Dracula";
+				package = pkgs.papirus-icon-theme;
+				name = "Papirus-Dark";
 			};
 			theme = {
-				package = pkgs.dracula-theme;
-				name = "Dracula";
+				package = pkgs.catppuccin-gtk.override {
+					accents = [ "blue" ];
+					variant = "mocha";
+				};
+				name = "catppuccin-mocha-blue-standard";
 			};
 		};
 		qt = {
 			enable = true;
 			platformTheme.name = "gtk3";
-			# style = {
-			# 	package = pkgs.dracula-qt5-theme;
-			# };
 		};
 		fonts.fontconfig = {
 			enable = true;
