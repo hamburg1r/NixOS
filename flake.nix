@@ -95,7 +95,6 @@
 			url = "github:vinceliuice/grub2-themes?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-
 		wallpapers = {
 			url = "github:hamburg1r/wallpapers?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -107,7 +106,6 @@
 
 		niri = {
 			url = "github:sodiboo/niri-flake?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 		dms = {

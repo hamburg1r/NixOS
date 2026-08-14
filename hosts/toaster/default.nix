@@ -1,6 +1,5 @@
 {
 	outputs,
-	inputs,
 	pkgs,
 	...
 }: {
@@ -22,10 +21,6 @@
 		./vm.nix
 
 		./syncthing.nix
-	];
-
-	nixpkgs.overlays = [
-		inputs.niri.overlays.niri
 	];
 
 	programs.nix-ld = {
