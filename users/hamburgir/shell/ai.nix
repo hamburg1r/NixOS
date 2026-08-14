@@ -3,7 +3,7 @@
     ...
 }: {
     home.packages = with pkgs; [
-        antigravity
+        antigravity-ide
         antigravity-cli
     ];
 }
