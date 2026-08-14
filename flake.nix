@@ -35,6 +35,7 @@
 					inputs.wallpapers.nixosModules.default
 					inputs.ignis-config.nixosModules.default
 					inputs.dms.nixosModules.dank-material-shell
+					inputs.lanzaboote.nixosModules.lanzaboote
 
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
@@ -95,6 +96,11 @@
 			url = "github:vinceliuice/grub2-themes?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		lanzaboote = {
+			url = "github:nix-community/lanzaboote/v1.1.0?shallow=1";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
 		wallpapers = {
 			url = "github:hamburg1r/wallpapers?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
