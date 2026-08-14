@@ -4,6 +4,7 @@
 	# List your module files here
 	# my-module = import ./my-module.nix;
 	desktop = import ./desktop;
+	lf = import ./lf;
 	# nixvim = import ./nixvim;
 	# nvf = {
 	# 	programs.nvf = {
