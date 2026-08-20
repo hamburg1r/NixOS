@@ -22,6 +22,7 @@
 
 		./syncthing.nix
 		./sops.nix
+		./homesync.nix
 	];
 
 	programs.nix-ld = {
