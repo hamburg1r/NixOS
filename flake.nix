@@ -20,7 +20,12 @@
 		forAllSystems = nixpkgs.lib.genAttrs systems;
 	in rec {
 
-		packages = forAllSystems (system: import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; });
+		packages = forAllSystems (system:
+			(import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; })
+			// nixpkgs.lib.optionalAttrs (system == "x86_64-linux") {
+				iso = self.nixosConfigurations.iso.config.system.build.isoImage;
+			}
+		);
 		devShells = forAllSystems (system: import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};});
 
 		overlays = import ./overlays { inherit inputs; pkgs = nixpkgs.legacyPackages."x86_64-linux"; };
@@ -36,9 +41,16 @@
 					inputs.ignis-config.nixosModules.default
 					inputs.dms.nixosModules.dank-material-shell
 					inputs.lanzaboote.nixosModules.lanzaboote
+					inputs.homesync.nixosModules.homesync
+					inputs.sops-nix.nixosModules.sops
 
 					./hosts/toaster
 				] ++ (builtins.attrValues outputs.nixosModules);
+			};
+
+			iso = nixpkgs.lib.nixosSystem {
+				specialArgs = {inherit inputs outputs; system = "x86_64-linux";};
+				modules = [ ./hosts/iso ];
 			};
 		};
 
@@ -50,6 +62,7 @@
 					inputs.wallpapers.homeManagerModules.default
 					inputs.ignis-config.homeManagerModules.default
 					inputs.niri.homeModules.niri
+					inputs.sops-nix.homeManagerModules.sops
 
 					# inputs.ags.homeManagerModules.default
 
@@ -174,6 +187,16 @@
 
 		scripts = {
 			url = "git+file:///home/hamburgir/repo/scripts";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		homesync = {
+			url = "github:hamburg1r/homesync?shallow=1";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		sops-nix = {
+			url = "github:Mic92/sops-nix?shallow=1";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
