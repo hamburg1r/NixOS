@@ -12,5 +12,7 @@
 	boot.lanzaboote = {
 		enable = true;
 		pkiBundle = "/var/lib/sbctl";
+		# ESP is 500M; each kernel+initrd pair is ~100M.
+		configurationLimit = 4;
 	};
 }
