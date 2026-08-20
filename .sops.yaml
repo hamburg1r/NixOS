@@ -1,0 +1,13 @@
+keys:
+  - &system age1826ps509t7phrcflard8l3fkw834gx0wfl5q8l2k0j2sszc5t3tsnfy3kw
+  - &user age1fmtm6gg8lmk8lxp63lrwxlf2zva4h2dlf77jlewz8lfdm6q7cscsw8lr66
+creation_rules:
+  - path_regex: secrets/hosts/.*
+    key_groups:
+      - age:
+          - *system
+          - *user
+  - path_regex: secrets/users/.*
+    key_groups:
+      - age:
+          - *user

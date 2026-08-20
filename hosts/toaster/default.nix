@@ -21,6 +21,7 @@
 		./vm.nix
 
 		./syncthing.nix
+		./sops.nix
 	];
 
 	programs.nix-ld = {

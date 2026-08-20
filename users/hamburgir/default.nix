@@ -13,6 +13,7 @@
 		./specialisation.nix
 		./theme.nix
 		./miscellaneous.nix
+		./sops.nix
 	];
 	home = {
 		activation.zshCompCacheRegen = lib.mkIf config.programs.zsh.enable (lib.hm.dag.entryAfter ["writeBoundary"] ''
