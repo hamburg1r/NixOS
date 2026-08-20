@@ -1,16 +1,164 @@
 # NixOS
-NixOS config
+
+Personal NixOS flake configuration for **toaster** (`x86_64-linux`), with Home Manager for **hamburgir**.
+
+This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/viperML/nh) for rebuilds.
+
+## Prerequisites
+
+- Flakes and `nix-command` enabled (configured in `hosts/common/default.nix`)
+- For editing secrets locally: age key at `~/.config/sops/age/keys.txt`
+
+Optional dev shell (includes `sops`, `age`, `home-manager`, etc.):
+
+```bash
+nix develop
+# or
+nix-shell
+```
 
 ## Installation
 
-#### Command
+Build the installer ISO locally:
+
+```bash
+nix build .#iso
 ```
-sudo nixos-install --flake github:h4m6urg1r#toaster
+
+Boot the resulting image, partition/format disks, then install from a checkout of this flake:
+
+```bash
+sudo nixos-install --flake .#toaster
 ```
-<!-- ### TODO -->
-<!-- - [ ] Remove colorscheme managed by stylix -->
-<!-- - [ ] Update nixvim -->
-<!-- - [X] Remove ags -->
-<!---->
-<!-- ---- -->
-<!-- - This readme could be way behind -->
+
+Or install directly from GitHub without cloning first:
+
+```bash
+sudo nixos-install --flake github:h4m6urg1r/NixOS#toaster
+```
+
+After install, reboot into the new system. Home Manager is applied separately (see below).
+
+## Rebuild commands
+
+**Preferred:** use `nh` (enabled system-wide; flake path is `/home/hamburgir/repo/NixOS` in `hosts/common/default.nix`).
+
+From the repo root:
+
+```bash
+# NixOS system
+nh os switch
+
+# Home Manager (user hamburgir)
+nh home switch
+```
+
+### Alternatives (nix3 / classic)
+
+Equivalent commands if you prefer not to use `nh`:
+
+```bash
+# NixOS
+sudo nixos-rebuild switch --flake .#toaster
+
+# Home Manager
+home-manager switch --flake .#hamburgir
+```
+
+Other useful `nh` subcommands:
+
+```bash
+nh os boot      # apply at next boot
+nh os test      # build and activate in a test environment
+nh home build   # build without switching
+```
+
+Update flake inputs:
+
+```bash
+nix flake update
+```
+
+## Secrets
+
+Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) and [sops](https://github.com/getsops/sops) using **age** keys defined in `.sops.yaml`.
+
+| Path | Decrypted by | Runtime key |
+|------|--------------|-------------|
+| `secrets/hosts/...` | system + user | `/var/lib/sops-nix/key.txt` |
+| `secrets/users/...` | user only | `~/.config/sops/age/keys.txt` |
+
+Host secrets under `secrets/hosts/` are encrypted for both the system and user age keys so you can edit them locally. User secrets under `secrets/users/` are user-only.
+
+### Adding a secret
+
+1. **Create or edit the encrypted file** (from the dev shell):
+
+   ```bash
+   # User secret
+   sops edit secrets/users/hamburgir/my_secret
+
+   # Host secret
+   sops edit secrets/hosts/toaster/my_service/credentials.json
+   ```
+
+   `sops` picks recipients from `.sops.yaml` based on the file path.
+
+2. **Declare it in Nix**
+
+   **User secret** — add to `users/hamburgir/sops.nix`:
+
+   ```nix
+   let
+     mySecret = "users/hamburgir/my_secret";
+   in {
+     sops.secrets.${mySecret} = {
+       sopsFile = ../../secrets/users/hamburgir/my_secret;
+       format = "binary"; # omit for JSON/YAML key lookup
+     };
+
+     # Optional: inject into a generated config
+     sops.templates."my-config".content = ''
+       token = ${config.sops.placeholder.${mySecret}}
+     '';
+   }
+   ```
+
+   **Host secret** — add to a host module (e.g. `hosts/toaster/homesync.nix`):
+
+   ```nix
+   let
+     secretName = "hosts/toaster/my_service/credentials.json";
+   in {
+     sops.secrets.${secretName} = {
+       sopsFile = ../../secrets/hosts/toaster/my_service/credentials.json;
+       format = "binary";
+       owner = "hamburgir";
+       group = "users";
+       mode = "0600";
+     };
+   }
+   ```
+
+3. **Apply**
+
+   ```bash
+   nh home switch   # user secrets
+   nh os switch     # host secrets
+   ```
+
+   Decrypted secrets are available at runtime via `config.sops.secrets.<name>.path` or `config.sops.placeholder.<name>` in templates.
+
+### Existing examples
+
+- **User secret + nix access token template:** `users/hamburgir/sops.nix` (`github_token`)
+- **Host secret + systemd seeding:** `hosts/toaster/homesync.nix` (`kdbx_secrets.json`)
+
+## Flake outputs
+
+| Output | Description |
+|--------|-------------|
+| `nixosConfigurations.toaster` | Main system |
+| `nixosConfigurations.iso` | Installer/recovery ISO |
+| `homeConfigurations.hamburgir` | Home Manager config |
+| `packages.x86_64-linux.iso` | ISO image build |
