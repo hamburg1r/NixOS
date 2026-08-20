@@ -15,6 +15,7 @@
 		"PATH=${lib.makeBinPath [
 			pkgs.libinput
 			pkgs.evtest
+            pkgs.gpu-screen-recorder
 		]}:${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
 	];
 
