@@ -4,6 +4,7 @@
 }: {
 	home.packages = with pkgs; [
 		firefox
+		google-chrome
 	];
 	# TODO: add setting options from/for firefox
 	programs.firefox = {
