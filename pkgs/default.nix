@@ -22,4 +22,5 @@ rec {
 	# example = pkgs.callPackage ./example { };
 	# nvf = nvf-config.neovim;
 	# default = nvf;
+	omniroute = pkgs.callPackage ./omniroute { };
 }
