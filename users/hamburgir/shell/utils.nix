@@ -2,6 +2,9 @@
 	pkgs,
 	...
 }: {
+	home.packages = with pkgs; [
+		sshfs
+	];
 	programs = {
 		aria2 = {
 			enable = true;
