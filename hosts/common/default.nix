@@ -72,10 +72,6 @@
           # };
         };
 
-        environment.systemPackages = with pkgs; [
-          nix-output-monitor
-          nvd
-        ];
         programs = {
           nh = {
             enable = true;

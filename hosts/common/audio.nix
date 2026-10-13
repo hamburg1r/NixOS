@@ -3,12 +3,6 @@
     (
       {pkgs, ...}: {
         # TODO: try noisetorch
-        environment.systemPackages = with pkgs; [
-          crosspipe
-          pwvucontrol
-          stable.easyeffects
-        ];
-
         security.rtkit.enable = true;
         services.pipewire = {
           enable = true;

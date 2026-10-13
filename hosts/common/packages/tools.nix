@@ -1,18 +1,7 @@
 {config, ...}: {
   config.dendritic.nixos.common = [
     (
-      {
-        pkgs,
-        lib,
-        ...
-      }: {
-        environment.systemPackages = with pkgs; [
-          lz4
-          unrar
-          unzip
-          ripgrep
-          fd
-        ];
+      {lib, ...}: {
         services.upower = {
           enable = lib.mkDefault true;
         };
