@@ -34,16 +34,16 @@
 						selectedDevicePath = "all";
 					};
 				};
-				dankBatteryAlerts = {
-					enable = true;
-					settings = {
-						criticalThreshold = 15;
-						warningThreshold = 25;
-					};
-				};
-				dankKDEConnect.enable = true;
+				# dankBatteryAlerts = {
+				# 	enable = true;
+				# 	settings = {
+				# 		criticalThreshold = 15;
+				# 		warningThreshold = 25;
+				# 	};
+				# };
+				# dankKDEConnect.enable = true;
 				dankPomodoroTimer.enable = true;
-				discordVoice.enable = true;
+				# discordVoice.enable = true;
 				emojiLauncher = {
 					enable = true;
 					settings = {
@@ -51,12 +51,12 @@
 					};
 				};
 				niriWindows.enable = true;
-				quickCapture = {
-					enable = true;
-					settings = {
-						postNotification = "toast";
-					};
-				};
+				# quickCapture = {
+				# 	enable = true;
+				# 	settings = {
+				# 		postNotification = "toast";
+				# 	};
+				# };
 			};
 		};
 	};
