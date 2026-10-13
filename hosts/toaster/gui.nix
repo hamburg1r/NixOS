@@ -44,7 +44,6 @@
         programs.droidcam.enable = true;
         programs.sway.enable = true;
 
-        environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];
         # Configure keymap in X11
         services.xserver = {
           enable = true;

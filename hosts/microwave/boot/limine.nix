@@ -1,13 +1,7 @@
 {config, ...}: {
   config.dendritic.nixos.microwave = [
     (
-      {
-        pkgs,
-        lib,
-        ...
-      }: {
-        environment.systemPackages = [pkgs.sbctl];
-
+      {lib, ...}: {
         # Fast, supports Secure Boot out of the box (unlike GRUB + shim).
         boot.loader = {
           # Limine module also mkDefault'd grub off; our mkForce overrides common's mkDefault.

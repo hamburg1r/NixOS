@@ -1,13 +1,7 @@
 {config, ...}: {
   config.dendritic.nixos.toaster = [
     (
-      {
-        pkgs,
-        lib,
-        ...
-      }: {
-        environment.systemPackages = [pkgs.sbctl];
-
+      {lib, ...}: {
         # Lanzaboote owns the ESP via boot.loader.external.
         boot.loader.systemd-boot.enable = lib.mkForce false;
         boot.loader.grub.enable = lib.mkForce false;
