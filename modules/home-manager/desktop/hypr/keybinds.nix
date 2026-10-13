@@ -8,43 +8,76 @@
         ...
       }: let
         cfg = config.desktop; # This comes from the main keybinds.nix options
+        kb = cfg.keybinds;
         mod = cfg.modifier;
 
         listToString = list: lib.strings.concatStringsSep " " list;
 
         terminalExe = listToString cfg.programs.terminal;
+        launcherExe = listToString cfg.programs.app-launcher;
 
-        # Converts [["modifiers"], ["key"]] into "Modifier, Key"
-        formatHyprKeybindKey = keybindList: let
-          modifiers = lib.map lib.strings.toUpper (lib.head keybindList);
-          key = lib.strings.toUpper (lib.head (lib.last keybindList));
+        # Hyprland modifier names differ from the vocabulary's; normalise them.
+        normMod = m:
+          if m == "Control" || m == "Ctrl"
+          then "CTRL"
+          else if m == "Alt"
+          then "ALT"
+          else if m == "Shift"
+          then "SHIFT"
+          else if m == "super" || m == "Super"
+          then "SUPER"
+          else lib.strings.toUpper m;
+
+        # [ [extraMods...] [key] ] + a base modifier list -> "SUPER SHIFT, X"
+        # Hyprland wants the base modifier space-joined with the extra modifiers
+        # before the comma, and the key (case preserved, e.g. XF86AudioMute) after it.
+        mkHotkey = mods: keybindList: let
+          modifiers = lib.map normMod (lib.head keybindList);
+          key = lib.head (lib.last keybindList);
         in
-          lib.strings.concatStringsSep ", " (modifiers ++ [key]);
+          "${lib.concatStringsSep " " (mods ++ modifiers)}, ${key}";
 
-        pamixer = lib.getExe pkgs.stable.pamixer;
+        # Most binds carry the shared base modifier...
+        fmt = mkHotkey [(normMod mod)];
+        # ...media keys carry only their own modifiers, no base Mod.
+        fmtNoMod = mkHotkey [];
       in {
         config = {
-          wayland.windowManager.hyprland.settings = let
-            launcher = "${pkgs.rofi}/bin/rofi -modi drun,run,combi -show drun";
-          in {
+          wayland.windowManager.hyprland.settings = {
             # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
             bind =
               [
-                "${mod}, ${formatHyprKeybindKey cfg.keybinds.terminal}, exec, ${terminalExe}"
-                # "${mod}, Return, exec, wezterm start"
-                "${mod} SHIFT, c, killactive, "
-                "${mod} SHIFT, q, exit, "
+                # --- shared desktop.keybinds (desktop/keybinds.nix) ---
+                "${fmt kb.terminal}, exec, ${terminalExe}"
+                "${fmt kb.app-launcher}, exec, ${launcherExe}"
+                "${fmt kb.close-window}, killactive, "
+                "${fmt kb.quit}, exit, "
+                "${fmt kb.fullscreen}, fullscreen, 0"
+                "${fmt kb.maximize}, fullscreen, 1"
+                "${fmt kb.toggle-windowed-fullscreen}, fullscreenstate, -1 2,"
+                "${fmt kb.toggle-floating}, togglefloating,"
+                "${fmt kb.toggle-tabbed-window}, togglegroup,"
+
+                # --- media keys from the shared vocabulary ---
+                "${fmtNoMod kb.no-mod.speaker-mute}, exec, ${listToString cfg.actions.volume-mute}"
+                "${fmtNoMod kb.no-mod.mic-mute}, exec, ${listToString cfg.actions.mic-mute}"
+                "${fmtNoMod kb.no-mod.mpiris-play-pause}, exec, ${listToString cfg.actions.mpiris-play-pause}"
+                "${fmtNoMod kb.no-mod.mpiris-stop}, exec, ${listToString cfg.actions.mpiris-stop}"
+                "${fmtNoMod kb.no-mod.mpiris-previous}, exec, ${listToString cfg.actions.mpiris-previous}"
+                "${fmtNoMod kb.no-mod.mpiris-next}, exec, ${listToString cfg.actions.mpiris-next}"
+                "${fmtNoMod kb.no-mod.brightness-up}, exec, ${listToString cfg.actions.brightness-up}"
+                "${fmtNoMod kb.no-mod.brightness-down}, exec, ${listToString cfg.actions.brightness-down}"
+
+                # Screenshot utilities (shared keys, hyprland-specific wayshot pipeline)
+                "${fmt kb.screenshot}, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(${pkgs.slurp}/bin/slurp)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
+                "${fmt kb.fullscreen-screenshot}, exec, ${pkgs.wayshot}/bin/wayshot --stdout | ${pkgs.swappy}/bin/swappy -f -"
+                "${fmt kb.window-screenshot}, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq '.at as $a| .size as $s| \"($a[0]),\($a[1]) \($s[0])x\($s[1])\"' -r)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
+
+                # --- existing hyprland-specific binds (kept) ---
                 "${mod}, e, exec, ${terminalExe} lf"
-                # "${mod}, e, exec, wezterm start lf"
-                "${mod}, r, exec, ${launcher}"
                 "${mod} ALT, r, exec, hyprctl reload"
                 "${mod} SHIFT, r, exec, ags quit; ags"
 
-                "${mod}, f, fullscreen, 0"
-                "${mod} SHIFT, f, fullscreen, 1"
-                "${mod} CTRL, f, fullscreenstate, -1 2,"
-
-                "${mod} SHIFT, space, togglefloating,"
                 "${mod}, space, cyclenext, floating"
                 "${mod} ALT, space, cyclenext, tiled"
 
@@ -58,49 +91,31 @@
                 "${mod}, mouse_down, workspace, e+1"
                 "${mod}, mouse_up, workspace, e-1"
 
-                ", XF86AudioPlay, exec, playerctl play-pause"
-                ", XF86AudioPause, exec, playerctl play-pause"
-                ", XF86AudioNext, exec, playerctl next"
-                ", XF86AudioPrev, exec, playerctl previous"
-
-                ", XF86AudioMute, exec, ${pamixer} -t"
-
-                # Screenshot utilities
-                ", Print, exec, ${pkgs.wayshot}/bin/wayshot --stdout | ${pkgs.swappy}/bin/swappy -f -"
-                "SHIFT, Print, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(${pkgs.slurp}/bin/slurp)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
-                "CTRL, Print, exec, ${pkgs.wayshot}/bin/wayshot --slurp \"$(hyprctl activewindow -j | ${pkgs.jq}/bin/jq '.at as $a| .size as $s| \"($a[0]),\($a[1]) \($s[0])x\($s[1])\"' -r)\" --stdout | ${pkgs.swappy}/bin/swappy -f -"
-
-                ", XF86MonBrightnessUp, exec, brightnessctl set 1%+"
-                ", XF86MonBrightnessDown, exec, brightnessctl set 1%-"
-
-                "${mod}, h, movefocus, l"
-                "${mod}, j, movefocus, d"
-                "${mod}, k, movefocus, u"
-                "${mod}, l, movefocus, r"
-
-                "${mod} SHIFT, h, movewindoworgroup, l"
-                "${mod} SHIFT, j, movewindoworgroup, d"
-                "${mod} SHIFT, k, movewindoworgroup, u"
-                "${mod} SHIFT, l, movewindoworgroup, r"
-
-                "${mod}, left, movefocus, l"
-                "${mod}, down, movefocus, d"
-                "${mod}, up, movefocus, u"
-                "${mod}, right, movefocus, r"
-
-                "${mod} SHIFT, left, movewindoworgroup, l"
-                "${mod} SHIFT, down, movewindoworgroup, d"
-                "${mod} SHIFT, up, movewindoworgroup, u"
-                "${mod} SHIFT, right, movewindoworgroup, r"
-
                 "${mod}, TAB, changegroupactive,"
                 "${mod} SHIFT, TAB, changegroupactive, b"
-                "${mod}, t, togglegroup,"
 
                 # Global keybinds
                 "CTRL ALT, m, sendshortcut, CTRL SHIFT, m, title:(.*)(- Discord)$"
                 "CTRL ALT, n, sendshortcut, CTRL SHIFT, d, title:(.*)(- Discord)$"
               ]
+              # Focus/move binds for every key listed for a direction (vim keys + arrows)
+              ++ (lib.concatMap (dir: let
+                  keys = lib.getAttr dir kb.movement;
+                  hyprDir = {
+                    left = "l";
+                    right = "r";
+                    up = "u";
+                    down = "d";
+                  }.${
+                    dir
+                  };
+                in
+                  lib.concatMap (key: [
+                    "${fmt [[] [key]]}, movefocus, ${hyprDir}"
+                    "${fmt [["Shift"] [key]]}, movewindoworgroup, ${hyprDir}"
+                  ])
+                  keys)
+                ["left" "right" "up" "down"])
               ++ (
                 # 	builtins.concatLists [
                 # 		( builtins.concatMap (
@@ -152,16 +167,16 @@
                 else []
               )
               ++ (
-                builtins.concatLists (
-                  builtins.genList (
+                lib.concatLists (
+                  lib.genList (
                     x: let
                       ws = let
                         c = (x + 1) / 10;
                       in
-                        builtins.toString (x + 1 - (c * 10));
+                        lib.toString (x + 1 - (c * 10));
                     in [
-                      "${mod}, ${ws}, workspace, ${builtins.toString (x + 1)}"
-                      "${mod} SHIFT, ${ws}, movetoworkspace, ${builtins.toString (x + 1)}"
+                      "${mod}, ${ws}, workspace, ${lib.toString (x + 1)}"
+                      "${mod} SHIFT, ${ws}, movetoworkspace, ${lib.toString (x + 1)}"
                       # (
                       # 	if config.wm.hyprland.layout == "hy3" then
                       # 		"${mod} SHIFT, ${ws}, hy3:movetoworkspace, ${builtins.toString (x + 1)}"
@@ -175,13 +190,12 @@
 
             binde = [
               # Audio and media controls
-              ", XF86AudioLowerVolume, exec, ${pamixer} -d 1"
-              ", XF86AudioRaiseVolume, exec, ${pamixer} -i 1"
+              "${fmtNoMod kb.no-mod.speaker-volume-up}, exec, ${listToString cfg.actions.volume-up}"
+              "${fmtNoMod kb.no-mod.speaker-volume-down}, exec, ${listToString cfg.actions.volume-down}"
 
               ## input
-              "CTRL, XF86AudioMute, exec, ${pamixer} --default-source -t"
-              "CTRL, XF86AudioLowerVolume, exec, ${pamixer} --default-source -d 1"
-              "CTRL, XF86AudioRaiseVolume, exec, ${pamixer} --default-source -i 1"
+              "${fmtNoMod kb.no-mod.mic-volume-up}, exec, ${listToString cfg.actions.mic-volume-up}"
+              "${fmtNoMod kb.no-mod.mic-volume-down}, exec, ${listToString cfg.actions.mic-volume-down}"
             ];
 
             bindm = [
