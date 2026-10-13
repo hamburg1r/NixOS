@@ -4,6 +4,10 @@
 }: {
 	programs.mpv = {
 		enable = true;
+		bindings = {
+			LEFT = "seek -5";
+			RIGHT = "seek 5";
+		};
 		config = {
 			target-colorspace-hint = "no";
 		};
