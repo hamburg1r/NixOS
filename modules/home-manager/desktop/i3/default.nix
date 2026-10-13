@@ -54,7 +54,8 @@
               // {
                 "${fmt [[] [key]]}" = "focus ${dir}";
                 "${fmt [["Shift"] [key]]}" = "move ${dir}";
-              }) {} keys;
+              }) {}
+            keys;
         in
           lib.foldl' (acc: dir: acc // genDir dir) {}
           ["left" "down" "up" "right"];

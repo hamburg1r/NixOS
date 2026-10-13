@@ -34,8 +34,7 @@
         mkHotkey = mods: keybindList: let
           modifiers = lib.map normMod (lib.head keybindList);
           key = lib.head (lib.last keybindList);
-        in
-          "${lib.concatStringsSep " " (mods ++ modifiers)}, ${key}";
+        in "${lib.concatStringsSep " " (mods ++ modifiers)}, ${key}";
 
         # Most binds carry the shared base modifier...
         fmt = mkHotkey [(normMod mod)];
@@ -100,8 +99,9 @@
               ]
               # Focus/move binds for every key listed for a direction (vim keys + arrows)
               ++ (lib.concatMap (dir: let
-                  keys = lib.getAttr dir kb.movement;
-                  hyprDir = {
+                keys = lib.getAttr dir kb.movement;
+                hyprDir =
+                  {
                     left = "l";
                     right = "r";
                     up = "u";
@@ -109,13 +109,13 @@
                   }.${
                     dir
                   };
-                in
-                  lib.concatMap (key: [
-                    "${fmt [[] [key]]}, movefocus, ${hyprDir}"
-                    "${fmt [["Shift"] [key]]}, movewindoworgroup, ${hyprDir}"
-                  ])
-                  keys)
-                ["left" "right" "up" "down"])
+              in
+                lib.concatMap (key: [
+                  "${fmt [[] [key]]}, movefocus, ${hyprDir}"
+                  "${fmt [["Shift"] [key]]}, movewindoworgroup, ${hyprDir}"
+                ])
+                keys)
+              ["left" "right" "up" "down"])
               ++ (
                 # 	builtins.concatLists [
                 # 		( builtins.concatMap (
