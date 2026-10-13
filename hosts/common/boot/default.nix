@@ -1,8 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./efi.nix
-		./bootloader.nix
-	];
+{config, ...}: {
+  config.dendritic.nixos.common = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

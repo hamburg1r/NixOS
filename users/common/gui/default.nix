@@ -1,11 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./browser.nix
-		./clipboard.nix
-		./media.nix
-		./notifications.nix
-		./terminal.nix
-	];
+{config, ...}: {
+  config.dendritic.home.common = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

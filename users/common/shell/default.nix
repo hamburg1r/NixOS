@@ -1,10 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./aliases.nix
-		./multiplexer.nix
-		./utils.nix
-		./vcs.nix
-	];
+{config, ...}: {
+  config.dendritic.home.common = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

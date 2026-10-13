@@ -1,9 +1,13 @@
-{
-	...
-}: {
-	programs.niri.settings.outputs = {
-		"eDP-1" = {
-			scale = 1.0;
-		};
-	};
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {...}: {
+        programs.niri.settings.outputs = {
+          "eDP-1" = {
+            scale = 1.0;
+          };
+        };
+      }
+    )
+  ];
 }

@@ -1,24 +1,27 @@
-{
-	pkgs,
-	...
-}: {
-	# nixpkgs.overlays = [
-	# 	inputs.eww.overlays.default
-	# 	inputs.rust-overlay.overlays.default
-	# ];
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {pkgs, ...}: {
+        # nixpkgs.overlays = [
+        # 	inputs.eww.overlays.default
+        # 	inputs.rust-overlay.overlays.default
+        # ];
 
-	programs = {
-		ashell = {
-			enable = false;
-			settings = {};
-		};
-		ignis-desktop = {
-			enable = false;
-		};
-	};
+        programs = {
+          ashell = {
+            enable = false;
+            settings = {};
+          };
+          ignis-desktop = {
+            enable = false;
+          };
+        };
 
-	home.packages = with pkgs; [
-		awww
-		keepassxc
-	];
+        home.packages = with pkgs; [
+          awww
+          keepassxc
+        ];
+      }
+    )
+  ];
 }

@@ -1,7 +1,13 @@
-{
-	config,
-	pkgs,
-	lib,
-	...
-}: {
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }: {
+      }
+    )
+  ];
 }

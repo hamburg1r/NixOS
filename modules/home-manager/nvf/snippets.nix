@@ -1,13 +1,16 @@
-{
-	pkgs,
-	...
-}: {
-	vim.snippets = {
-		luasnip = {
-			enable = true;
-			providers = [
-				pkgs.vimPlugins.friendly-snippets
-			];
-		};
-	};
+{config, ...}: {
+  config.dendritic.home.disabled = [
+    (
+      {pkgs, ...}: {
+        vim.snippets = {
+          luasnip = {
+            enable = true;
+            providers = [
+              pkgs.vimPlugins.friendly-snippets
+            ];
+          };
+        };
+      }
+    )
+  ];
 }

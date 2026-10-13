@@ -1,7 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./dank-material-shell.nix
-	];
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

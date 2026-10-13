@@ -1,13 +1,17 @@
-{
-	...
-}: {
-	vim.debugger = {
-		nvim-dap = {
-			enable = true;
-			ui.enable = true;
-		};
-	};
-	vim.languages = {
-		dart.dap.enable = true;
-	};
+{config, ...}: {
+  config.dendritic.home.disabled = [
+    (
+      {...}: {
+        vim.debugger = {
+          nvim-dap = {
+            enable = true;
+            ui.enable = true;
+          };
+        };
+        vim.languages = {
+          dart.dap.enable = true;
+        };
+      }
+    )
+  ];
 }

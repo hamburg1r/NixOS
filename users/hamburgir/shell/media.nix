@@ -1,12 +1,15 @@
-{
-	pkgs,
-	...
-}: {
-	home.packages = with pkgs; [
-		alsa-utils
-		ani-cli
-		stable.pamixer
-		playerctl
-		# ncspot
-	];
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {pkgs, ...}: {
+        home.packages = with pkgs; [
+          alsa-utils
+          ani-cli
+          stable.pamixer
+          playerctl
+          # ncspot
+        ];
+      }
+    )
+  ];
 }

@@ -1,13 +1,13 @@
-{
-	lib,
-	...
-}: {
-	imports = [
-		./kitty
-	];
-	programs = {
-		wezterm = {
-			enable = lib.mkDefault false;
-		};
-	};
+{config, ...}: {
+  config.dendritic.home.common = [
+    (
+      {lib, ...}: {
+        programs = {
+          wezterm = {
+            enable = lib.mkDefault false;
+          };
+        };
+      }
+    )
+  ];
 }

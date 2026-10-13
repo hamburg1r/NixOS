@@ -1,107 +1,101 @@
-{
-	inputs,
-	config,
-	pkgs,
-	lib,
-	outputs,
-	system,
-	...
-}: {
-	imports = [
-		./hardware
+{config, ...}: {
+  config.dendritic.nixos.common = [
+    (
+      {
+        inputs,
+        config,
+        pkgs,
+        lib,
+        outputs,
+        system,
+        ...
+      }: {
+        nixpkgs = {
+          overlays = [
+            outputs.overlays.additions
+            outputs.overlays.modifications
+            outputs.overlays.stable-packages
+            outputs.overlays.unstable-packages
 
-		./audio.nix
-		./boot
-		./bluetooth.nix
-		./fonts.nix
-		./network.nix
+            # neovim-nightly-overlay.overlays.default
 
-		./packages
-	];
+            # Or define it inline, for example:
+            # (final: prev: {
+            #   hi = final.hello.overrideAttrs (oldAttrs: {
+            #     patches = [ ./change-hello-to-hi.patch ];
+            #   });
+            # })
+          ];
+          config = {
+            allowUnfree = lib.mkDefault true;
+            permittedInsecurePackages = [
+              "pnpm-10.29.2"
+            ];
+          };
+        };
 
-	nixpkgs = {
-		overlays = [
-			outputs.overlays.additions
-			outputs.overlays.modifications
-			outputs.overlays.stable-packages
-			outputs.overlays.unstable-packages
+        nix = {
+          # This will add each flake input as a registry
+          # To make nix3 commands consistent with your flake
+          registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
-			# neovim-nightly-overlay.overlays.default
+          # This will additionally add your inputs to the system's legacy channels
+          # Making legacy nix commands consistent as well, awesome!
+          nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
-			# Or define it inline, for example:
-			# (final: prev: {
-			#   hi = final.hello.overrideAttrs (oldAttrs: {
-			#     patches = [ ./change-hello-to-hi.patch ];
-			#   });
-			# })
-		];
-		config = {
-			allowUnfree = lib.mkDefault true;
-			permittedInsecurePackages = [
-				"pnpm-10.29.2"
-			];
-		};
-	};
+          settings = {
+            accept-flake-config = true;
+            allowed-users = ["root" "@wheel"];
+            auto-optimise-store = lib.mkDefault true;
+            # Enable flakes and new 'nix' command
+            experimental-features = ["nix-command" "flakes"];
+            min-free = lib.mkDefault 1073741824;
+            max-free = lib.mkDefault 1073741824;
 
-	nix = {
-		# This will add each flake input as a registry
-		# To make nix3 commands consistent with your flake
-		registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+            substituters = [
+              "https://hamburgir.cachix.org"
+              "https://cache.nixos.org/"
+            ];
+            trusted-public-keys = [
+              "hamburgir.cachix.org-1:KMZ+IBiEsG1s+wrw3+Dh14ZC0aGZucZivjbN7qMZK7Q="
+            ];
+            trusted-users = [
+              "root"
+              "hamburgir"
+            ];
+          };
 
-		# This will additionally add your inputs to the system's legacy channels
-		# Making legacy nix commands consistent as well, awesome!
-		nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+          # gc = {
+          # 	automatic = lib.mkDefault true;
+          # 	dates = lib.mkDefault "weekly";
+          # 	options = lib.mkDefault "--delete-older-than 3";
+          # };
+        };
 
-		settings = {
-			accept-flake-config = true;
-			allowed-users = [ "root" "@wheel" ];
-			auto-optimise-store = lib.mkDefault true;
-			# Enable flakes and new 'nix' command
-			experimental-features = ["nix-command" "flakes"];
-			min-free = lib.mkDefault 1073741824;
-			max-free = lib.mkDefault 1073741824;
+        environment.systemPackages = with pkgs; [
+          nix-output-monitor
+          nvd
+        ];
+        programs = {
+          nh = {
+            enable = true;
+            clean = {
+              enable = true;
+              extraArgs = "--nogcroots --keep-since 3d --keep 5";
+              dates = "weekly";
+            };
+            # FIXME: change if not this path
+            flake = "/home/hamburgir/repo/NixOS";
+          };
 
-			substituters = [
-				"https://hamburgir.cachix.org"
-				"https://cache.nixos.org/"
-			];
-			trusted-public-keys = [
-				"hamburgir.cachix.org-1:KMZ+IBiEsG1s+wrw3+Dh14ZC0aGZucZivjbN7qMZK7Q="
-			];
-			trusted-users = [
-				"root"
-				"hamburgir"
-			];
-		};
+          mtr.enable = lib.mkDefault true;
 
-		# gc = {
-		# 	automatic = lib.mkDefault true;
-		# 	dates = lib.mkDefault "weekly";
-		# 	options = lib.mkDefault "--delete-older-than 3";
-		# };
-	};
+          dconf.enable = lib.mkDefault true;
+        };
 
-	environment.systemPackages = with pkgs; [
-		nix-output-monitor
-		nvd
-	];
-	programs = {
-		nh = {
-			enable = true;
-			clean = {
-				enable = true;
-				extraArgs = "--nogcroots --keep-since 3d --keep 5";
-				dates = "weekly";
-			};
-			# FIXME: change if not this path
-			flake = "/home/hamburgir/repo/NixOS";
-		};
-
-		mtr.enable = lib.mkDefault true;
-
-		dconf.enable = lib.mkDefault true;
-	};
-
-	nixpkgs.hostPlatform = lib.mkDefault system;
-	system.stateVersion = lib.mkDefault "24.05";
+        nixpkgs.hostPlatform = lib.mkDefault system;
+        system.stateVersion = lib.mkDefault "24.05";
+      }
+    )
+  ];
 }

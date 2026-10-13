@@ -1,206 +1,97 @@
 {
-	description = "NixOS CONFIG!!!";
+  description = "NixOS CONFIG!!! (dendritic)";
 
-	outputs = {
-		self,
-		nixpkgs,
-		home-manager,
-		nixpkgs-stable,
-		# nix-on-droid,
-		...
-	} @ inputs: let
-		inherit (self) outputs;
-		systems = [
-			"aarch64-linux"
-			"i686-linux"
-			"x86_64-linux"
-			"aarch64-darwin"
-			"x86_64-darwin"
-		];
-		forAllSystems = nixpkgs.lib.genAttrs systems;
-	in rec {
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        (inputs.import-tree ./parts)
+        (inputs.import-tree ./hosts)
+        # `wezterm/ui.nix` and `miscellaneous.nix` are Lua string
+        # fragments, not modules. Keep them out of the tree.
+        (inputs.import-tree.filterNot (p:
+          inputs.nixpkgs.lib.hasInfix "wezterm/ui.nix" (toString p)
+          || inputs.nixpkgs.lib.hasInfix "wezterm/miscellaneous.nix" (toString p))
+        ./users)
+        (inputs.import-tree ./modules)
+      ];
+    };
 
-		packages = forAllSystems (system:
-			(import ./pkgs { inherit inputs; pkgs = nixpkgs.legacyPackages.${system}; })
-			// nixpkgs.lib.optionalAttrs (system == "x86_64-linux") {
-				iso = self.nixosConfigurations.iso.config.system.build.isoImage;
-			}
-		);
-		devShells = forAllSystems (system: import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};});
+  inputs = {
+    # Nixpkgs
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05?shallow=1";
 
-		overlays = import ./overlays { inherit inputs; pkgs = nixpkgs.legacyPackages."x86_64-linux"; };
+    # Flake plumbing
+    flake-parts.url = "github:hercules-ci/flake-parts?shallow=1";
+    import-tree.url = "github:vic/import-tree?shallow=1";
 
-		nixosModules = import ./modules/nixos;
-		homeManagerModules = import ./modules/home-manager;
+    # Home manager
+    home-manager.url = "github:nix-community/home-manager?shallow=1";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-		nixosConfigurations = {
-			toaster = nixpkgs.lib.nixosSystem {
-				specialArgs = {inherit inputs outputs; system = "x86_64-linux";};
-				modules = [
-					inputs.wallpapers.nixosModules.default
-					inputs.ignis-config.nixosModules.default
-					inputs.dms.nixosModules.dank-material-shell
-					inputs.lanzaboote.nixosModules.lanzaboote
-					inputs.homesync.nixosModules.homesync
-					inputs.sops-nix.nixosModules.sops
+    # Android
+    # nix-on-droid = {
+    # 	url = "github:nix-community/nix-on-droid/release-24.05";
+    # 	inputs.nixpkgs.follows = "nixpkgs-stable";
+    # };
 
-					./hosts/toaster
-				] ++ (builtins.attrValues outputs.nixosModules);
-			};
+    # catppuccin-sddm = {
+    # 	url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
+    # 	flake = false;
+    # };
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.1.0?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-			iso = nixpkgs.lib.nixosSystem {
-				specialArgs = {inherit inputs outputs; system = "x86_64-linux";};
-				modules = [ ./hosts/iso ];
-			};
-		};
+    wallpapers = {
+      url = "github:hamburg1r/wallpapers?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ignis-config = {
+      url = "github:hamburg1r/ignis-config?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		homeConfigurations = {
-			hamburgir = home-manager.lib.homeManagerConfiguration {
-				pkgs = nixpkgs.legacyPackages.x86_64-linux;
-				extraSpecialArgs = {inherit inputs outputs;};
-				modules = [
-					inputs.wallpapers.homeManagerModules.default
-					inputs.ignis-config.homeManagerModules.default
-					inputs.niri.homeModules.niri
-					inputs.sops-nix.homeManagerModules.sops
+    niri = {
+      url = "github:sodiboo/niri-flake/very-refactor?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-					# inputs.ags.homeManagerModules.default
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms-plugin-registry = {
+      url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-					# inputs.nixvim.homeManagerModules.nixvim
-					# inputs.nvf.homeManagerModules.default
+    nixvimConfig = {
+      url = "github:hamburg1r/nixvimConfig";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-					# inputs.webcord.homeManagerModules.default
+    scripts = {
+      url = "git+file:///home/hamburgir/repo/scripts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-					./users/hamburgir
-				] ++ (builtins.attrValues outputs.homeManagerModules);
-			};
-		};
+    homesync = {
+      url = "github:hamburg1r/homesync?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		# nixOnDroidConfigurations = {
-		# 	default = nix-on-droid.lib.nixOnDroidConfiguration {
-		# 		pkgs = import nixpkgs-stable { system = "aarch64-linux"; };
-		# 		modules = [ ./android/default ];
-		# 	};
-		# };
-	};
+    sops-nix = {
+      url = "github:Mic92/sops-nix?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-	inputs = {
-		# Nixpkgs
-		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
-		nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05?shallow=1";
-
-		# Home manager
-		home-manager.url = "github:nix-community/home-manager?shallow=1";
-		home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-		# Android
-		# nix-on-droid = {
-		# 	url = "github:nix-community/nix-on-droid/release-24.05";
-		# 	inputs.nixpkgs.follows = "nixpkgs-stable";
-		# };
-
-
-		# catppuccin-sddm = {
-		# 	url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip";
-		# 	flake = false;
-		# };
-		grub2-themes = {
-			url = "github:vinceliuice/grub2-themes?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		lanzaboote = {
-			url = "github:nix-community/lanzaboote/v1.1.0?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		wallpapers = {
-			url = "github:hamburg1r/wallpapers?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		ignis-config = {
-			url = "github:hamburg1r/ignis-config?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		niri = {
-			url = "github:sodiboo/niri-flake/very-refactor?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		dms = {
-			url = "github:AvengeMedia/DankMaterialShell";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		dms-plugin-registry = {
-			url = "github:AvengeMedia/dms-plugin-registry";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		nixvimConfig = {
-			url = "github:hamburg1r/nixvimConfig";
-			# inputs.nixpkgs.follows = "nixpkgs";
-		};
-		# nixvim = {
-		# 	url = "github:nix-community/nixvim";
-		# 	# inputs.nixpkgs.follows = "nixpkgs";
-		# };
-		# nvf = {
-		# 	url = "github:NotAShelf/nvf";
-		# 	inputs.nixpkgs.follows = "nixpkgs";
-		# };
-		#
-		# live-server = {
-		# 	url = "github:barrett-ruth/live-server.nvim";
-		# 	flake = false;
-		# };
-		# journal-nvim = {
-		# 	url = "github:jakobkhansen/journal.nvim";
-		# 	flake = false;
-		# };
-		# autosave-nvim = {
-		# 	url = "github:0x00-ketsu/autosave.nvim";
-		# 	flake = false;
-		# };
-		# tiny-code-action = {
-		# 	url = "github:rachartier/tiny-code-action.nvim";
-		# 	flake = false;
-		# };
-		# blink-cmp = {
-		# 	url = "github:Saghen/blink.cmp";
-		# 	flake = false;
-		# };
-		# mcp-hub = {
-		# 	url = "github:ravitemer/mcp-hub";
-		# 	inputs.nixpkgs.follows = "nixpkgs";
-		# };
-
-
-		# webcord.url = "github:fufexan/webcord-flake";
-
-
-		# ags.url = "github:Aylur/ags";
-		# fabricConfig = {
-		# 	url = "github:hamburg1r/fabricConfig.git";
-		# 	url = "git+file:///home/hamburgir/repo/fabricConfig";
-		# };
-
-
-		scripts = {
-			url = "git+file:///home/hamburgir/repo/scripts";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		homesync = {
-			url = "github:hamburg1r/homesync?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		sops-nix = {
-			url = "github:Mic92/sops-nix?shallow=1";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-
-		nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
-	};
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
+  };
 }

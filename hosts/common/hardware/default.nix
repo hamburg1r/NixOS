@@ -1,7 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./filesystem.nix
-	];
+{config, ...}: {
+  config.dendritic.nixos.common = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

@@ -1,0 +1,9 @@
+{config, ...}: {
+  config.dendritic.nixos.microwave = [
+    (
+      {...}: {
+        i18n.defaultLocale = "en_US.UTF-8";
+      }
+    )
+  ];
+}

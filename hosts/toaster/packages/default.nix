@@ -1,8 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./gui.nix
-		./tools.nix
-	];
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

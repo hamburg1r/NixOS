@@ -1,8 +1,20 @@
 # NixOS
 
-Personal NixOS flake configuration for **toaster** (`x86_64-linux`), with Home Manager for **hamburgir**.
+Personal NixOS flake configuration for **toaster** and **microwave** (`x86_64-linux`), with Home Manager for **hamburgir**.
+
+- **toaster** — older laptop: gaming/desktop + bluetooth, no server roles.
+- **microwave** — newer desktop (Ryzen 7 5700X + RX 7600): gaming/desktop, runs the `homesync` and `syncthing` servers, no wifi/bluetooth, Windows dual-boot via Limine (Secure Boot).
 
 This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/viperML/nh) for rebuilds.
+
+## Dendritic layout
+
+Every non-entry `.nix` file under `parts/`, `hosts/`, `users/`, and `modules/` is a top-level module picked up automatically by `import-tree` (paths containing `/_` are ignored). Modules self-register via the `dendritic` options defined in `parts/options.nix`:
+
+- `config.dendritic.nixos.{common,toaster,microwave}`
+- `config.dendritic.home.{common,hamburgir,disabled}`
+
+Hosts are assembled in `parts/hosts/*.nix` by composing the relevant groups.
 
 ## Prerequisites
 
@@ -29,12 +41,15 @@ Boot the resulting image, partition/format disks, then install from a checkout o
 
 ```bash
 sudo nixos-install --flake .#toaster
+# or
+sudo nixos-install --flake .#microwave
 ```
 
 Or install directly from GitHub without cloning first:
 
 ```bash
 sudo nixos-install --flake github:h4m6urg1r/NixOS#toaster
+sudo nixos-install --flake github:h4m6urg1r/NixOS#microwave
 ```
 
 After install, reboot into the new system. Home Manager is applied separately (see below).
@@ -60,6 +75,7 @@ Equivalent commands if you prefer not to use `nh`:
 ```bash
 # NixOS
 sudo nixos-rebuild switch --flake .#toaster
+sudo nixos-rebuild switch --flake .#microwave
 
 # Home Manager
 home-manager switch --flake .#hamburgir
@@ -152,13 +168,24 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 ### Existing examples
 
 - **User secret + nix access token template:** `users/hamburgir/sops.nix` (`github_token`)
-- **Host secret + systemd seeding:** `hosts/toaster/homesync.nix` (`kdbx_secrets.json`)
+- **Host secret + systemd seeding:** `hosts/microwave/homesync.nix` (`kdbx_secrets.json`)
+
+> TODO(microwave): the homesync secret is still encrypted for **toaster's** age key. Re-encrypt it for microwave (`sops updatekeys secrets/hosts/toaster/homesync/kdbx_secrets.json`) after adding the microwave key to `.sops.yaml`, and move it to `secrets/hosts/microwave/homesync/`.
 
 ## Flake outputs
 
 | Output | Description |
 |--------|-------------|
-| `nixosConfigurations.toaster` | Main system |
+| `nixosConfigurations.toaster` | Laptop (gaming/desktop, bluetooth) |
+| `nixosConfigurations.microwave` | Desktop (gaming/desktop, homesync+syncthing servers, Limine + Secure Boot) |
 | `nixosConfigurations.iso` | Installer/recovery ISO |
 | `homeConfigurations.hamburgir` | Home Manager config |
 | `packages.x86_64-linux.iso` | ISO image build |
+
+## Microwave first-boot notes
+
+- **Windows dual boot:** Limine chainloads `boot()/EFI/Microsoft/Boot/bootmgfw.efi`; install Windows to the partition labeled `Windows` (mounted at `/mnt/windows`).
+- **Secure Boot:** the Limine module signs with `sbctl`. On first boot:
+  1. `sbctl create-keys`
+  2. reset Secure Boot to "setup mode" in the BIOS, then `sbctl enroll-keys -m -f`
+  3. rebuild with `boot.loader.limine.secureBoot.enable` set, then enable Secure Boot in the BIOS.

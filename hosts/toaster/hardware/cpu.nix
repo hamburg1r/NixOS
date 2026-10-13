@@ -1,10 +1,12 @@
-{
-	inputs,
-	...
-}: {
-	imports = [
-		inputs.nixos-hardware.nixosModules.common-cpu-amd
-	];
-	hardware.enableRedistributableFirmware = true;
-	hardware.enableAllFirmware = true;
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {inputs, ...}: {
+        imports = [inputs.nixos-hardware.nixosModules.common-cpu-amd];
+
+        hardware.enableRedistributableFirmware = true;
+        hardware.enableAllFirmware = true;
+      }
+    )
+  ];
 }

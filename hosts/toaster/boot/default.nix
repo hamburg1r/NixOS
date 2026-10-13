@@ -1,9 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./grub.nix
-		./lanzaboote.nix
-		./plymouth.nix
-	];
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

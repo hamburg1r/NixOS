@@ -1,20 +1,23 @@
-{
-	pkgs,
-	...
-}: {
-	home.packages = with pkgs; [
-		sshfs
-	];
-	programs = {
-		aria2 = {
-			enable = true;
-		};
-		bashmount = {
-			enable = true;
-		};
-		taskwarrior = {
-			enable = true;
-			package = pkgs.taskwarrior3;
-		};
-	};
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {pkgs, ...}: {
+        home.packages = with pkgs; [
+          sshfs
+        ];
+        programs = {
+          aria2 = {
+            enable = true;
+          };
+          bashmount = {
+            enable = true;
+          };
+          taskwarrior = {
+            enable = true;
+            package = pkgs.taskwarrior3;
+          };
+        };
+      }
+    )
+  ];
 }

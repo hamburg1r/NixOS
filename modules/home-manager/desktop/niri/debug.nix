@@ -1,5 +1,9 @@
-{
-	...
-}: {
-	# programs.niri.settings.debug = ;
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {...}: {
+        # programs.niri.settings.debug = ;
+      }
+    )
+  ];
 }

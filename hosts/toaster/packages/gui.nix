@@ -1,28 +1,31 @@
-{
-	pkgs,
-	...
-}: {
-	services.tumbler.enable = true;
-	environment.systemPackages = with pkgs; [
-		vulkan-loader
-		vulkan-tools
-		mpv
-		ffmpegthumbnailer
-		gparted
-		zenity
-		# dunst
-		libnotify
-		# poppler
-		nemo
-		# xfce.thunar
-		ristretto
-		## xorg
-		# xclip
-		# xdotool
-		## wayland
-		wl-clipboard
-		# wtype
-		ydotool
-		firefox
-	];
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {pkgs, ...}: {
+        services.tumbler.enable = true;
+        environment.systemPackages = with pkgs; [
+          vulkan-loader
+          vulkan-tools
+          mpv
+          ffmpegthumbnailer
+          gparted
+          zenity
+          # dunst
+          libnotify
+          # poppler
+          nemo
+          # xfce.thunar
+          ristretto
+          ## xorg
+          # xclip
+          # xdotool
+          ## wayland
+          wl-clipboard
+          # wtype
+          ydotool
+          firefox
+        ];
+      }
+    )
+  ];
 }

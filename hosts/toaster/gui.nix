@@ -1,98 +1,102 @@
-{
-	inputs,
-	outputs,
-	pkgs,
-	lib,
-	config,
-	...
-}: {
-	imports = [
-		inputs.niri.nixosModules.niri
-	];
-	# Enable the X11 windowing system.
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {
+        inputs,
+        outputs,
+        pkgs,
+        lib,
+        config,
+        ...
+      }: {
+        imports = [inputs.niri.nixosModules.niri];
 
-	wallpaper.sddm = {
-		dir = "your_name";
-		file = "VillageComet.jpg";
-	};
+        # Enable the X11 windowing system.
 
-	services.xserver.desktopManager = {
-		xfce.enable = false;
-	};
-	services.desktopManager = {
-		plasma6.enable = false;
-		gnome.enable = true;
-	};
+        wallpaper.sddm = {
+          dir = "your_name";
+          file = "VillageComet.jpg";
+        };
 
+        services.xserver.desktopManager = {
+          xfce.enable = false;
+        };
+        services.desktopManager = {
+          plasma6.enable = false;
+          gnome.enable = true;
+        };
 
-	services.xserver.windowManager = {
-		qtile.enable = false;
-		i3.enable = true;
-		herbstluftwm.enable = false;
-		awesome = {
-			enable = false;
-			luaModules = with pkgs.luaPackages;[
-				luarocks
-				luadbi-mysql
-			];
-		};
-	};
+        services.xserver.windowManager = {
+          qtile.enable = false;
+          i3.enable = true;
+          herbstluftwm.enable = false;
+          awesome = {
+            enable = false;
+            luaModules = with pkgs.luaPackages; [
+              luarocks
+              luadbi-mysql
+            ];
+          };
+        };
 
-	services.xserver.excludePackages = [ pkgs.xterm ];
+        services.xserver.excludePackages = [pkgs.xterm];
 
-	programs.droidcam.enable = true;
-	programs.sway.enable = true;
+        programs.droidcam.enable = true;
+        programs.sway.enable = true;
 
-	environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];
-	# Configure keymap in X11
-	services.xserver = {
-		enable = true;
-		xkb = {
-			layout = "us";
-			variant = "";
-		};
-	};
-	services.gnome.gnome-keyring.enable = true;
-	programs.hyprland = {
-		enable = true;
-		xwayland.enable = true;
-	};
-	programs.niri = {
-		enable = true;
-		package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
-	};
-	# xdg.portal = {
-	# 	enable = true;
-	# 	extraPortals = with pkgs; [
-	# 		xdg-desktop-portal-wlr
-	# 		xdg-desktop-portal-gtk
-	# 		xdg-desktop-portal-hyprland
-	# 	];
-	# 	# gtkUsePortal=true;
-	# };
+        environment.systemPackages = lib.mkIf config.services.desktopManager.plasma6.enable [pkgs.kdePackages.sddm-kcm];
+        # Configure keymap in X11
+        services.xserver = {
+          enable = true;
+          xkb = {
+            layout = "us";
+            variant = "";
+          };
+        };
+        services.gnome.gnome-keyring.enable = true;
+        programs.hyprland = {
+          enable = true;
+          xwayland.enable = true;
+        };
+        programs.niri = {
+          enable = true;
+          package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
+        };
+        # xdg.portal = {
+        # 	enable = true;
+        # 	extraPortals = with pkgs; [
+        # 		xdg-desktop-portal-wlr
+        # 		xdg-desktop-portal-gtk
+        # 		xdg-desktop-portal-hyprland
+        # 	];
+        # 	# gtkUsePortal=true;
+        # };
 
-	security.polkit.enable = true;
-	# systemd.user.services.niri-flake-polkit.enable = false;
-	# systemd = {
-	# 	user.services.polkit-gnome-authentication-agent-1 = {
-	# 		description = "polkit-gnome-authentication-agent-1";
-	# 		wantedBy = [ "graphical-session.target" ];
-	# 		wants = [ "graphical-session.target" ];
-	# 		after = [ "graphical-session.target" ];
-	# 		serviceConfig = {
-	# 			Type = "simple";
-	# 			ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-	# 			Restart = "on-failure";
-	# 			RestartSec = 1;
-	# 			TimeoutStopSec = 10;
-	# 		};
-	# 	};
-	# };
-	programs.appimage = {
-		enable = true;
-		binfmt = true;
-	};
+        security.polkit.enable = true;
+        # systemd.user.services.niri-flake-polkit.enable = false;
+        # systemd = {
+        # 	user.services.polkit-gnome-authentication-agent-1 = {
+        # 		description = "polkit-gnome-authentication-agent-1";
+        # 		wantedBy = [ "graphical-session.target" ];
+        # 		wants = [ "graphical-session.target" ];
+        # 		after = [ "graphical-session.target" ];
+        # 		serviceConfig = {
+        # 			Type = "simple";
+        # 			ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        # 			Restart = "on-failure";
+        # 			RestartSec = 1;
+        # 			TimeoutStopSec = 10;
+        # 		};
+        # 	};
+        # };
+        programs.appimage = {
+          enable = true;
+          binfmt = true;
+        };
 
-	# Enable touchpad support (enabled default in most desktopManager).
-	# services.xserver.libinput.enable = true;
+        # Enable touchpad support (enabled default in most desktopManager).
+        # services.xserver.libinput.enable = true;
+      }
+    )
+  ];
 }

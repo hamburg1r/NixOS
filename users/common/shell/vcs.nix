@@ -1,24 +1,27 @@
-{
-	lib,
-	...
-}: {
-    programs = {
-        gh = {
+{config, ...}: {
+  config.dendritic.home.common = [
+    (
+      {lib, ...}: {
+        programs = {
+          gh = {
             gitCredentialHelper.enable = lib.mkDefault true;
             settings = {
-                git_protocol = lib.mkDefault "ssh";
-                editor = lib.mkDefault "nvim";
+              git_protocol = lib.mkDefault "ssh";
+              editor = lib.mkDefault "nvim";
             };
-        };
-        git = {
+          };
+          git = {
             # diff-so-fancy.enable = lib.mkDefault true;
-            ignores = lib.mkDefault [ "*.tmp" "*.temp" "tmp.*" "temp.*" ];
+            ignores = lib.mkDefault ["*.tmp" "*.temp" "tmp.*" "temp.*"];
             settings = {
-                init.defaultBranch = "main";
-                pull.rebase = true;
+              init.defaultBranch = "main";
+              pull.rebase = true;
             };
+          };
+          delta.enable = lib.mkDefault true;
+          lazygit.enable = lib.mkDefault true;
         };
-        delta.enable = lib.mkDefault true;
-        lazygit.enable = lib.mkDefault true;
-    };
+      }
+    )
+  ];
 }

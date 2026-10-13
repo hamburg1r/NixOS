@@ -1,13 +1,19 @@
-{
-	lib,
-	pkgs,
-	...
-}: {
-	gtk = {
-		enable = true;
-		iconTheme = {
-			package = lib.mkDefault pkgs.papirus-icon-theme;
-			name = lib.mkDefault "Papirus-Dark";
-		};
-	};
+{config, ...}: {
+  config.dendritic.home.common = [
+    (
+      {
+        lib,
+        pkgs,
+        ...
+      }: {
+        gtk = {
+          enable = true;
+          iconTheme = {
+            package = lib.mkDefault pkgs.papirus-icon-theme;
+            name = lib.mkDefault "Papirus-Dark";
+          };
+        };
+      }
+    )
+  ];
 }

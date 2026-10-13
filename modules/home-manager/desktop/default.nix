@@ -1,9 +1,8 @@
-{
-	...
-}: {
-	imports = [
-		./keybinds.nix
-
-		./session.nix
-	];
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {...}: {
+      }
+    )
+  ];
 }

@@ -1,3 +1,3 @@
 ''
-	config.audible_bell = "Disabled"
+  config.audible_bell = "Disabled"
 ''

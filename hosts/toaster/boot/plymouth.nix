@@ -1,8 +1,12 @@
-{
-	...
-}: {
-	custom.plymouth = {
-		enable = true;
-		theme.name = "owl";
-	};
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {...}: {
+        custom.plymouth = {
+          enable = true;
+          theme.name = "owl";
+        };
+      }
+    )
+  ];
 }

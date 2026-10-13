@@ -1,22 +1,26 @@
-{
-	...
-}: {
-	networking = {
-		hostName = "toaster";
+{config, ...}: {
+  config.dendritic.nixos.toaster = [
+    (
+      {...}: {
+        networking = {
+          hostName = "toaster";
 
-		firewall = {
-			enable = false;
-			allowPing = true;
-		};
+          firewall = {
+            enable = false;
+            allowPing = true;
+          };
 
-		networkmanager = {
-			wifi.powersave = false;
-			# macAddress = "random";
-			# logLevel = "DEBUG";
-		};
-	};
+          networkmanager = {
+            wifi.powersave = false;
+            # macAddress = "random";
+            # logLevel = "DEBUG";
+          };
+        };
 
-	services.tailscale.enable = true;
+        services.tailscale.enable = true;
 
-	# services.openssh.ports = [ 22 8022 ];
+        # services.openssh.ports = [ 22 8022 ];
+      }
+    )
+  ];
 }

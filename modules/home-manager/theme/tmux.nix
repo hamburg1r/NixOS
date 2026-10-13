@@ -1,17 +1,19 @@
-{
-	pkgs,
-	...
-}: {
-	programs.tmux = {
-		clock24 = true;
-		plugins = with pkgs.tmuxPlugins; [
-			sensible
-			yank
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {pkgs, ...}: {
+        programs.tmux = {
+          clock24 = true;
+          plugins = with pkgs.tmuxPlugins; [
+            sensible
+            yank
+          ];
 
-		];
-
-		extraConfig = ''
-			set -g mouse on
-		'';
-	};
+          extraConfig = ''
+            set -g mouse on
+          '';
+        };
+      }
+    )
+  ];
 }

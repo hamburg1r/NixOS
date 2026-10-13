@@ -1,23 +1,29 @@
-{
-	pkgs,
-	config,
-	...
-}: {
-	gtk = {
-		gtk3.bookmarks = let
-			home = dir: "file://${config.home.homeDirectory}/${dir}";
-		in [
-			# "file://${config.home.homeDirectory}/"
-			(home "Documents")
-			(home "Downloads")
-			(home "Music")
-			(home "Pictures")
-			(home "Templates")
-			(home "Videos")
-			"file:///tmp"
-		];
-	};
-	xdg.configFile."gtk-3.0/bookmarks".force = true;
+{config, ...}: {
+  config.dendritic.home.hamburgir = [
+    (
+      {
+        pkgs,
+        config,
+        ...
+      }: {
+        gtk = {
+          gtk3.bookmarks = let
+            home = dir: "file://${config.home.homeDirectory}/${dir}";
+          in [
+            # "file://${config.home.homeDirectory}/"
+            (home "Documents")
+            (home "Downloads")
+            (home "Music")
+            (home "Pictures")
+            (home "Templates")
+            (home "Videos")
+            "file:///tmp"
+          ];
+        };
+        xdg.configFile."gtk-3.0/bookmarks".force = true;
 
-	services.network-manager-applet.enable = !config.programs.dank-material-shell.enable;
+        services.network-manager-applet.enable = !config.programs.dank-material-shell.enable;
+      }
+    )
+  ];
 }
