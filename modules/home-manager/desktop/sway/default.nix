@@ -34,8 +34,8 @@
 
         # [ [extraMods...] [key] ] -> "Mod+Extra+Key" (with the shared base modifier)
         fmtBase = mod: bind: let
-          mods = builtins.map normMod (builtins.head bind);
-          keys = builtins.map normKey (lib.lists.last bind);
+          mods = lib.map normMod (lib.head bind);
+          keys = lib.map normKey (lib.last bind);
         in
           lib.concatStringsSep "+" ([mod] ++ mods ++ keys);
         fmt = fmtBase (normMod dEnv.modifier);
@@ -46,16 +46,16 @@
         # Focus/move binds for every key listed for a direction (vim keys + arrows)
         movementBinds = let
           genDir = dir: let
-            keys = builtins.getAttr dir kb.movement;
+            keys = lib.getAttr dir kb.movement;
           in
-            builtins.foldl' (acc: key:
+            lib.foldl' (acc: key:
               acc
               // {
                 "${fmt [[] [key]]}" = "focus ${dir}";
                 "${fmt [["Shift"] [key]]}" = "move ${dir}";
               }) {} keys;
         in
-          builtins.foldl' (acc: dir: acc // genDir dir) {}
+          lib.foldl' (acc: dir: acc // genDir dir) {}
           ["left" "down" "up" "right"];
 
         # Screenshots from the shared vocabulary (grim+slurp+swappy pipeline)
@@ -121,8 +121,8 @@
 
                 # Workspaces (kept from previous config)
               }
-              // builtins.listToAttrs (
-                builtins.concatMap (ws: [
+              // lib.listToAttrs (
+                lib.concatMap (ws: [
                   {
                     name = "${fmt [[] [(toString ws)]]}";
                     value = "workspace number ${toString ws}";
@@ -132,7 +132,7 @@
                     value = "move container to workspace number ${toString ws}";
                   }
                 ])
-                (builtins.genList (x: x + 1) 9)
+                (lib.genList (x: x + 1) 9)
               )
               // {
                 # Legacy screenshot keys (kept)
@@ -196,7 +196,7 @@
             ];
             output = {
               eDP-1 = {
-                bg = builtins.toString config.wallpaper.desktop.output;
+                bg = lib.toString config.wallpaper.desktop.output;
               };
             };
             workspaceAutoBackAndForth = true;
