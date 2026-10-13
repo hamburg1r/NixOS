@@ -15,10 +15,10 @@
               set -e
 
               if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-              	${pkgs.lf}/bin/lf "$@"
+              	${config.desktop.apps.lf.package}/bin/lf "$@"
               else
               	[ ! -d "$HOME/.cache/lf" ] && mkdir --parents "$HOME/.cache/lf"
-              	${pkgs.lf}/bin/lf "$@" 3>&-
+              	${config.desktop.apps.lf.package}/bin/lf "$@" 3>&-
               fi
             '';
           };

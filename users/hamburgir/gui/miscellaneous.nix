@@ -1,7 +1,7 @@
 {config, ...}: {
   config.dendritic.home.hamburgir = [
     (
-      {pkgs, ...}: {
+      {...}: {
         # nixpkgs.overlays = [
         # 	inputs.eww.overlays.default
         # 	inputs.rust-overlay.overlays.default
@@ -16,11 +16,6 @@
             enable = false;
           };
         };
-
-        home.packages = with pkgs; [
-          awww
-          keepassxc
-        ];
       }
     )
   ];
