@@ -73,19 +73,6 @@
         };
 
         programs = {
-          nh = {
-            enable = true;
-            clean = {
-              enable = true;
-              extraArgs = "--nogcroots --keep-since 3d --keep 5";
-              dates = "weekly";
-            };
-            # FIXME: change if not this path
-            flake = "/home/hamburgir/repo/NixOS";
-          };
-
-          mtr.enable = lib.mkDefault true;
-
           dconf.enable = lib.mkDefault true;
         };
 
