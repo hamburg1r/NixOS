@@ -4,95 +4,140 @@
       {
         config,
         pkgs,
+        lib,
         ...
-      }: {
+      }: let
+        dEnv = config.desktop;
+        kb = dEnv.keybinds;
+
+        # i3 keys are case-sensitive for letters but use X11 names for modifiers/arrows.
+        normMod = m:
+          if m == "Control" || m == "Ctrl"
+          then "Ctrl"
+          else if m == "Alt"
+          then "Mod1"
+          else if m == "super" || m == "Super"
+          then "Mod4"
+          else m;
+        normKey = k:
+          if k == "left"
+          then "Left"
+          else if k == "right"
+          then "Right"
+          else if k == "up"
+          then "Up"
+          else if k == "down"
+          then "Down"
+          else if k == "return"
+          then "Return"
+          else k;
+
+        # [ [extraMods...] [key] ] -> "Mod+Extra+Key" (with the shared base modifier)
+        fmtBase = mod: bind: let
+          mods = builtins.map normMod (builtins.head bind);
+          keys = builtins.map normKey (lib.lists.last bind);
+        in
+          lib.concatStringsSep "+" ([mod] ++ mods ++ keys);
+        # media keys carry only their own modifiers, no base Mod
+        fmt = fmtBase (normMod dEnv.modifier);
+        fmtNoMod = fmtBase "";
+
+        execCmd = cmd: "exec ${lib.concatStringsSep " " cmd}";
+
+        # Focus/move binds for every key listed for a direction (vim keys + arrows)
+        movementBinds = let
+          genDir = dir: let
+            keys = builtins.getAttr dir kb.movement;
+          in
+            builtins.foldl' (acc: key:
+              acc
+              // {
+                "${fmt [[] [key]]}" = "focus ${dir}";
+                "${fmt [["Shift"] [key]]}" = "move ${dir}";
+              }) {} keys;
+        in
+          builtins.foldl' (acc: dir: acc // genDir dir) {}
+          ["left" "down" "up" "right"];
+
+        # Screenshots from the shared vocabulary (grim+slurp+swappy pipeline)
+        screenshotBinds = {
+          "${fmt kb.screenshot}" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.swappy}/bin/swappy -f -";
+          "${fmt kb.fullscreen-screenshot}" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.swappy}/bin/swappy -f -";
+          "${fmt kb.window-screenshot}" = "exec ${pkgs.grim}/bin/grim -g \"$(i3-msg -t get_tree | ${pkgs.jq}/bin/jq '.. | objects | select(.focused == true) | .rect | \"\\(.x),\\(.y) \\(.width)x\\(.height)\"' -r)\" - | ${pkgs.swappy}/bin/swappy -f -";
+        };
+
+        # Multimedia/screen keys from the shared vocabulary -> config.desktop.actions
+        mediaBinds = {
+          "${fmtNoMod kb.no-mod.speaker-volume-up}" = execCmd dEnv.actions.volume-up;
+          "${fmtNoMod kb.no-mod.speaker-volume-down}" = execCmd dEnv.actions.volume-down;
+          "${fmtNoMod kb.no-mod.speaker-mute}" = execCmd dEnv.actions.volume-mute;
+          "${fmtNoMod kb.no-mod.mic-volume-up}" = execCmd dEnv.actions.mic-volume-up;
+          "${fmtNoMod kb.no-mod.mic-volume-down}" = execCmd dEnv.actions.mic-volume-down;
+          "${fmtNoMod kb.no-mod.mic-mute}" = execCmd dEnv.actions.mic-mute;
+          "${fmtNoMod kb.no-mod.mpiris-play-pause}" = execCmd dEnv.actions.mpiris-play-pause;
+          "${fmtNoMod kb.no-mod.mpiris-stop}" = execCmd dEnv.actions.mpiris-stop;
+          "${fmtNoMod kb.no-mod.mpiris-previous}" = execCmd dEnv.actions.mpiris-previous;
+          "${fmtNoMod kb.no-mod.mpiris-next}" = execCmd dEnv.actions.mpiris-next;
+          "${fmtNoMod kb.no-mod.brightness-up}" = execCmd dEnv.actions.brightness-up;
+          "${fmtNoMod kb.no-mod.brightness-down}" = execCmd dEnv.actions.brightness-down;
+        };
+      in {
         xsession.windowManager.i3 = {
           enable = false;
           config = {
             assigns = {
               "4" = [{class = "^discord";}];
             };
-            keybindings = let
-              cfg = config.xsession.windowManager.i3.config;
-            in {
-              "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
-              # "${cfg.modifier}+Shift+q" = "quit";
-              "${cfg.modifier}+Shift+q" = "exec i3-nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your Desktop session.' -b 'Yes, exit sway' 'i3-msg exit'";
-              "${cfg.modifier}+Shift+c" = "kill";
-              "${cfg.modifier}+d" = "exec ${cfg.menu}";
+            keybindings =
+              {
+                # --- shared desktop.keybinds (desktop/keybinds.nix) ---
+                "${fmt kb.terminal}" = "exec ${lib.concatStringsSep " " dEnv.programs.terminal}";
+                "${fmt kb.app-launcher}" = execCmd dEnv.programs.app-launcher;
+                "${fmt kb.close-window}" = "kill";
+                "${fmt kb.quit}" = "exec i3-nag -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your Desktop session.' -b 'Yes, exit i3' 'i3-msg exit'";
+                "${fmt kb.fullscreen}" = "fullscreen toggle";
+                "${fmt kb.toggle-floating}" = "floating toggle";
+              }
+              // movementBinds
+              // screenshotBinds
+              // mediaBinds
+              // {
+                # --- existing i3-specific binds (kept) ---
+                "${fmt [["Shift"] ["c"]]}" = "kill";
+                "${fmt [[] ["a"]]}" = "focus parent";
+                "${fmt [[] ["b"]]}" = "splith";
+                "${fmt [[] ["v"]]}" = "splitv";
+                "${fmt [[] ["s"]]}" = "layout stacking";
+                "${fmt [[] ["w"]]}" = "layout tabbed";
+                "${fmt [[] ["e"]]}" = "layout toggle split";
+                "${fmt [[] ["space"]]}" = "focus mode_toggle";
+                # Mod+r is the shared app-launcher; keep resize mode on a free key
+                "${fmt [["Control"] ["r"]]}" = "mode resize";
+                "${fmt [[] ["minus"]]}" = "scratchpad show";
+                "${fmt [["Shift"] ["minus"]]}" = "move scratchpad";
 
-              "${cfg.modifier}+h" = "focus left";
-              "${cfg.modifier}+j" = "focus down";
-              "${cfg.modifier}+k" = "focus up";
-              "${cfg.modifier}+l" = "focus right";
-
-              "${cfg.modifier}+Left" = "focus left";
-              "${cfg.modifier}+Down" = "focus down";
-              "${cfg.modifier}+Up" = "focus up";
-              "${cfg.modifier}+Right" = "focus right";
-
-              "${cfg.modifier}+Shift+h" = "move left";
-              "${cfg.modifier}+Shift+j" = "move down";
-              "${cfg.modifier}+Shift+k" = "move up";
-              "${cfg.modifier}+Shift+l" = "move right";
-
-              "${cfg.modifier}+Shift+Left" = "move left";
-              "${cfg.modifier}+Shift+Down" = "move down";
-              "${cfg.modifier}+Shift+Up" = "move up";
-              "${cfg.modifier}+Shift+Right" = "move right";
-
-              "${cfg.modifier}+b" = "splith";
-              "${cfg.modifier}+v" = "splitv";
-              "${cfg.modifier}+f" = "fullscreen toggle";
-              "${cfg.modifier}+a" = "focus parent";
-
-              "${cfg.modifier}+s" = "layout stacking";
-              "${cfg.modifier}+w" = "layout tabbed";
-              "${cfg.modifier}+e" = "layout toggle split";
-
-              "${cfg.modifier}+Shift+space" = "floating toggle";
-              "${cfg.modifier}+space" = "focus mode_toggle";
-
-              "${cfg.modifier}+1" = "workspace number 1";
-              "${cfg.modifier}+2" = "workspace number 2";
-              "${cfg.modifier}+3" = "workspace number 3";
-              "${cfg.modifier}+4" = "workspace number 4";
-              "${cfg.modifier}+5" = "workspace number 5";
-              "${cfg.modifier}+6" = "workspace number 6";
-              "${cfg.modifier}+7" = "workspace number 7";
-              "${cfg.modifier}+8" = "workspace number 8";
-              "${cfg.modifier}+9" = "workspace number 9";
-
-              "${cfg.modifier}+Shift+1" = "move container to workspace number 1";
-              "${cfg.modifier}+Shift+2" = "move container to workspace number 2";
-              "${cfg.modifier}+Shift+3" = "move container to workspace number 3";
-              "${cfg.modifier}+Shift+4" = "move container to workspace number 4";
-              "${cfg.modifier}+Shift+5" = "move container to workspace number 5";
-              "${cfg.modifier}+Shift+6" = "move container to workspace number 6";
-              "${cfg.modifier}+Shift+7" = "move container to workspace number 7";
-              "${cfg.modifier}+Shift+8" = "move container to workspace number 8";
-              "${cfg.modifier}+Shift+9" = "move container to workspace number 9";
-
-              "${cfg.modifier}+Shift+minus" = "move scratchpad";
-              "${cfg.modifier}+minus" = "scratchpad show";
-
-              "${cfg.modifier}+r" = "mode resize";
-
-              # "Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.swappy}/bin/swappy -f -";
-              # "Shift+Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.swappy}/bin/swappy -f -";
-
-              "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 1%+";
-              "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
-
-              "Shift+XF86AudioMute" = "exec pamixer --default-source --toggle-mute";
-              "XF86AudioMute" = "exec pamixer --toggle-mute";
-              "Shift+XF86AudioRaiseVolume" = "exec pamixer --default-source --increase 1 --allow-boost";
-              "XF86AudioRaiseVolume" = "exec pamixer --increase 1 --allow-boost";
-              "Shift+XF86AudioLowerVolume" = "exec pamixer --default-source --decrease 1 --allow-boost";
-              "XF86AudioLowerVolume" = "exec pamixer --decrease 1 --allow-boost";
-            };
+                # Workspaces (kept from previous config)
+              }
+              // builtins.listToAttrs (
+                builtins.concatMap (ws: [
+                  {
+                    name = "${fmt [[] [(toString ws)]]}";
+                    value = "workspace number ${toString ws}";
+                  }
+                  {
+                    name = "${fmt [["Shift"] [(toString ws)]]}";
+                    value = "move container to workspace number ${toString ws}";
+                  }
+                ])
+                (builtins.genList (x: x + 1) 9)
+              )
+              // {
+                # Legacy screenshot keys (kept)
+                "Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.swappy}/bin/swappy -f -";
+                "Shift+Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.swappy}/bin/swappy -f -";
+              };
             modifier = "Mod4";
-            terminal = "wezterm";
+            terminal = lib.concatStringsSep " " dEnv.programs.terminal;
             startup = [
               {command = "discord";}
             ];
