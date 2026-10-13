@@ -124,7 +124,8 @@
 		};
 
 		niri = {
-			url = "github:sodiboo/niri-flake?shallow=1";
+			url = "github:sodiboo/niri-flake/very-refactor?shallow=1";
+			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
 		dms = {
