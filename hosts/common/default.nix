@@ -57,7 +57,7 @@
 			allowed-users = [ "root" "@wheel" ];
 			auto-optimise-store = lib.mkDefault true;
 			# Enable flakes and new 'nix' command
-			experimental-features = "nix-command flakes";
+			experimental-features = ["nix-command" "flakes"];
 			min-free = lib.mkDefault 1073741824;
 			max-free = lib.mkDefault 1073741824;
 

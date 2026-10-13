@@ -28,7 +28,7 @@
         nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
         settings = {
             accept-flake-config = true;
-            experimental-features = "nix-command flakes";
+            experimental-features = ["nix-command" "flakes"];
             substituters = [
                 "https://hamburgir.cachix.org"
                 "https://cache.nixos.org/"
@@ -55,16 +55,16 @@
     services.openssh.enable = true;
 
     # Faster to build than the default xz; still fine for a recovery stick.
-	image.baseName = lib.mkForce "nixos-toaster";
+    image.baseName = lib.mkForce "nixos-toaster";
 
-	isoImage = {
-		volumeID = "NIXOS_TOASTER";
-		squashfsCompression = "zstd -Xcompression-level 6";
-		makeEfiBootable = true;
-		makeUsbBootable = true;
-	};
+    isoImage = {
+        volumeID = "NIXOS_TOASTER";
+        squashfsCompression = "zstd -Xcompression-level 6";
+        makeEfiBootable = true;
+        makeUsbBootable = true;
+    };
 
-	boot.zfs.forceImportRoot = false;
+    boot.zfs.forceImportRoot = false;
 
     environment.systemPackages = with pkgs; [
         cryptsetup
