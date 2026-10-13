@@ -6,5 +6,6 @@
         antigravity-ide
         antigravity-cli
         omniroute
+        opencode
     ];
 }
