@@ -1,10 +1,10 @@
 {
-	inputs,
-	vimUtils
+  inputs,
+  vimUtils,
 }:
 vimUtils.buildVimPlugin {
-	pname = "live-server.nvim";
-	version = "master";
-	dontBuild = true;
-	src = inputs.live-server;
+  pname = "live-server.nvim";
+  version = "master";
+  dontBuild = true;
+  src = inputs.live-server;
 }
