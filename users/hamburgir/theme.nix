@@ -61,7 +61,6 @@
         # 		terminal = 0.8;
         # 	};
         # 	targets = {
-        # 		nixvim.enable = false;
         # 		fzf.enable = false;
         # 	};
         # };

@@ -8,7 +8,6 @@
       }: {
         home = {
           packages = [
-            # pkgs.nvf # Saves memory
             # pkgs.neovim
             inputs.nixvimConfig.packages."${pkgs.stdenv.hostPlatform.system}".default
             # inputs.mcp-hub.packages."x86_64-linux".default
@@ -19,8 +18,6 @@
             vim = "nvim";
           };
         };
-        # programs.nvf.enable = false;
-        # programs.nixvim.enable = false;
       }
     )
   ];
