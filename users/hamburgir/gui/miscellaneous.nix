@@ -12,9 +12,6 @@
             enable = false;
             settings = {};
           };
-          ignis-desktop = {
-            enable = false;
-          };
         };
       }
     )
