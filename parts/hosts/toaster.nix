@@ -8,6 +8,7 @@
       inherit inputs;
       outputs = {overlays = config.dendritic.overlays;};
       system = "x86_64-linux";
+      features = config.dendritic.features.toaster or {};
     };
     modules =
       [

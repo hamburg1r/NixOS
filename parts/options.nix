@@ -10,6 +10,16 @@ in {
       description = "Repo overlays exposed to lower-level evaluations as `outputs.overlays`.";
     };
 
+    features = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.attrsOf lib.types.bool);
+      default = {};
+      description = ''
+        High-level feature toggles, keyed by host/user (e.g. `features.toaster.gaming`).
+        Set in each host's/user's `config.nix` and threaded into both the NixOS and
+        Home Manager evaluations as the `features` special argument.
+      '';
+    };
+
     nixos = {
       common = lib.mkOption {
         type = list;

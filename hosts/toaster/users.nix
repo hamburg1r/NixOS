@@ -12,8 +12,6 @@
             "storage"
             "input"
           ];
-          openssh.authorizedKeys.keys = [
-          ];
           homeMode = "755";
           shell = pkgs.zsh;
         };

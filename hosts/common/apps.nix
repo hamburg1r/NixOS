@@ -1,13 +1,13 @@
 {config, ...}: {
   config.dendritic.nixos.common = [
     (
-      {...}: {
+      {features, ...}: {
         desktop.apps = {
           acpi.enable = true;
           brightnessctl.enable = true;
           crosspipe.enable = true;
-          devenv.enable = true;
-          direnv.enable = true;
+          devenv.enable = features.development or true;
+          direnv.enable = features.development or true;
           distrobox.enable = true;
           easyeffects.enable = true;
           fd.enable = true;
@@ -15,7 +15,7 @@
           fira-code.enable = true;
           fira-code-symbols.enable = true;
           firefox.enable = true;
-          gamescope.enable = true;
+          gamescope.enable = features.gaming or true;
           git.enable = true;
           gparted.enable = true;
           libnotify.enable = true;
@@ -23,7 +23,7 @@
           lf.enable = true;
           liberation-ttf.enable = true;
           lz4.enable = true;
-          mangohud.enable = true;
+          mangohud.enable = features.gaming or true;
           mpv.enable = true;
           mtr.enable = true;
           nemo.enable = true;
@@ -38,7 +38,7 @@
           ripgrep.enable = true;
           ristretto.enable = true;
           sbctl.enable = true;
-          steam.enable = true;
+          steam.enable = features.gaming or true;
           trash-cli.enable = true;
           unrar.enable = true;
           unzip.enable = true;

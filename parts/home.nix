@@ -8,6 +8,7 @@
     extraSpecialArgs = {
       inherit inputs;
       outputs = {overlays = config.dendritic.overlays;};
+      features = config.dendritic.features.hamburgir or {};
     };
     modules =
       [
