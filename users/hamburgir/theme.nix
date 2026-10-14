@@ -1,12 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }: {
+      {pkgs, ...}: {
         wallpaper = {
           desktop = {
             dir = "your_name";

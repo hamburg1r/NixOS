@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
       {
@@ -6,9 +6,7 @@
         lib,
         ...
       }:
-        with lib; let
-          cfg = config.programs.niri.settings;
-        in {
+        with lib; {
           options.programs.niri.customSettings = {
             movement = {
               wrapColumns = mkOption {

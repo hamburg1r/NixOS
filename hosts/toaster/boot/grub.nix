@@ -1,9 +1,8 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.toaster = [
     (
       {
         inputs,
-        pkgs,
         config,
         lib,
         ...

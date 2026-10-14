@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.common = [
     (
       {pkgs, ...}: {
@@ -11,10 +11,7 @@
           audio.enable = true;
           pulse.enable = true;
           jack.enable = true;
-          extraConfig = let
-            quantum = "512";
-            rate = "48000";
-          in {
+          extraConfig = {
             # pipewire."92-low-latency" = {
             # 	"context.properties" = {
             # 		"default.clock.rate" = rate;

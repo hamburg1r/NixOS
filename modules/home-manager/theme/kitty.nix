@@ -1,11 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        config,
-        lib,
-        ...
-      }: {
+      {config, ...}: {
         programs.kitty = {
           font = {
             name = config.userTheme.fonts.monospace;

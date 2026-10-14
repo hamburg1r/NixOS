@@ -1,7 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {config, ...}: {
+      {...}: {
         wayland.windowManager.hyprland.settings.general = rec {
           # no_border_on_floating = false;
 

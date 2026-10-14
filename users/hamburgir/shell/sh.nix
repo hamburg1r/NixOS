@@ -1,12 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        config,
-        lib,
-        pkgs,
-        ...
-      }: {
+      {config, ...}: {
         # TODO: move stuff to common profile(potentially?)
         programs = {
           oh-my-posh = {

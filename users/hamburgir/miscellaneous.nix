@@ -1,11 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        pkgs,
-        config,
-        ...
-      }: {
+      {config, ...}: {
         gtk = {
           gtk3.bookmarks = let
             home = dir: "file://${config.home.homeDirectory}/${dir}";

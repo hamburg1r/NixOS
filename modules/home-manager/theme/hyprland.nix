@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
       {
@@ -55,7 +55,6 @@
           config = let
             colors = config.userTheme.colors;
             theme = config.userTheme.hyprland;
-            wayland = config.wayland.windowManager.hyprland.settings;
           in
             lib.mkIf config.theme.enable {
               wayland.windowManager.hyprland = {

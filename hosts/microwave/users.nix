@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.microwave = [
     (
       {pkgs, ...}: {

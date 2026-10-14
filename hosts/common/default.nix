@@ -1,10 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.common = [
     (
       {
         inputs,
         config,
-        pkgs,
         lib,
         outputs,
         system,

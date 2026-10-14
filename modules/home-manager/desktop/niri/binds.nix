@@ -1,10 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
       {
         config,
         lib,
-        pkgs,
         ...
       }: let
         cfg = config.desktop;
@@ -72,9 +71,6 @@
               };
             }) {}
           keys;
-
-        genMoveColBinds = keys: direction:
-          lib.foldl' (acc: key: acc // {"Shift+${key}" = {action = {"move-column-${direction}" = [];};};}) {} keys;
 
         genMoveWinBinds = keys: direction:
           lib.foldl' (acc: key:

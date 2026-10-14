@@ -1,13 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
       {pkgs, ...}: {
         programs = {
-          gh = {
-            enable = true;
-          };
           git = {
-            enable = true;
             lfs.enable = true;
             settings = {
               user.name = "Hamburgir";

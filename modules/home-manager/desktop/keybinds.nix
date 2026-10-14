@@ -1,12 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        config,
-        lib,
-        pkgs,
-        ...
-      }: {
+      {lib, ...}: {
         options = with lib; {
           desktop = {
             modifier = mkOption {

@@ -1,7 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {config, ...}: {
+      {...}: {
         wayland.windowManager.hyprland.settings = {
           input = {
             kb_layout = "us,us,us";

@@ -1,12 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.toaster = [
     (
       {
         inputs,
-        outputs,
         pkgs,
-        lib,
-        config,
         ...
       }: {
         imports = [inputs.niri.nixosModules.niri];

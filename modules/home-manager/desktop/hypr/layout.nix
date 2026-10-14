@@ -1,10 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
       {
         config,
         lib,
-        pkgs,
         ...
       }: {
         options.desktop.hyprland.layoutName = lib.mkOption {

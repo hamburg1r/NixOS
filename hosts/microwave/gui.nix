@@ -1,12 +1,9 @@
-{config, ...}: {
+{...}: {
   config.dendritic.nixos.microwave = [
     (
       {
         inputs,
-        outputs,
         pkgs,
-        lib,
-        config,
         ...
       }: {
         imports = [inputs.niri.nixosModules.niri];

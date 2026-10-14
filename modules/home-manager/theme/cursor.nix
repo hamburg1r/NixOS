@@ -1,11 +1,7 @@
-{config, ...}: {
+{...}: {
   config.dendritic.home.hamburgir = [
     (
-      {
-        lib,
-        pkgs,
-        ...
-      }:
+      {lib, ...}:
         with lib; {
           options.userTheme.cursors = {
             name = mkOption {
