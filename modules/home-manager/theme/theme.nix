@@ -49,7 +49,8 @@
               };
             };
 
-            home.packages = config.userTheme.fonts.packages;
+            # Fonts are installed by desktop.apps.theme-fonts
+            # (modules/home-manager/apps/hamburgir/theme-fonts.nix).
           };
         }
     )

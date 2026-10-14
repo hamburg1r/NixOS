@@ -1,8 +1,9 @@
 {config, ...}: {
   config.dendritic.home.hamburgir = [
     (
-      {pkgs, ...}: {
-        home.packages = [pkgs.stable.kdePackages.xwaylandvideobridge];
+      {...}: {
+        # xwaylandvideobridge is installed via desktop.apps.xwaylandvideobridge
+        # (modules/home-manager/apps/hamburgir/xwaylandvideobridge.nix).
         wayland.windowManager.hyprland.settings = {
           windowrule = [
             "opacity 0.0 override, match:class ^(xwaylandvideobridge)$"
