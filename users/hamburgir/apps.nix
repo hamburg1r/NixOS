@@ -15,10 +15,12 @@
           faugus-launcher.enable = features.gaming or true;
           gamescope.enable = features.gaming or true;
           homesync.enable = true;
+          hyprland.enable = true;
           idea.enable = true;
           keepassxc.enable = true;
           lf.enable = true;
           mpv.enable = true;
+          niri.enable = true;
           nixvim.enable = true;
           obsidian.enable = true;
           omniroute.enable = true;

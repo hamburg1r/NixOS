@@ -84,7 +84,6 @@
         };
       in {
         xsession.windowManager.i3 = {
-          enable = false;
           config = {
             assigns = {
               "4" = [{class = "^discord";}];

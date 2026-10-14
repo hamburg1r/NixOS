@@ -18,6 +18,8 @@
           gamescope.enable = features.gaming or true;
           git.enable = true;
           gparted.enable = true;
+          hyprland.enable = true;
+          i3.enable = true;
           libnotify.enable = true;
           libqalculate.enable = true;
           lf.enable = true;
@@ -30,6 +32,7 @@
           neovim.enable = true;
           nh.enable = true;
           nix-output-monitor.enable = true;
+          niri.enable = true;
           noto-fonts.enable = true;
           noto-fonts-cjk-sans.enable = true;
           noto-fonts-color-emoji.enable = true;
@@ -39,6 +42,7 @@
           ristretto.enable = true;
           sbctl.enable = true;
           steam.enable = features.gaming or true;
+          sway.enable = true;
           trash-cli.enable = true;
           unrar.enable = true;
           unzip.enable = true;

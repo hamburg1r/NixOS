@@ -83,8 +83,6 @@
         };
       in {
         wayland.windowManager.sway = {
-          enable = false;
-          package = pkgs.swayfx;
           config = {
             menu = lib.concatStringsSep " " dEnv.programs.app-launcher;
             terminal = lib.concatStringsSep " " dEnv.programs.terminal;

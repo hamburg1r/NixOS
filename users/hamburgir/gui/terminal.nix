@@ -1,22 +1,10 @@
 {config, ...}: {
   config.dendritic.home.hamburgir = [
     (
-      {config, ...}: {
+      {...}: {
         programs = {
           alacritty = {
             enable = false;
-          };
-          wezterm = {
-            enable = false;
-          };
-          kitty = {
-            enable = true;
-          };
-          ghostty = {
-            enable = true;
-            enableBashIntegration = config.programs.bash.enable;
-            enableZshIntegration = config.programs.zsh.enable;
-            enableFishIntegration = config.programs.fish.enable;
           };
           foot = {
             enable = false;

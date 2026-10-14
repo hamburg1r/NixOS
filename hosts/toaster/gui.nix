@@ -28,7 +28,6 @@
 
         services.xserver.windowManager = {
           qtile.enable = false;
-          i3.enable = true;
           herbstluftwm.enable = false;
           awesome = {
             enable = false;
@@ -42,7 +41,6 @@
         services.xserver.excludePackages = [pkgs.xterm];
 
         programs.droidcam.enable = true;
-        programs.sway.enable = true;
 
         # Configure keymap in X11
         services.xserver = {
@@ -53,14 +51,6 @@
           };
         };
         services.gnome.gnome-keyring.enable = true;
-        programs.hyprland = {
-          enable = true;
-          xwayland.enable = true;
-        };
-        programs.niri = {
-          enable = true;
-          package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
-        };
         # xdg.portal = {
         # 	enable = true;
         # 	extraPortals = with pkgs; [
