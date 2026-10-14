@@ -3,7 +3,7 @@
 Personal NixOS flake configuration for **toaster** and **microwave** (`x86_64-linux`), with Home Manager for **hamburgir**.
 
 - **toaster** — older laptop: gaming/desktop + bluetooth, no server roles.
-- **microwave** — newer desktop (Ryzen 7 5700X + RX 7600): gaming/desktop, runs the `homesync` and `syncthing` servers, no wifi/bluetooth, Windows dual-boot (lanzaboote + Secure Boot).
+- **microwave** — newer desktop (Ryzen 7 5700X + RX 7600): gaming/desktop, runs the `homesync` and `syncthing` servers, no wifi/bluetooth, Windows dual-boot via Limine (Secure Boot).
 
 This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/viperML/nh) for rebuilds.
 
@@ -177,16 +177,15 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 | Output | Description |
 |--------|-------------|
 | `nixosConfigurations.toaster` | Laptop (gaming/desktop, bluetooth) |
-| `nixosConfigurations.microwave` | Desktop (gaming/desktop, homesync+syncthing servers, lanzaboote + Secure Boot) |
+| `nixosConfigurations.microwave` | Desktop (gaming/desktop, homesync+syncthing servers, Limine + Secure Boot) |
 | `nixosConfigurations.iso` | Installer/recovery ISO |
 | `homeConfigurations.hamburgir` | Home Manager config |
 | `packages.x86_64-linux.iso` | ISO image build |
 
 ## Microwave first-boot notes
 
-- **Windows dual boot:** lanzaboote only manages NixOS entries, so there is no chainload entry for Windows. Boot Windows from the firmware boot menu (e.g. F12), or add a manual systemd-boot entry under `/boot/efi/loader/entries/`. Install Windows to the partition labeled `Windows` (mounted at `/mnt/windows`).
-- **Secure Boot:** lanzaboote signs the unified kernel images with the `sbctl` keys in `/var/lib/sbctl`. On first boot:
+- **Windows dual boot:** Limine chainloads `boot()/EFI/Microsoft/Boot/bootmgfw.efi`; install Windows to the partition labeled `Windows` (mounted at `/mnt/windows`).
+- **Secure Boot:** the Limine module signs with `sbctl`. On first boot:
   1. `sbctl create-keys`
   2. reset Secure Boot to "setup mode" in the BIOS, then `sbctl enroll-keys -m -f`
-  3. rebuild (`nixos-rebuild switch`), then enable Secure Boot in the BIOS.
-- **ESP generations:** `boot.lanzaboote.configurationLimit` is set to 4 on a ~500M ESP (~100M per UKI). Raise/lower it to match the actual ESP size.
+  3. rebuild with `boot.loader.limine.secureBoot.enable` set, then enable Secure Boot in the BIOS.
