@@ -7,7 +7,10 @@
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     extraSpecialArgs = {
       inherit inputs;
-      outputs = {overlays = config.dendritic.overlays;};
+      outputs = {
+        overlays = config.dendritic.overlays;
+        lib = config.dendritic.lib;
+      };
       features = config.dendritic.features.hamburgir or {};
     };
     modules =

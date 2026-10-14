@@ -2,25 +2,16 @@
   config.dendritic.home.common = [
     (
       {
-        config,
         lib,
         pkgs,
+        outputs,
         ...
       }: {
         imports = [
-          {
-            options.desktop.apps.lazygit = {
-              enable = lib.mkEnableOption "lazygit, a terminal UI for git";
-              package = lib.mkPackageOption pkgs "lazygit" {};
-            };
-
-            config = lib.mkIf config.desktop.apps.lazygit.enable {
-              programs.lazygit = {
-                enable = true;
-                package = config.desktop.apps.lazygit.package;
-              };
-            };
-          }
+          (outputs.lib.mkProgram pkgs "lazygit" {
+            name = "lazygit";
+            description = "lazygit, a terminal UI for git";
+          })
         ];
 
         config.desktop.apps.lazygit.enable = lib.mkDefault true;

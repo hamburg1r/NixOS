@@ -2,35 +2,16 @@
   config.dendritic.home.common = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        firefox = config.desktop.apps.firefox;
-        mkPkg = spec: let
-          name = spec.name;
-          pkg = spec.pkg or name;
-        in {
-          options.desktop.apps.${name} = {
-            enable = lib.mkEnableOption name;
-            package = lib.mkPackageOption pkgs pkg {};
-          };
-          config = lib.mkIf config.desktop.apps.${name}.enable {
-            home.packages = [config.desktop.apps.${name}.package];
-          };
-        };
-      in {
+      }: {
         imports =
           [
-            {
-              options.desktop.apps.firefox = {
-                enable = lib.mkEnableOption "firefox";
-                package = lib.mkPackageOption pkgs "firefox" {};
-              };
-
-              config = lib.mkIf firefox.enable {
-                home.packages = [firefox.package];
+            (outputs.lib.mkApp pkgs {
+              name = "firefox";
+              install = cfg: {
+                home.packages = [cfg.package];
 
                 # The Home Manager firefox module is kept disabled; firefox is
                 # installed as a plain package instead. Profile settings below
@@ -103,9 +84,9 @@
                   };
                 };
               };
-            }
+            })
           ]
-          ++ map mkPkg [
+          ++ map (outputs.lib.mkHome pkgs) [
             {name = "google-chrome";}
           ];
       }

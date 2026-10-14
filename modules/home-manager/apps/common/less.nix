@@ -2,28 +2,19 @@
   config.dendritic.home.common = [
     (
       {
-        config,
         lib,
         pkgs,
+        outputs,
         ...
       }: {
         imports = [
-          {
-            options.desktop.apps.less = {
-              enable = lib.mkEnableOption "less, a terminal pager";
-              package = lib.mkPackageOption pkgs "less" {};
-            };
-
-            config = lib.mkIf config.desktop.apps.less.enable {
-              programs.less = {
-                enable = true;
-                package = config.desktop.apps.less.package;
-                config = lib.mkDefault ''
-                  i quit
-                '';
-              };
-            };
-          }
+          (outputs.lib.mkProgram pkgs "less" {
+            name = "less";
+            description = "less, a terminal pager";
+            settings.config = lib.mkDefault ''
+              i quit
+            '';
+          })
         ];
 
         config.desktop.apps.less.enable = lib.mkDefault true;

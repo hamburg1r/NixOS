@@ -5,25 +5,19 @@
         config,
         lib,
         pkgs,
+        outputs,
         ...
       }: {
         imports = [
-          {
-            options.desktop.apps.zellij = {
-              enable = lib.mkEnableOption "zellij, a terminal workspace and multiplexer";
-              package = lib.mkPackageOption pkgs "zellij" {};
+          (outputs.lib.mkProgram pkgs "zellij" {
+            name = "zellij";
+            description = "zellij, a terminal workspace and multiplexer";
+            settings = {
+              enableBashIntegration = lib.mkDefault config.programs.bash.enable;
+              enableZshIntegration = lib.mkDefault config.programs.zsh.enable;
+              enableFishIntegration = lib.mkDefault config.programs.fish.enable;
             };
-
-            config = lib.mkIf config.desktop.apps.zellij.enable {
-              programs.zellij = {
-                enable = true;
-                package = config.desktop.apps.zellij.package;
-                enableBashIntegration = lib.mkDefault config.programs.bash.enable;
-                enableZshIntegration = lib.mkDefault config.programs.zsh.enable;
-                enableFishIntegration = lib.mkDefault config.programs.fish.enable;
-              };
-            };
-          }
+          })
         ];
 
         config.desktop.apps.zellij.enable = lib.mkDefault true;

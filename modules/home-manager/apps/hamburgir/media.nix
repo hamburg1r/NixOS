@@ -2,26 +2,12 @@
   config.dendritic.home.hamburgir = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        mkApp = spec: let
-          name = spec.name;
-          pkg = spec.pkg or name;
-        in {
-          options.desktop.apps.${name} = {
-            enable = lib.mkEnableOption name;
-            package = lib.mkPackageOption pkgs pkg {};
-          };
-          config = lib.mkIf config.desktop.apps.${name}.enable {
-            home.packages = [config.desktop.apps.${name}.package];
-          };
-        };
-      in {
+      }: {
         imports =
-          map mkApp [
+          map (outputs.lib.mkHome pkgs) [
             {name = "crosspipe";}
             {name = "qbittorrent";}
             {name = "peazip";}
@@ -34,15 +20,10 @@
             {name = "playerctl";}
           ]
           ++ [
-            (let
-              cfg = config.desktop.apps.mpv;
-            in {
-              options.desktop.apps.mpv = {
-                enable = lib.mkEnableOption "mpv, a media player";
-                package = lib.mkPackageOption pkgs "mpv" {};
-              };
-
-              config = lib.mkIf cfg.enable {
+            (outputs.lib.mkApp pkgs {
+              name = "mpv";
+              description = "mpv, a media player";
+              install = cfg: {
                 home.packages = [cfg.package];
                 programs.mpv = {
                   enable = true;

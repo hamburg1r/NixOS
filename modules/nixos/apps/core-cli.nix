@@ -2,28 +2,15 @@
   config.dendritic.nixos.common = [
     (
       {
-        config,
         lib,
         pkgs,
+        outputs,
         ...
       }: let
-        mkPkg = spec: let
-          name = spec.name;
-          pkg = spec.pkg or name;
-        in {
-          options.desktop.apps.${name} = {
-            enable = lib.mkEnableOption name;
-            package = lib.mkPackageOption pkgs pkg {};
-          };
-          config = lib.mkIf config.desktop.apps.${name}.enable {
-            environment.systemPackages = [config.desktop.apps.${name}.package];
-          };
-        };
-
-        mtr = config.desktop.apps.mtr;
+        mkSystem = outputs.lib.mkSystem pkgs;
       in {
         imports =
-          map mkPkg [
+          map mkSystem [
             {name = "git";}
             {name = "wget";}
             {name = "ripgrep";}
@@ -36,19 +23,11 @@
             {name = "neovim";}
           ]
           ++ [
-            {
-              options.desktop.apps.mtr = {
-                enable = lib.mkEnableOption "mtr, a network diagnostic tool";
-                package = lib.mkPackageOption pkgs "mtr" {};
-              };
-
-              config = lib.mkIf mtr.enable {
-                programs.mtr = {
-                  enable = lib.mkDefault true;
-                  package = mtr.package;
-                };
-              };
-            }
+            (outputs.lib.mkProgram pkgs "mtr" {
+              name = "mtr";
+              description = "mtr, a network diagnostic tool";
+              enable = lib.mkDefault true;
+            })
           ];
       }
     )

@@ -2,46 +2,20 @@
   config.dendritic.nixos.common = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        virt-manager = config.desktop.apps.virt-manager;
-      in {
+      }: {
         imports =
           [
-            {
-              options.desktop.apps.virt-manager = {
-                enable = lib.mkEnableOption "virt-manager, a virtual machine manager";
-                package = lib.mkPackageOption pkgs "virt-manager" {};
-              };
-
-              config = lib.mkIf virt-manager.enable {
-                programs.virt-manager = {
-                  enable = true;
-                  package = virt-manager.package;
-                };
-              };
-            }
+            (outputs.lib.mkProgram pkgs "virt-manager" {
+              name = "virt-manager";
+              description = "virt-manager, a virtual machine manager";
+            })
           ]
-          ++ (let
-            mkPkg = spec: let
-              name = spec.name;
-              pkg = spec.pkg or name;
-            in {
-              options.desktop.apps.${name} = {
-                enable = lib.mkEnableOption name;
-                package = lib.mkPackageOption pkgs pkg {};
-              };
-              config = lib.mkIf config.desktop.apps.${name}.enable {
-                environment.systemPackages = [config.desktop.apps.${name}.package];
-              };
-            };
-          in
-            map mkPkg [
-              {name = "distrobox";}
-            ]);
+          ++ map (outputs.lib.mkSystem pkgs) [
+            {name = "distrobox";}
+          ];
       }
     )
   ];

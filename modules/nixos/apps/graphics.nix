@@ -2,25 +2,11 @@
   config.dendritic.nixos.common = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        mkPkg = spec: let
-          name = spec.name;
-          pkg = spec.pkg or name;
-        in {
-          options.desktop.apps.${name} = {
-            enable = lib.mkEnableOption name;
-            package = lib.mkPackageOption pkgs pkg {};
-          };
-          config = lib.mkIf config.desktop.apps.${name}.enable {
-            environment.systemPackages = [config.desktop.apps.${name}.package];
-          };
-        };
-      in {
-        imports = map mkPkg [
+      }: {
+        imports = map (outputs.lib.mkSystem pkgs) [
           {name = "vulkan-loader";}
           {name = "vulkan-tools";}
           {name = "mangohud";}

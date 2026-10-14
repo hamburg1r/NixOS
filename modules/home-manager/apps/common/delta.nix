@@ -2,25 +2,16 @@
   config.dendritic.home.common = [
     (
       {
-        config,
         lib,
         pkgs,
+        outputs,
         ...
       }: {
         imports = [
-          {
-            options.desktop.apps.delta = {
-              enable = lib.mkEnableOption "delta, a syntax-highlighting pager for git";
-              package = lib.mkPackageOption pkgs "delta" {};
-            };
-
-            config = lib.mkIf config.desktop.apps.delta.enable {
-              programs.delta = {
-                enable = true;
-                package = config.desktop.apps.delta.package;
-              };
-            };
-          }
+          (outputs.lib.mkProgram pkgs "delta" {
+            name = "delta";
+            description = "delta, a syntax-highlighting pager for git";
+          })
         ];
 
         config.desktop.apps.delta.enable = lib.mkDefault true;

@@ -2,25 +2,16 @@
   config.dendritic.home.common = [
     (
       {
-        config,
         lib,
         pkgs,
+        outputs,
         ...
       }: {
         imports = [
-          {
-            options.desktop.apps.wezterm = {
-              enable = lib.mkEnableOption "wezterm, a GPU-accelerated terminal emulator";
-              package = lib.mkPackageOption pkgs "wezterm" {};
-            };
-
-            config = lib.mkIf config.desktop.apps.wezterm.enable {
-              programs.wezterm = {
-                enable = true;
-                package = config.desktop.apps.wezterm.package;
-              };
-            };
-          }
+          (outputs.lib.mkProgram pkgs "wezterm" {
+            name = "wezterm";
+            description = "wezterm, a GPU-accelerated terminal emulator";
+          })
         ];
 
         config.desktop.apps.wezterm.enable = lib.mkDefault false;

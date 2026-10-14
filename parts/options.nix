@@ -10,6 +10,12 @@ in {
       description = "Repo overlays exposed to lower-level evaluations as `outputs.overlays`.";
     };
 
+    lib = lib.mkOption {
+      type = lib.types.attrs;
+      default = {};
+      description = "Repo-local helper library (see lib/), exposed as `outputs.lib`.";
+    };
+
     features = lib.mkOption {
       type = lib.types.attrsOf (lib.types.attrsOf lib.types.bool);
       default = {};

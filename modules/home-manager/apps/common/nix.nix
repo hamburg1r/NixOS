@@ -2,29 +2,21 @@
   config.dendritic.home.common = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        cfg = config.desktop.apps.nh;
-      in {
-        options.desktop.apps.nh = {
-          enable = lib.mkEnableOption "nh, a nix helper CLI";
-          package = lib.mkPackageOption pkgs "nh" {};
-        };
-
-        config = lib.mkIf cfg.enable {
-          programs.nh = {
-            enable = true;
-            package = cfg.package;
-            clean = {
+      }: {
+        imports = [
+          (outputs.lib.mkProgram pkgs "nh" {
+            name = "nh";
+            description = "nh, a nix helper CLI";
+            settings.clean = {
               enable = true;
               extraArgs = "--nogcroots --keep-since 3d --keep 5";
               dates = "daily";
             };
-          };
-        };
+          })
+        ];
       }
     )
   ];

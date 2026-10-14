@@ -2,25 +2,11 @@
   config.dendritic.home.hamburgir = [
     (
       {
-        config,
-        lib,
         pkgs,
+        outputs,
         ...
-      }: let
-        mkApp = spec: let
-          name = spec.name;
-          pkg = spec.pkg or name;
-        in {
-          options.desktop.apps.${name} = {
-            enable = lib.mkEnableOption name;
-            package = lib.mkPackageOption pkgs pkg {};
-          };
-          config = lib.mkIf config.desktop.apps.${name}.enable {
-            home.packages = [config.desktop.apps.${name}.package];
-          };
-        };
-      in {
-        imports = map mkApp [
+      }: {
+        imports = map (outputs.lib.mkHome pkgs) [
           {name = "awww";}
           {name = "keepassxc";}
           {name = "wayshot";}
