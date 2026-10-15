@@ -2,7 +2,7 @@
 
 Personal NixOS flake configuration for **toaster** and **microwave** (`x86_64-linux`), with Home Manager for **hamburgir**.
 
-- **toaster** — older laptop: gaming/desktop + bluetooth, no server roles.
+- **toaster** — older laptop, now booting from its HDD (the NVMe SSD moved to microwave): gaming/desktop + bluetooth, runs the `homesync` server, GRUB (no Secure Boot).
 - **microwave** — newer desktop (Ryzen 7 5700X + RX 7600): gaming/desktop, runs the `homesync` and `syncthing` servers, no wifi/bluetooth, Windows dual-boot via Limine (Secure Boot).
 
 This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/viperML/nh) for rebuilds.
@@ -53,6 +53,33 @@ sudo nixos-install --flake github:h4m6urg1r/NixOS#microwave
 ```
 
 After install, reboot into the new system. Home Manager is applied separately (see below).
+
+## Disk layout / labels
+
+Partitions are referenced **by label** (`fileSystems`, swap), so device paths don't matter. Reuse existing partitions with these labels, or create them fresh.
+
+**toaster — HDD (SATA, `sda`):** (root/home ext4; the NVMe SSD now belongs to microwave)
+
+| Mount | Label | FS |
+|-------|-------|----|
+| `/` | `NixOs` | ext4 |
+| `/home` | `Home` | ext4 |
+| `/boot/efi` | `OLDEFI` | vfat |
+| `/mnt/games` | `games` | ext4 |
+| `/mnt/other` | `other` | ext4 |
+| swap | `Swap` | swap |
+
+**microwave — SSD (NVMe, `nvme0n1`) + its other disks:** (btrfs subvolumes for root/home)
+
+| Mount | Label | FS |
+|-------|-------|----|
+| `/` + `/nix` | `root` | btrfs (`subvol=root`/`subvol=nix`) |
+| `/home` | `home` | btrfs |
+| `/boot/efi` | `EFI` | vfat |
+| `/mnt/games` | `games` | ext4 |
+| `/mnt/other` | `other` | ext4 |
+| `/mnt/windows` | `Windows` | ntfs-3g |
+| swap | `swap` | swap |
 
 ## Rebuild commands
 
@@ -168,16 +195,16 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 ### Existing examples
 
 - **User secret + nix access token template:** `users/hamburgir/sops.nix` (`github_token`)
-- **Host secret + systemd seeding:** `hosts/microwave/homesync.nix` (`kdbx_secrets.json`)
+- **Host secret + systemd seeding:** `hosts/{toaster,microwave}/homesync.nix` (`kdbx_secrets.json`)
 
-> TODO(microwave): the homesync secret is still encrypted for **toaster's** age key. Re-encrypt it for microwave (`sops updatekeys secrets/hosts/toaster/homesync/kdbx_secrets.json`) after adding the microwave key to `.sops.yaml`, and move it to `secrets/hosts/microwave/homesync/`.
+> TODO(microwave): the homesync secret is still encrypted for **toaster's** age key, so it decodes on toaster but not microwave. Re-encrypt it for microwave (`sops updatekeys secrets/hosts/toaster/homesync/kdbx_secrets.json`) after adding the microwave key to `.sops.yaml` (or share one system key across hosts).
 
 ## Flake outputs
 
 | Output | Description |
 |--------|-------------|
-| `nixosConfigurations.toaster` | Laptop (gaming/desktop, bluetooth) |
-| `nixosConfigurations.microwave` | Desktop (gaming/desktop, homesync+syncthing servers, Limine + Secure Boot) |
+| `nixosConfigurations.toaster` | Laptop (HDD, gaming/desktop, bluetooth, homesync, GRUB) |
+| `nixosConfigurations.microwave` | Desktop (SSD, gaming/desktop, homesync+syncthing servers, Limine + Secure Boot) |
 | `nixosConfigurations.iso` | Installer/recovery ISO |
 | `homeConfigurations.hamburgir` | Home Manager config |
 | `packages.x86_64-linux.iso` | ISO image build |
