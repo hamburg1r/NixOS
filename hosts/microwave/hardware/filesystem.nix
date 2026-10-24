@@ -27,21 +27,21 @@
           fsType = "btrfs";
         };
 
-        fileSystems."/mnt/games" = {
-          device = "/dev/disk/by-label/games";
-          fsType = "ext4";
-        };
+#         fileSystems."/mnt/games" = {
+#           device = "/dev/disk/by-label/games";
+#           fsType = "ext4";
+#         };
+# 
+#         fileSystems."/mnt/other" = {
+#           device = "/dev/disk/by-label/other";
+#           fsType = "ext4";
+#         };
 
-        fileSystems."/mnt/other" = {
-          device = "/dev/disk/by-label/other";
-          fsType = "ext4";
-        };
-
-        # Windows dual-boot partition (label set by the Windows installer)
-        fileSystems."/mnt/windows" = {
-          device = "/dev/disk/by-label/Windows";
-          fsType = "ntfs-3g";
-        };
+#         # Windows dual-boot partition (label set by the Windows installer)
+#         fileSystems."/mnt/windows" = {
+#           device = "/dev/disk/by-label/Windows";
+#           fsType = "ntfs-3g";
+#         };
 
         # Periodic balance to prevent chunk imbalance recurring
         systemd.services."btrfs-balance-home" = {

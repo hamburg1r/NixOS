@@ -18,13 +18,13 @@
             secureBoot.enable = true;
             # Secure boot makes the editor unusable anyway; also prevents init=/bin/sh escapes.
             enableEditor = false;
-            maxGenerations = 20;
+            maxGenerations = 10;
 
             # Windows chainload (dual boot). bootmgfw.efi lives on the shared ESP.
             extraEntries = ''
-              :Windows
-                  protocol: chainload
-                  image_path: boot()/EFI/Microsoft/Boot/bootmgfw.efi
+              /Windows 10/11
+                PROTOCOL=chainload
+                KERNEL_PATH=boot():/EFI/Microsoft/Boot/bootmgfw.efi
             '';
           };
         };

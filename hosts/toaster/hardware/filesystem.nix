@@ -27,15 +27,15 @@
           fsType = "vfat";
         };
 
-        fileSystems."/mnt/games" = {
-          device = "/dev/disk/by-label/games";
-          fsType = "ext4";
-        };
-
-        fileSystems."/mnt/other" = {
-          device = "/dev/disk/by-label/other";
-          fsType = "ext4";
-        };
+#        fileSystems."/mnt/games" = {
+#          device = "/dev/disk/by-label/games";
+#          fsType = "ext4";
+#        };
+#
+#        fileSystems."/mnt/other" = {
+#          device = "/dev/disk/by-label/other";
+#          fsType = "ext4";
+#        };
 
         swapDevices = [
           {
