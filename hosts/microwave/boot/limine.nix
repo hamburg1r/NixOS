@@ -1,7 +1,16 @@
 {...}: {
   config.dendritic.nixos.microwave = [
     (
-      {lib, ...}: {
+      {
+        config,
+        lib,
+        ...
+      }: {
+        wallpaper.bootloader = {
+          dir = "miscellaneous";
+          file = "GirlStandingDuskWithBirds.jpg";
+        };
+
         # Fast, supports Secure Boot out of the box (unlike GRUB + shim).
         boot.loader = {
           # Limine module also mkDefault'd grub off; our mkForce overrides common's mkDefault.
@@ -19,12 +28,15 @@
             # Secure boot makes the editor unusable anyway; also prevents init=/bin/sh escapes.
             enableEditor = false;
             maxGenerations = 10;
+            style = {
+              wallpapers = [config.wallpaper.bootloader.output];
+            };
 
             # Windows chainload (dual boot). bootmgfw.efi lives on the shared ESP.
             extraEntries = ''
-              /Windows 10/11
-                PROTOCOL=chainload
-                KERNEL_PATH=boot():/EFI/Microsoft/Boot/bootmgfw.efi
+              /Windows
+                protocol: efi
+                image_path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
             '';
           };
         };

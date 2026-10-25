@@ -12,7 +12,7 @@
         # Import is unconditional (imports can't depend on `config`), but none
         # of the theme config is evaluated unless GRUB is actually enabled.
         config = lib.mkIf config.boot.loader.grub.enable {
-          wallpaper.grub = {
+          wallpaper.bootloader = {
             dir = "miscellaneous";
             file = "GirlStandingDuskWithBirds.jpg";
           };
@@ -21,7 +21,7 @@
             theme = "tela";
             icon = "color";
             screen = "1080p";
-            splashImage = config.wallpaper.grub.output;
+            splashImage = config.wallpaper.bootloader.output;
             # bootMenuConfig = ;
             # terminalConfig = ;
             # footer = ;
