@@ -21,10 +21,14 @@
           kernelModules = [
             "kvm-amd"
           ];
-          kernelParams = lib.mkIf (!config.custom.plymouth.enable) [
-            "quiet"
-            "udev.log_level=3"
-          ];
+          kernelParams =
+            lib.optionals (!config.custom.plymouth.enable) [
+              "quiet"
+              "udev.log_level=3"
+            ]
+            ++ [
+              "mem_sleep_default=s2idle"
+            ];
           kernelPackages = pkgs.linuxPackages_latest;
           consoleLogLevel = lib.mkIf (!config.custom.plymouth.enable) 3;
           initrd.verbose = lib.mkIf (!config.custom.plymouth.enable) true;
