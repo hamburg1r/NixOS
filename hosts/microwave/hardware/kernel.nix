@@ -31,7 +31,6 @@
             ];
           kernelPackages = pkgs.linuxPackages_latest;
           consoleLogLevel = lib.mkIf (!config.custom.plymouth.enable) 3;
-          initrd.verbose = lib.mkIf (!config.custom.plymouth.enable) true;
         };
       }
     )
