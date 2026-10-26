@@ -10,6 +10,21 @@
           {name = "acpi";}
           {name = "brightnessctl";}
         ];
+
+        services.logind.settings.Login = {
+          HandlePowerKey = "suspend";
+          HandlePowerKeyLongPress = "poweroff";
+          HandleSuspendKey = "suspend";
+          HandleHibernateKey = "ignore";
+          IdleAction = "ignore";
+        };
+
+        systemd.sleep.settings.Sleep = {
+          AllowSuspend = "yes";
+          AllowHibernation = "no";
+          AllowSuspendThenHibernate = "no";
+          AllowHybridSleep = "no";
+        };
       }
     )
   ];

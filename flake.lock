@@ -959,11 +959,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792968042,
-        "narHash": "sha256-z9IlO+DY+FHrfUZkmfGbeO1W/fDGige6bMB2zmVTLL0=",
+        "lastModified": 1792972451,
+        "narHash": "sha256-T51/V6r7aDfCJ59BIasX6GYNJHE+EobdQZ7kC0qyu8c=",
         "owner": "hamburg1r",
         "repo": "wallpapers",
-        "rev": "a9b6795266e932bbd2a183ed05550abbfec7fa43",
+        "rev": "c94c8a78e987f63885299b6d34b8072604c71a25",
         "type": "github"
       },
       "original": {

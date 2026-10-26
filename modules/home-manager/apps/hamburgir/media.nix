@@ -24,7 +24,6 @@
               name = "mpv";
               description = "mpv, a media player";
               install = cfg: {
-                home.packages = [cfg.package];
                 programs.mpv = {
                   enable = true;
                   bindings = {
