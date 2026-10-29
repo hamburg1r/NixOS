@@ -1,13 +1,21 @@
 keys:
-  - &system age1826ps509t7phrcflard8l3fkw834gx0wfl5q8l2k0j2sszc5t3tsnfy3kw
-  - &user age1fmtm6gg8lmk8lxp63lrwxlf2zva4h2dlf77jlewz8lfdm6q7cscsw8lr66
+  - &hamburgir age1z4euznf896ag66wqd3rkuunxf43jp08949w07qetdnef98kq2casmhdp60
+  - &toaster age1jd2egvjjwh64x5qtxc6kt4n3mtwlutfjnl3y5pmgk4708xcn6pvsxxzwlk
+  - &microwave age17x07m74jt2engm2x8sxnm6eutxswrhdzjwenv6egxjqrdpjgec4s2d2c7c
 creation_rules:
-  - path_regex: secrets/hosts/.*
-    key_groups:
-      - age:
-          - *system
-          - *user
   - path_regex: secrets/users/.*
     key_groups:
       - age:
-          - *user
+          - *hamburgir
+          - *toaster
+          - *microwave
+  - path_regex: secrets/hosts/toaster/.*
+    key_groups:
+      - age:
+          - *toaster
+          - *hamburgir
+  - path_regex: secrets/hosts/microwave/.*
+    key_groups:
+      - age:
+          - *microwave
+          - *hamburgir
