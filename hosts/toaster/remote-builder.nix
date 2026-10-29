@@ -9,16 +9,6 @@
       }: let
         sshKey = "hosts/toaster/ssh/ssh_host_ed25519_key";
       in {
-        # Private key used by the Nix daemon to log in to microwave as root.
-        # Encrypted with sops; decrypted at activation to /run/secrets/...
-        sops.secrets.${sshKey} = {
-          sopsFile = ../../secrets/hosts/toaster/ssh/ssh_host_ed25519_key;
-          format = "binary";
-          owner = "root";
-          group = "root";
-          mode = "0400";
-        };
-
         nix = {
           distributedBuilds = true;
 
