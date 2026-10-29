@@ -12,6 +12,7 @@
         devtoApiKeyExport = ''
           export DEVTO_API_KEY=$(cat ${config.sops.secrets.${devtoApiKey}.path})
         '';
+        sshKey = "users/hamburgir/ssh/id_ed25519";
       in {
         sops = {
           age = {
@@ -28,6 +29,13 @@
           secrets.${devtoApiKey} = {
             sopsFile = ../../secrets/users/hamburgir/devto_api_key;
             format = "binary";
+          };
+
+          secrets.${sshKey} = {
+            sopsFile = ../../secrets/users/hamburgir/ssh/id_ed25519;
+            format = "binary";
+            path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+            mode = "0600";
           };
 
           templates."nix-access-tokens.conf".content = ''
