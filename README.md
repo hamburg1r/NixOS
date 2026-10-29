@@ -122,6 +122,30 @@ Update flake inputs:
 nix flake update
 ```
 
+## Remote builds (toaster → microwave)
+
+toaster offloads Nix builds to the faster microwave using Nix's distributed builds.
+
+- `hosts/toaster/remote-builder.nix` declares microwave as an `ssh-ng` build machine and the sops-managed key at `secrets/hosts/toaster/remote-build/ssh_key`.
+- `hosts/microwave/remote-builder.nix` authorizes that key for `root` on microwave.
+
+The private key is decrypted to `/run/secrets/hosts/toaster/remote-build/ssh_key` at activation, so the first switch that introduces this config still builds locally. Subsequent builds are scheduled on microwave (preferred via `speedFactor = 4`).
+
+Verify from toaster:
+
+```bash
+cat /etc/nix/machines
+sudo ssh -o StrictHostKeyChecking=accept-new \
+  -i /run/secrets/hosts/toaster/remote-build/ssh_key root@microwave true
+nix build --max-jobs 0 .#<attr>   # force everything onto microwave
+```
+
+`microwave` is resolved through Tailscale MagicDNS. If that is unavailable on toaster, change `hostName` in `hosts/toaster/remote-builder.nix` to the FQDN or Tailscale IP. `publicHostKey` is microwave's `ssh_host_ed25519_key.pub`, base64-encoded; update it if microwave's host key changes:
+
+```bash
+base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
+```
+
 ## Secrets
 
 Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) and [sops](https://github.com/getsops/sops) using **age** keys defined in `.sops.yaml`.

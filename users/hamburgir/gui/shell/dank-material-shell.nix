@@ -70,7 +70,7 @@
             tmp="$(mktemp)"
             if ${pkgs.jq}/bin/jq '
               .acMonitorTimeout = 600
-              | .acLockTimeout = 300
+              | .acLockTimeout = 660
               | .acSuspendTimeout = 3600
               | .acSuspendBehavior = 0
               | .acPostLockMonitorTimeout = 0

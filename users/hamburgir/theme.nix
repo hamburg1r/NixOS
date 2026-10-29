@@ -4,8 +4,8 @@
       {pkgs, ...}: {
         wallpaper = {
           desktop = {
-            dir = "your_name";
-            file = "MitsuhaTakiFirstMeet.jpg";
+            dir = "sekiro";
+            file = "WolfLookingAtACastle.jpg";
           };
           hyprland = {
             blur.enabled = true;
