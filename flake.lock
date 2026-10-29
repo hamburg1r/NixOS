@@ -849,15 +849,15 @@
       "locked": {
         "lastModified": 1784727581,
         "narHash": "sha256-Xd7/Ft8o3UMbZrXpNGHdQcHsKisXf3SGqIBkv5o3dXc=",
-        "ref": "refs/heads/main",
+        "owner": "hamburg1r",
+        "repo": "scripts",
         "rev": "84d207e30b84f2cf3815febd633d8b3ed8d5f89c",
-        "revCount": 11,
-        "type": "git",
-        "url": "file:///home/hamburgir/repo/scripts"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/hamburgir/repo/scripts"
+        "owner": "hamburg1r",
+        "repo": "scripts",
+        "type": "github"
       }
     },
     "sops-nix": {
