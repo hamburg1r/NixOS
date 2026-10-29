@@ -78,7 +78,7 @@
     };
 
     scripts = {
-      url = "git+file:///home/hamburgir/repo/scripts";
+      url = "github:hamburg1r/scripts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
