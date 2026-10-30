@@ -5,6 +5,7 @@
         config,
         inputs,
         lib,
+        outputs,
         pkgs,
         ...
       }: let
@@ -14,8 +15,8 @@
           enable = lib.mkEnableOption "niri, a scrollable-tiling Wayland compositor";
           package = lib.mkOption {
             type = lib.types.package;
-            default = inputs.niri.packages."${pkgs.stdenv.hostPlatform.system}".niri-unstable;
-            defaultText = lib.literalExpression ''inputs.niri.packages."''${pkgs.stdenv.hostPlatform.system}".niri-unstable'';
+            default = outputs.lib.niri.forceRenderPackage inputs pkgs;
+            defaultText = lib.literalExpression "outputs.lib.niri.forceRenderPackage inputs pkgs";
             description = "The niri package to install.";
           };
         };

@@ -3,6 +3,8 @@
     (
       {...}: {
         programs.niri.settings = {
+          includes = [./nightreign.kdl];
+
           window-rules = [
             {
               matches = [

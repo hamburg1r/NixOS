@@ -1,0 +1,10 @@
+// Keep Elden Ring Nightreign rendering while it is backgrounded.
+//
+// By default niri only sends frame callbacks to invisible windows at ~1 FPS,
+// which makes the game drop its online session. `force-render` comes from
+// niri PR #4392, which is patched into our niri package.
+window-rule {
+    match app-id="(?i)nightreign"
+    match app-id="(?i)steam_app_2622380"
+    force-render 30
+}

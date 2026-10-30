@@ -3,4 +3,8 @@
 #
 # Current namespaces:
 #   - apps: builders for `desktop.apps.<name>` modules (see ./apps.nix).
-{lib}: import ./apps.nix {inherit lib;}
+#   - niri: package helpers for the niri compositor (see ./niri.nix).
+{lib}: {
+  niri = import ./niri.nix {inherit lib;};
+}
+// (import ./apps.nix {inherit lib;})
