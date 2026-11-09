@@ -16,7 +16,7 @@
     discord = prev.discord.override {
       # withOpenASAR = true;
       # withVencord = true;
-      withEquicord = true;
+      # withEquicord = true;
       # withTTS = true;
     };
     rofi = prev.rofi.override {
