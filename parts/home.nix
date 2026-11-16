@@ -23,4 +23,23 @@
       ++ config.dendritic.home.common
       ++ config.dendritic.home.hamburgir;
   };
+  flake.homeConfigurations.ham = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    extraSpecialArgs = {
+      inherit inputs;
+      outputs = {
+        overlays = config.dendritic.overlays;
+        lib = config.dendritic.lib;
+      };
+      features = config.dendritic.features.ham or {};
+    };
+    modules =
+      [
+        inputs.wallpapers.homeManagerModules.default
+        inputs.ignis-config.homeManagerModules.default
+        inputs.niri.homeModules.niri
+      ]
+      ++ config.dendritic.home.common
+      ++ config.dendritic.home.ham;
+  };
 }

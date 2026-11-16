@@ -1,7 +1,7 @@
 {...}: {
   config.dendritic.nixos.microwave = [
     (
-      {pkgs, ...}: {
+      {lib, pkgs, ...}: {
         users.users.hamburgir = {
           isNormalUser = true;
           description = "Shantnu Biswas";
@@ -13,6 +13,9 @@
           ];
           homeMode = "755";
           shell = pkgs.zsh;
+          openssh.authorizedKeys.keys = [
+            (lib.strings.removeSuffix "\n" (builtins.readFile ../../users/ham/ssh/id_ed25519.pub))
+          ];
         };
       }
     )

@@ -1,5 +1,5 @@
 {...}: {
-  config.dendritic.home.hamburgir = [
+  config.dendritic.home.common = [
     (
       {pkgs, ...}: {
         programs = {

@@ -55,6 +55,11 @@ in {
         default = [];
         description = "Home Manager modules specific to hamburgir.";
       };
+      ham = lib.mkOption {
+        type = list;
+        default = [];
+        description = "Home Manager modules for ham on toaster.";
+      };
       disabled = lib.mkOption {
         type = list;
         default = [];

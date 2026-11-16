@@ -5,15 +5,14 @@
 # (e.g. hosts/common/apps.nix) to enable/disable whole feature groups.
 {...}: {
   config.dendritic.features.toaster = {
-    gaming = true;
-    development = true;
+    gaming = false;
+    development = false;
   };
 
   config.dendritic.nixos.toaster = [
     (
-      {...}: {
-        users.users.hamburgir.openssh.authorizedKeys.keys = [
-        ];
+      {lib, ...}: {
+        programs.nh.flake = lib.mkForce "/home/ham/repo/NixOS";
       }
     )
   ];

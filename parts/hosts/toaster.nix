@@ -18,7 +18,6 @@
         inputs.wallpapers.nixosModules.default
         inputs.ignis-config.nixosModules.default
         inputs.dms.nixosModules.dank-material-shell
-        inputs.homesync.nixosModules.homesync
         inputs.sops-nix.nixosModules.sops
       ]
       ++ config.dendritic.nixos.common

@@ -1,5 +1,5 @@
 {...}: {
-  config.dendritic.home.hamburgir = [
+  config.dendritic.home.common = [
     (
       {
         inputs,
@@ -71,12 +71,12 @@
             if ${pkgs.jq}/bin/jq '
               .acMonitorTimeout = 600
               | .acLockTimeout = 660
-              | .acSuspendTimeout = 3600
+              | .acSuspendTimeout = 0
               | .acSuspendBehavior = 0
               | .acPostLockMonitorTimeout = 0
               | .batteryMonitorTimeout = 180
               | .batteryLockTimeout = 120
-              | .batterySuspendTimeout = 900
+              | .batterySuspendTimeout = 0
               | .batterySuspendBehavior = 0
               | .batteryPostLockMonitorTimeout = 0
               | .loginctlLockIntegration = true

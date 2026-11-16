@@ -1,8 +1,8 @@
 # NixOS
 
-Personal NixOS flake configuration for **toaster** and **microwave** (`x86_64-linux`), with Home Manager for **hamburgir**.
+Personal NixOS flake configuration for **toaster** and **microwave** (`x86_64-linux`), with Home Manager for **ham** (toaster) and **hamburgir** (microwave).
 
-- **toaster** — older laptop, now booting from its HDD (the NVMe SSD moved to microwave): gaming/desktop + bluetooth, runs the `homesync` server, GRUB (no Secure Boot).
+- **toaster** — older laptop, now booting from its HDD (the NVMe SSD moved to microwave): lightweight desktop + bluetooth, user `ham`, GRUB (no Secure Boot). Builds are offloaded to microwave.
 - **microwave** — newer desktop (Ryzen 7 5700X + RX 7600): gaming/desktop, runs the `homesync` and `syncthing` servers, no wifi/bluetooth, Windows dual-boot via Limine (Secure Boot).
 
 This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/viperML/nh) for rebuilds.
@@ -12,7 +12,7 @@ This repo uses the modern Nix CLI (`nix` / flakes) and [nh](https://github.com/v
 Every non-entry `.nix` file under `parts/`, `hosts/`, `users/`, and `modules/` is a top-level module picked up automatically by `import-tree` (paths containing `/_` are ignored). Modules self-register via the `dendritic` options defined in `parts/options.nix`:
 
 - `config.dendritic.nixos.{common,toaster,microwave}`
-- `config.dendritic.home.{common,hamburgir,disabled}`
+- `config.dendritic.home.{common,hamburgir,ham,disabled}`
 
 Hosts are assembled in `parts/hosts/*.nix` by composing the relevant groups.
 
@@ -83,7 +83,7 @@ Partitions are referenced **by label** (`fileSystems`, swap), so device paths do
 
 ## Rebuild commands
 
-**Preferred:** use `nh` (enabled system-wide; flake path is `/home/hamburgir/repo/NixOS` in `hosts/common/default.nix`).
+**Preferred:** use `nh` (system flake path: `/home/ham/repo/NixOS` on toaster, `/home/hamburgir/repo/NixOS` on microwave). Clone the repo at that path, or pass the checkout path to `nh` explicitly.
 
 From the repo root:
 
@@ -91,8 +91,9 @@ From the repo root:
 # NixOS system
 nh os switch
 
-# Home Manager (user hamburgir)
-nh home switch
+# Home Manager (run as the corresponding user)
+nh home switch --configuration ham       # toaster
+nh home switch --configuration hamburgir # microwave
 ```
 
 ### Alternatives (nix3 / classic)
@@ -106,7 +107,25 @@ sudo nixos-rebuild switch --flake .#microwave
 
 # Home Manager
 home-manager switch --flake .#hamburgir
+home-manager switch --flake .#ham
 ```
+
+On toaster, switch the NixOS configuration first, then apply `.#ham` as `ham`
+(`sudo -iu ham` if needed). The system decrypts ham's private SSH key from
+`secrets/hosts/toaster/ham/ssh/id_ed25519` with toaster's system age key and
+exposes it at `/home/ham/.ssh/id_ed25519`; the matching public key is installed
+at `/home/ham/.ssh/id_ed25519.pub`. If an older locally generated identity
+exists, it is preserved as `id_ed25519.pre-sops` before the SOPS key is linked.
+`ham` accepts microwave's `hamburgir` public key, and microwave's `hamburgir`
+accepts ham's public key. Set a local password with `sudo passwd ham` if you
+want to log in at the laptop or over SSH using a password.
+
+The toaster homesync service is disabled; its existing data and the old
+`/home/hamburgir` directory are not removed automatically. The NixOS user
+`hamburgir` remains configured on microwave only. `ham` shares the declarative
+theme, wallpaper, DMS, configured Neovim, tmux, zsh, Git profile and Pear
+Desktop. TigerVNC's `vncviewer` is also installed for `ham`. Ham has its own
+SOPS-managed private SSH key, not hamburgir's key or API tokens.
 
 Other useful `nh` subcommands:
 
@@ -191,7 +210,7 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
    }
    ```
 
-   **Host secret** — add to a host module (e.g. `hosts/toaster/homesync.nix`):
+   **Host secret** — add to a host module (e.g. `hosts/microwave/homesync.nix`):
 
    ```nix
    let
@@ -219,7 +238,7 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 ### Existing examples
 
 - **User secret + nix access token template:** `users/hamburgir/sops.nix` (`github_token`)
-- **Host secret + systemd seeding:** `hosts/{toaster,microwave}/homesync.nix` (`kdbx_secrets.json`)
+- **Host secret + systemd seeding:** `hosts/microwave/homesync.nix` (`kdbx_secrets.json`)
 
 > TODO(microwave): the homesync secret is still encrypted for **toaster's** age key, so it decodes on toaster but not microwave. Re-encrypt it for microwave (`sops updatekeys secrets/hosts/toaster/homesync/kdbx_secrets.json`) after adding the microwave key to `.sops.yaml` (or share one system key across hosts).
 
@@ -227,10 +246,11 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 
 | Output | Description |
 |--------|-------------|
-| `nixosConfigurations.toaster` | Laptop (HDD, gaming/desktop, bluetooth, homesync, GRUB) |
+| `nixosConfigurations.toaster` | Laptop (HDD, lightweight desktop, bluetooth, GRUB) |
 | `nixosConfigurations.microwave` | Desktop (SSD, gaming/desktop, homesync+syncthing servers, Limine + Secure Boot) |
 | `nixosConfigurations.iso` | Installer/recovery ISO |
 | `homeConfigurations.hamburgir` | Home Manager config |
+| `homeConfigurations.ham` | Toaster Home Manager config |
 | `packages.x86_64-linux.iso` | ISO image build |
 
 ## Microwave first-boot notes
