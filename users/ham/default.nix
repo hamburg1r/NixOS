@@ -17,8 +17,13 @@
         desktop.apps = {
           nixvim.enable = true;
           niri.enable = true;
+          tmux.enable = true;
+          zellij.enable = lib.mkForce false;
           google-chrome.enable = lib.mkForce false;
         };
+
+        # Enter tmux only when running `tmux`, never on shell startup.
+        programs.tmux.newSession = false;
       }
     )
   ];
