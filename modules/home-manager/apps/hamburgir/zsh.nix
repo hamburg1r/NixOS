@@ -29,6 +29,7 @@
                   zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
                   zstyle ':completion:*' menu no
                   zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+
                 ''
                 # + lib.optionalString config.programs.starship.enable ''
                 # 	_transient_prompt_preexec() {
@@ -59,7 +60,6 @@
               completionInit = " autoload -Uz compinit && compinit -C";
               enableVteIntegration = true;
               autocd = true;
-              defaultKeymap = "emacs";
               # dirHashes = {
               #	movs = "/run/media/${config.home.username}/4545627b-bf85-4556-8d34-239e9301f743/unseen";
               #	games = "/run/media/${config.home.username}/88a877a8-0f92-4cc2-b1e7-a121dde16fcb/files";

@@ -117,8 +117,11 @@ exposes it at `/home/ham/.ssh/id_ed25519`; the matching public key is installed
 at `/home/ham/.ssh/id_ed25519.pub`. If an older locally generated identity
 exists, it is preserved as `id_ed25519.pre-sops` before the SOPS key is linked.
 `ham` accepts microwave's `hamburgir` public key, and microwave's `hamburgir`
-accepts ham's public key. Set a local password with `sudo passwd ham` if you
-want to log in at the laptop or over SSH using a password.
+accepts ham's public key. Both users' login passwords and both root passwords
+are managed as SOPS-encrypted hashes in `secrets/hosts/<host>/passwords/`.
+They are applied on system activation; update the encrypted hash and rebuild
+to change one persistently. Each host needs its system age key at
+`/var/lib/sops-nix/key.txt` before activation.
 
 The toaster homesync service is disabled; its existing data and the old
 `/home/hamburgir` directory are not removed automatically. The NixOS user

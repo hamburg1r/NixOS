@@ -48,19 +48,27 @@
                   "SHARE_HISTORY"
                 ];
                 interactiveShellInit = ''
+                  # Select the keymap before adding terminal key bindings.
+                  bindkey -e
                   zmodload zsh/terminfo
 
                   # Bind terminfo keys if available
                   [[ -n "$terminfo[khome]" ]] && bindkey "$terminfo[khome]" beginning-of-line
                   [[ -n "$terminfo[kend]"  ]] && bindkey "$terminfo[kend]"  end-of-line
                   [[ -n "$terminfo[kdch1]" ]] && bindkey "$terminfo[kdch1]" delete-char
+                  [[ -n "$terminfo[kich1]" ]] && bindkey "$terminfo[kich1]" overwrite-mode
 
                   # Fallback: also bind the alternate sequences explicitly
                   bindkey "^[[1~" beginning-of-line
                   bindkey "^[[4~" end-of-line
                   bindkey "^[[H"  beginning-of-line
                   bindkey "^[[F"  end-of-line
+                  bindkey "^[OH"  beginning-of-line
+                  bindkey "^[OF"  end-of-line
                   bindkey "^[[3~" delete-char
+                  bindkey "^[[2~" overwrite-mode
+                  bindkey "^[[1;5D" backward-word
+                  bindkey "^[[1;5C" forward-word
 
                   bindkey "^P" up-line-or-history
                   bindkey "^N" down-line-or-history

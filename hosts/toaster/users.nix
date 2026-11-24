@@ -1,9 +1,22 @@
 {...}: {
   config.dendritic.nixos.toaster = [
     (
-      {pkgs, ...}: {
+      {config, pkgs, ...}: {
+        sops.secrets."hosts/toaster/passwords/ham" = {
+          sopsFile = ../../secrets/hosts/toaster/passwords/ham;
+          format = "binary";
+          neededForUsers = true;
+        };
+        sops.secrets."hosts/toaster/passwords/root" = {
+          sopsFile = ../../secrets/hosts/toaster/passwords/root;
+          format = "binary";
+          neededForUsers = true;
+        };
+
+        users.users.root.hashedPasswordFile = config.sops.secrets."hosts/toaster/passwords/root".path;
         nix.settings.trusted-users = ["ham"];
         users.users.ham = {
+          hashedPasswordFile = config.sops.secrets."hosts/toaster/passwords/ham".path;
           isNormalUser = true;
           description = "Shantnu Biswas";
           extraGroups = [
