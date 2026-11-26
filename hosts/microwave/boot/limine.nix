@@ -27,7 +27,7 @@
             secureBoot.enable = true;
             # Secure boot makes the editor unusable anyway; also prevents init=/bin/sh escapes.
             enableEditor = false;
-            maxGenerations = 10;
+            maxGenerations = 3;
             style = {
               wallpapers = [config.wallpaper.bootloader.output];
             };
