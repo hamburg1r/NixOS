@@ -61,33 +61,15 @@
           };
         };
 
+        # Restore the old home's DMS layout and preferences, including the
+        # no-suspend timeouts previously applied during activation.
+        xdg.configFile."dms/settings.json" = {
+          source = ./dms-settings.json;
+          force = true;
+        };
+
         # DMS already wrote this from the GUI; allow HM to replace it with the declarative copy.
         xdg.configFile."dms/plugin_settings.json".force = true;
-
-        home.activation.dmsSleepSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          dmsSettings="$HOME/.config/DankMaterialShell/settings.json"
-          if [ -f "$dmsSettings" ] && [ ! -L "$dmsSettings" ]; then
-            tmp="$(mktemp)"
-            if ${pkgs.jq}/bin/jq '
-              .acMonitorTimeout = 600
-              | .acLockTimeout = 660
-              | .acSuspendTimeout = 0
-              | .acSuspendBehavior = 0
-              | .acPostLockMonitorTimeout = 0
-              | .batteryMonitorTimeout = 180
-              | .batteryLockTimeout = 120
-              | .batterySuspendTimeout = 0
-              | .batterySuspendBehavior = 0
-              | .batteryPostLockMonitorTimeout = 0
-              | .loginctlLockIntegration = true
-              | .lockBeforeSuspend = true
-            ' "$dmsSettings" > "$tmp"; then
-              mv "$tmp" "$dmsSettings"
-            else
-              rm -f "$tmp"
-            fi
-          fi
-        '';
       }
     )
   ];
