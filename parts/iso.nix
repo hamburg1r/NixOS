@@ -12,6 +12,6 @@
       };
       system = "x86_64-linux";
     };
-    modules = [../iso];
+    modules = [inputs.sops-nix.nixosModules.sops ../iso];
   };
 }

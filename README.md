@@ -31,11 +31,24 @@ nix-shell
 
 ## Installation
 
-Build the installer ISO locally:
+From the repo root, build the installer ISO with the interactive helper:
 
 ```bash
-nix build .#iso
+nix run .#build-iso -- /path/to/output-directory
 ```
+
+Enter an OpenAI API key when prompted, or press Enter to build without one.
+An interactive terminal is required. The helper supplies its own `age`, `sops`,
+and Nix tools, and builds in a temporary local Nix store. The destination can
+be a directory or a file to replace. Set `ISO_BUILD_TMPDIR` to choose where the
+temporary build store is created; it needs enough space for the build.
+
+**Security:** If supplied, the API key is recoverable from the ISO because it
+contains both the age identity and encrypted key. Use a restricted or disposable
+key, protect the image, and revoke the key when the image is no longer trusted.
+The temporary build store is removed afterward, but deletion is not secure erasure.
+
+Direct `nix build .#iso` builds an image without an API key.
 
 Boot the resulting image, partition/format disks, then install from a checkout of this flake:
 
@@ -254,7 +267,8 @@ Host secrets under `secrets/hosts/` are encrypted for both the system and user a
 | `nixosConfigurations.iso` | Installer/recovery ISO |
 | `homeConfigurations.hamburgir` | Home Manager config |
 | `homeConfigurations.ham` | Toaster Home Manager config |
-| `packages.x86_64-linux.iso` | ISO image build |
+| `packages.x86_64-linux.iso` | ISO image derivation (without an API key by default) |
+| `apps.x86_64-linux.build-iso` | Interactive ISO build helper |
 
 ## Microwave first-boot notes
 

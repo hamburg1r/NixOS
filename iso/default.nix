@@ -7,7 +7,20 @@
   pkgs,
   system,
   ...
-}: {
+}: let
+  secretDir = builtins.getEnv "ISO_SECRETS_DIR";
+  hasApiKey = secretDir != "";
+  isoFile = name:
+    if secretDir == "" then
+      throw "ISO secrets missing: run nix run .#build-iso (prompts for the OpenAI API key)."
+    else if !builtins.pathExists "${secretDir}/${name}" then
+      throw "ISO secret ${name} missing: run nix run .#build-iso."
+    else
+      builtins.path {
+        path = "${secretDir}/${name}";
+        name = "iso-${name}";
+      };
+in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
@@ -66,6 +79,39 @@
 
   boot.zfs.forceImportRoot = false;
 
+  # The build helper supplies an ephemeral ISO-only identity and ciphertext.
+  # Both end up in the Nix store and ISO, but not in this repository.
+  sops = lib.mkIf hasApiKey {
+    age = {
+      keyFile = "/etc/sops/age/iso-key.txt";
+      sshKeyPaths = [];
+    };
+    gnupg.sshKeyPaths = [];
+    secrets.openai_api_key = {
+      sopsFile = isoFile "openai_api_key";
+      format = "binary";
+      owner = "nixos";
+      mode = "0400";
+    };
+  };
+
+  # SOPS needs the /etc symlink to exist before its activation step runs.
+  system.activationScripts = lib.mkIf hasApiKey {
+    setupSecrets.deps = ["etc"];
+  };
+  environment.etc."sops/age/iso-key.txt" = lib.mkIf hasApiKey {
+    source = isoFile "age-key.txt";
+  };
+  environment.etc."opencode/opencode.json".text = builtins.toJSON (
+    {
+      "$schema" = "https://opencode.ai/config.json";
+    }
+    // lib.optionalAttrs hasApiKey {
+      model = "openai/gpt-6.1-sol";
+      providers.openai.settings.apiKey = "{file:${config.sops.secrets.openai_api_key.path}}";
+    }
+  );
+
   environment.systemPackages = with pkgs; [
     cryptsetup
     efibootmgr
@@ -74,6 +120,7 @@
     gptfdisk
     mokutil
     neovim
+    opencode
     parted
     pciutils
     ripgrep
