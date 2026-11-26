@@ -12,6 +12,14 @@
           ristretto.enable = true;
           wl-clipboard.enable = true;
         };
+
+        programs.keepassxc = {
+          enable = true;
+          settings.Browser = {
+            Enabled = true;
+            UpdateBinaryPath = false;
+          };
+        };
       }
     )
   ];
