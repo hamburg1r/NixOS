@@ -70,6 +70,37 @@
 
         # DMS already wrote this from the GUI; allow HM to replace it with the declarative copy.
         xdg.configFile."dms/plugin_settings.json".force = true;
+
+        # Dock pins live in DMS's writable session state, not settings.json.
+        # Merge only the pins so wallpapers and other live session data remain writable.
+        home.activation.dmsDockPins = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          sessionFile="$HOME/.local/state/dms/session.json"
+          if [ ! -L "$sessionFile" ]; then
+            mkdir -p "$(dirname "$sessionFile")"
+            tmp="$(mktemp "$sessionFile.XXXXXX")"
+            if [ -f "$sessionFile" ]; then
+              sourceFile="$sessionFile"
+            else
+              printf '%s\n' '{"configVersion":8}' > "$tmp"
+              sourceFile="$tmp"
+            fi
+            if ${lib.getExe pkgs.jq} \
+              --argjson pins '["kitty","firefox","discord","com.github.th-ch.youtube-music"]' \
+              '(.dockPins //= {}) | .dockPins.dock = $pins' \
+              "$sourceFile" > "$tmp.updated"; then
+              if [ ! -f "$sessionFile" ] || ! cmp -s "$sessionFile" "$tmp.updated"; then
+                mv "$tmp.updated" "$sessionFile"
+              else
+                rm "$tmp.updated"
+              fi
+            else
+              rm -f "$tmp.updated"
+              echo "Could not update DMS dock pins in $sessionFile" >&2
+              exit 1
+            fi
+            rm -f "$tmp"
+          fi
+        '';
       }
     )
   ];
