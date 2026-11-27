@@ -23,7 +23,6 @@
           niri.enable = true;
           nixvim.enable = true;
           obsidian.enable = true;
-          omniroute.enable = true;
           opencode.enable = true;
           pamixer.enable = true;
           peazip.enable = true;

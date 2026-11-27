@@ -18,16 +18,16 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable?shallow=1";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05?shallow=1";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # Flake plumbing
-    flake-parts.url = "github:hercules-ci/flake-parts?shallow=1";
-    import-tree.url = "github:vic/import-tree?shallow=1";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager?shallow=1";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Android
@@ -41,25 +41,25 @@
     # 	flake = false;
     # };
     grub2-themes = {
-      url = "github:vinceliuice/grub2-themes?shallow=1";
+      url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.1.0?shallow=1";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     wallpapers = {
-      url = "github:hamburg1r/wallpapers?shallow=1";
+      url = "github:hamburg1r/wallpapers";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ignis-config = {
-      url = "github:hamburg1r/ignis-config?shallow=1";
+      url = "github:hamburg1r/ignis-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri = {
-      url = "github:sodiboo/niri-flake/very-refactor?shallow=1";
+      url = "github:sodiboo/niri-flake/very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -83,15 +83,20 @@
     };
 
     homesync = {
-      url = "github:hamburg1r/homesync?shallow=1";
+      url = "github:hamburg1r/homesync";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rea = {
+      url = "https://registry.npmjs.org/rea-agents/-/rea-agents-6.10.1.tgz";
+      flake = false;
     };
 
     sops-nix = {
-      url = "github:Mic92/sops-nix?shallow=1";
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master?shallow=1";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 }
