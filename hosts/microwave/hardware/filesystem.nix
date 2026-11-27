@@ -1,47 +1,80 @@
 {...}: {
   config.dendritic.nixos.microwave = [
     (
-      {pkgs, ...}: {
+      {
+        pkgs,
+        ...
+      }: {
         boot = {
           tmp = {
             cleanOnBoot = true;
             useTmpfs = true;
           };
           supportedFilesystems = ["btrfs" "fat32" "ntfs" "vfat"];
-        };
 
-        fileSystems."/nix" = {
-          device = "/dev/disk/by-label/root";
-          fsType = "btrfs";
-          options = ["subvol=nix"];
+          # Resume from the nocow swapfile in the btrfs `swap` subvolume.
+          # Recompute the Btrfs-specific resume offset with
+          #   sudo btrfs inspect-internal map-swapfile -r /swap/swapfile
+          # if the swapfile is ever recreated.
+          resumeDevice = "/dev/disk/by-label/root";
+          kernelParams = [
+            "resume_offset=533760"
+          ];
         };
 
         fileSystems."/" = {
           device = "/dev/disk/by-label/root";
           fsType = "btrfs";
-          options = ["subvol=root"];
+          options = ["subvol=root" "noatime"];
+        };
+
+        fileSystems."/nix" = {
+          device = "/dev/disk/by-label/root";
+          fsType = "btrfs";
+          options = ["subvol=nix" "noatime"];
         };
 
         fileSystems."/home" = {
-          device = "/dev/disk/by-label/home";
+          device = "/dev/disk/by-label/root";
           fsType = "btrfs";
+          options = ["subvol=home" "noatime"];
         };
 
-#         fileSystems."/mnt/games" = {
-#           device = "/dev/disk/by-label/games";
-#           fsType = "ext4";
-#         };
-# 
-#         fileSystems."/mnt/other" = {
-#           device = "/dev/disk/by-label/other";
-#           fsType = "ext4";
-#         };
+        fileSystems."/home/hamburgir/Games" = {
+          device = "/dev/disk/by-label/root";
+          fsType = "btrfs";
+          options = ["subvol=home/hamburgir/Games" "noatime"];
+        };
 
-#         # Windows dual-boot partition (label set by the Windows installer)
-#         fileSystems."/mnt/windows" = {
-#           device = "/dev/disk/by-label/Windows";
-#           fsType = "ntfs-3g";
-#         };
+        fileSystems."/swap" = {
+          device = "/dev/disk/by-label/root";
+          fsType = "btrfs";
+          options = ["subvol=swap" "noatime"];
+        };
+
+        fileSystems."/var/log" = {
+          device = "/dev/disk/by-label/root";
+          fsType = "btrfs";
+          options = ["subvol=log" "noatime"];
+        };
+
+        fileSystems."/.snapshots" = {
+          device = "/dev/disk/by-label/root";
+          fsType = "btrfs";
+          options = ["subvol=snapshots" "noatime"];
+        };
+
+        fileSystems."/boot/efi" = {
+          device = "/dev/disk/by-label/EFI";
+          fsType = "vfat";
+          options = ["fmask=0022" "dmask=0022"];
+        };
+
+        swapDevices = [
+          {
+            device = "/swap/swapfile";
+          }
+        ];
 
         # Periodic balance to prevent chunk imbalance recurring
         systemd.services."btrfs-balance-home" = {

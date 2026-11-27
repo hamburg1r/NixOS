@@ -21,7 +21,7 @@
 
         systemd.sleep.settings.Sleep = {
           AllowSuspend = "yes";
-          AllowHibernation = "no";
+          AllowHibernation = "yes";
           AllowSuspendThenHibernate = "no";
           AllowHybridSleep = "no";
         };
